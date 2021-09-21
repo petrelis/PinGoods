@@ -5,14 +5,14 @@ PinGoods is a local goods platform dedicated to easily connecting vendors with t
 
 This section contains information about project's teams and its members.
 
-- ** Front-End **
+- **Front-End**
   -
   -
   -
   -
   -
   
-- ** Back-End **
+- **Back-End**
   -
   -
   -
@@ -22,16 +22,16 @@ This section contains information about project's teams and its members.
   -
   -
 
-- ** Server **
+- **Server**
   -
   -
   -
   
-- ** Graphics **
+- **Graphics**
   -
   -
 
-- ** Documentation **
+- **Documentation**
   -
 
 ## Documentation
@@ -40,21 +40,23 @@ This section contains information about project's teams and its members.
 
    ### GitHub formatting
 
-   GitHub formatting [symtaxes](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) should be known for formatting your issue description and commits.
+   GitHub formatting [syntaxes](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) should be known for formatting your issue description and commits.
 
    ### Issues
 
-   Issues are created for setting tasks and reporting bugs. All the Issues title must be as follows: "[**TEAMNAME**-**ISSUEID**] **ISSUENAME**", where **TEAMNAME** is the shortcut of the team that must handle this Issue, **ISSUEID** is a unique identification number for each team's Issue.
+   Issues are created for setting tasks and reporting bugs. All the Issues title must be as follows: "[**TEAMNAME**-**ISSUEID**] **ISSUENAME**", where **TEAMNAME** is the shortcut of the team that must handle this Issue, **ISSUEID** is a unique identification number for each team's Issue, **ISSUENAME** is the short title for the issue. Use uppercase letter appropriately in the title.
 
-   ** Shortcuts for each team **
+   [How We Write GitHub Issues](https://wiredcraft.com/blog/how-we-write-our-github-issues/)
 
-   **Front-End - FRNT
-   Back-End - BACK
-   Server - SERV
-   Graphics - GFX
-   Documentation - DOCS**
+   **Shortcuts for each team**
 
-   ** Setting Issue fields **
+   - **Front-End** - **FRNT**
+   - **Back-End** - **BACK**
+   - **Server** - **SERV**
+   - **Graphics** - **GFX**
+   - **Documentation** - **DOCS**
+
+   **Setting Issue fields**
 
    **Assignee**: a particular list of developers needs to be assigned, who must take a look at that Issue. It may be set to null if the Issue is not for someone particularly
    **Label**: an appropriate label must be chosen for an Issue including the team's label that it is assigned to. **If the Issue is a bug**, then **bug** label must be set as well
@@ -62,7 +64,7 @@ This section contains information about project's teams and its members.
    **Milestone**: set the Issue to an appropriate release
 
 
-   ** Issue Description **
+   **Issue Description**
 
    **If the Issue is a task**, then write a clear, short specification of the task. If needed, use visual content, checkboxes, etc.
    **If the Issue is a bug**, then shortly describe the problem and write down what is the **Expected result:** and the **Actual result:**.
