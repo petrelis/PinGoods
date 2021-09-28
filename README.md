@@ -15,7 +15,7 @@ The aim of the system is to ensure that goods from the villages of all Lithuania
 
 Each project member chose a working team in which each is most comfortable. This was done to save time and improve efficiency. As a well-coordinated team, we will collaborate with the rest of the team. We selected these specific teams as a part of our project. Why? Because the big guys on the internet said these specific teams should be enough for any project, so we decided to go for it.
 
-**Lead: Sahak Ivašauskas @sahiva
+**Lead: Sahak Ivašauskas @sahiva**
 
 - **Front-End**
   - **Gustas Petkevičius @FlooPeriS (Sub-Lead)**
@@ -61,15 +61,16 @@ This is the page that the user sees once he visits the website.
 
 **REGISTRATION WINDOW**
 
-At the top-right of the home page, there are "Login" and "Registration" fields. Clicking the "Log in" button opens the "Log in" window. In that window, the user will have to enter his username or e-mail address in the "Username or e-mail address" field and a password in the "Password" field. That window will also have a button titled "Log in" and a text box as "If you are not registered, register." where "Register" is the text associated with the registration window. After clicking on the main page "Register" button - you'll see a window where you can register, whether you are registering as a seller or a buyer. If you are registering as a seller, a window will appear with the required field to fill in: 
+At the top-right of the home page, there are "Login" and "Registration" fields. Clicking the "Log in" button opens the "Log in" window. In that window, the user will have to enter his username or e-mail address in the "Username or e-mail address" field and a password in the "Password" field. That window will also have a button titled "Log in" and a text box as "If you are not registered, register." where "Register" is the text associated with the registration window. After clicking on the main page "Register" button - you'll see a window where you can register, whether you are registering as a seller or a buyer. If you are registering as a seller, a window will appear with the required fields to fill in: 
 - Username
 - First/Last name
 - Phone number (optional as instead, it'll be next to the product) 
 - City of residence 
 - Address (optional as instead, it'll be next to the product)
 - Password 
-- Repeat password 
-If you register as a customer, a window will appear with a required field to fill in: 
+- Repeat password
+
+If you register as a customer, a window will appear with a required fields to fill in: 
 - Username
 - City of residence (optional)
 - Password 
