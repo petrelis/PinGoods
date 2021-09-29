@@ -9,19 +9,20 @@ There was once a potato lover who wanted to buy fresh potatoes straight from the
 ## High-Overview
 
 The aim of the system is to ensure that goods from the villages of all Lithuanian regions can display their purchase location on the map, and when the customer selects the result in the search bar, he gets teleported to the seller's location. The system will provide the best environment for small businesses to showcase their high-quality products and services, and there will be no unrelated ads, so you can disable your AdBlock. Product prices will be clearly stated including Value-added tax (PVM). Customers will also be able to take advantage of our intuitive sorting system, thanks to a great variety of colors as if van Gogh drew it. All available functions can be seen in the diagram below.
-[Use-Case Matrix](https://user-images.githubusercontent.com/47245874/135151107-f3b1b202-6b2b-44f3-bc39-605a59cab5e9.png)
+
+![Use-Case Matrix](https://user-images.githubusercontent.com/47245874/135151107-f3b1b202-6b2b-44f3-bc39-605a59cab5e9.png)
 
 ## The Great Gang
 
-Each project member chose a working team in which each is most comfortable. This was done to save time and improve efficiency. As a well-coordinated team, we will collaborate with the rest of the team. We selected these specific teams as a part of our project. Why? Because the big guys on the internet said these specific teams should be enough for any project, so we decided to go for it.
+Each project member chose a working team in which is most comfortable. This was done to save time and improve efficiency. As a well-coordinated team, we will collaborate with the rest of the team. We selected these specific teams as a part of our project. Why? Because the big guys on the internet said these specific teams should be enough for any project. And we decided to go for it.
 
 **Lead: Sahak Ivašauskas @sahiva**
 
 - **Front-End**
-  - **Gustas Petkevičius @FlooPeriS (Sub-Lead)**
+  - **Sara Sánchez @SaraSanGar (Sub-Lead)**
+  - Gustas Petkevičius @FlooPeriS
   - Danielius Miškinis @Segulx
   - Pablo Santana @pablosanttanaa
-  - Sara Sánchez @SaraSanGar
   - Liudas Kraujalis @Liudaskr
   - David Kisel @DavidK14
   
@@ -37,7 +38,7 @@ Each project member chose a working team in which each is most comfortable. This
 
 - **Server**
   - **Sahak Ivašauskas @sahiva (Sub-Lead)**
-  - Samir Taha Abakar @samir737
+  - Taha Abakar Samir @samir737
   
 - **Graphics**
   - David Kisel @DavidK14
@@ -61,7 +62,7 @@ This is the page that the user sees once he visits the website.
 
 **REGISTRATION WINDOW**
 
-At the top-right of the home page, there are "Login" and "Registration" fields. Clicking the "Log in" button opens the "Log in" window. In that window, the user will have to enter his username or e-mail address in the "Username or e-mail address" field and a password in the "Password" field. That window will also have a button titled "Log in" and a text box as "If you are not registered, register." where "Register" is the text associated with the registration window. After clicking on the main page "Register" button - you'll see a window where you can register, whether you are registering as a seller or a buyer. If you are registering as a seller, a window will appear with the required fields to fill in: 
+At the top-right of the home page, there are "Login" and "Registration" fields. Clicking the "Log in" button opens the "Log in" window. In that window, the user will have to enter his username or e-mail address in the "Username or e-mail address" field and the password in the "Password" field. That window will also have a button titled "Log in" and a text box as "If you are not registered, register." where "Register" is the text associated with the registration window. After clicking on the main page "Register" button - you'll see a window where you can register, whether you are registering as a seller or a buyer. If you are registering as a seller, a window will appear with the required fields to fill in: 
 - Username
 - First/Last name
 - Phone number (optional as instead, it'll be next to the product) 
@@ -74,7 +75,8 @@ If you register as a customer, a window will appear with a required fields to fi
 - Username
 - City of residence (optional)
 - Password 
-- Retype password
+- Retype password 
+
 Some other information may be added later on to be filled in. Upon registration, **noreply@pingoods.com** will send a message with confirmation to the user.
 
 **MAP** 
@@ -86,7 +88,7 @@ It is located in the center of the home page on the right side of the search bar
 
 **SEARCH BAR** 
 
-Clicking the primary button on the homepage leads you to the main page with the Search Bar. It'll be located at the top-left of the page. After the search, the search bar will list the most relevant results for the products, and the goods and services tax (PVM) adjusted prices will be displayed. The most suitable product is determined by the combination of your preferred results (vendor's subscription products), selected categories (product color), keyword best match, and closest customer distance.
+Clicking the primary button on the homepage leads you to the main page with the Search Bar. It'll be located at the top-left of the page. After the search, the search bar will list the most relevant results for the products, and the goods and services tax (PVM) adjusted prices will be displayed. The most suitable product is determined by the combination of your preferred results (vendor's subscription products will be at top), selected categories (product color), keyword best match, and closest customer distance.
 
 **OPTIONS BAR**
 
@@ -104,7 +106,7 @@ If the user has logged in to the system, it's located at the top-right of the Ma
   - Change Address 
   - Change Password
 
-  If it's clicked by a **Customer**, then he'll get displayed with:
+If it's clicked by a **Customer**, then he'll get displayed with:
   - History of Purchases 
   - Change Phone Number 
   - Change City of Living 
@@ -125,7 +127,7 @@ We, as a team, are expecting that the following non-functional requirements won'
 
    ### Issues
 
-   Issues are created for setting tasks and reporting bugs. All the Issues title must be as follows: "[**TEAMNAME**-**ISSUEID**] **ISSUENAME**", where **TEAMNAME** is the shortcut of the team that must handle this Issue, **ISSUEID** is a unique identification number for each team's Issue, **ISSUENAME** is the short title for the issue. Use uppercase letter appropriately in the title.
+   Issues are created for setting tasks and reporting bugs. All the Issues title must be as follows: "[**TEAMNAME**-**ISSUEID**] **ISSUENAME**", where **TEAMNAME** is the shortcut of the team that must handle this Issue, **ISSUEID** is a unique identification number for each team's Issue, **ISSUENAME** is the short title for the issue. Use uppercase letters appropriately in the title.
 
    [How We Write GitHub Issues](https://wiredcraft.com/blog/how-we-write-our-github-issues/)
 
@@ -139,15 +141,16 @@ We, as a team, are expecting that the following non-functional requirements won'
 
    **Setting Issue fields**
 
-   **Assignee**: to solve this Issue, assign a specific developer list. Set to null if the problem is not someone's concern, especially
-   **Label**: select the appropriate label for the Issue, including the label of the team to which it is assigned. **If the Issue is a bug**, then **bug** label must be set as well
-   **Projects**: must be set to the team to which the Issue belongs
-   **Milestone**: set the Issue to an appropriate release
+   - **Assignee**: to solve this Issue, assign a specific developer list. Set to null if the problem is not someone's concern, especially
+   - **Label**: select the appropriate label for the Issue, including the label of the team to which it is assigned. **If the Issue is a bug**, then **bug** label must be set as well
+   - **Projects**: must be set to the team to which the Issue belongs
+   - **Milestone**: set the Issue to an appropriate release
 
 
    **Issue Description**
 
    **If the Issue is a task**, then write a clear, atomic specification of the task. If needed, use visual content, checkboxes, etc.
+   
    **If the Issue is a bug**, then shortly describe the problem and write down what is the **Expected result:** and the **Actual result:**.
    
   ### Gitflow Workflow
