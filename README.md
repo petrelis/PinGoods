@@ -4,11 +4,11 @@ PinGoods is a local goods platform dedicated to easily connecting vendors with t
 
 ## 1. Purpose
 
-There was once a potato lover who wanted to buy fresh potatoes straight from the farm (because Maxima potatoes are not so tasty). Unfortunately, he didn‘t know anyone who could sell them to him :( He looked for them on Facebook, but couldn‘t find a single person. He searched the entire internet but was not able to find a place to contact a potato grower. We would make a new Facebook (but with superior search algorithms of course), but we're too cool for that. Besides, we have a better idea. On the other side, it‘s not all sunshine and rainbows either. Potato sellers also have a hard time finding someone to buy from them (not because they can‘t navigate Facebook, but because there is no good platform for such things). And that‘s where we come in. We will create a platform that will easily connect the buyers and potato sellers, and they will both live in great prosperity.
+There was once a potato lover who wanted to buy fresh potatoes straight from the farm (because Maxima potatoes are not so tasty). Unfortunately, he didn‘t know anyone who could sell them to him. He looked for them on Facebook, but couldn‘t find a single person. He searched the entire internet but was not able to find a place to contact a potato grower. We could make a new Facebook (but with superior search algorithms of course), but we're too cool for that. Besides, we have an even better idea. On the other side, it‘s not all sunshine and rainbows either. Potato sellers also have a hard time finding someone to buy from them (not because they can‘t navigate Facebook, but because there is no good platform for such things). And that‘s where we come in. We will create a platform that will easily connect not only potato lovers with their sellers, but also various vendors to their customers, and they will all live in great prosperity.
 
 ## 2. High-Overview
 
-The aim of the system is to ensure that goods from the villages of all Lithuanian regions can display their purchase location on the map, and when the customer selects the result in the search bar, he gets teleported to the seller's location. The system will provide the best environment for small businesses to showcase their high-quality products and services, and there will be no unrelated ads, so you can disable your AdBlock. Product prices will be clearly stated including Value-added tax (PVM). Customers will also be able to take advantage of our intuitive sorting system, thanks to a great variety of colors as if van Gogh drew it. All available functions can be seen in the diagram below.
+The aim of the system is to ensure that goods from the villages of all Lithuanian regions can display their purchase location on the map, and when the customer selects the result in the search bar, he gets teleported to the seller's location. What does this really mean? Obviously, we are not making a breakthrough in human evolution (not yet anyway), but rather we are offering the sellers a possibility to advertise their goods, and for the buyers to be informed of desirable existing goods, conveniently pinned on the map. The system will provide the best environment for small businesses to showcase their high-quality products and services, and there will be no unrelated ads, so you can disable your AdBlock. Product prices will be clearly stated including Value-added tax (PVM). Customers will also be able to take advantage of our intuitive sorting system, thanks to a great variety of colours as if van Gogh drew it. All available functions can be seen in the diagram below.
 
 ![Use-Case Matrix](https://user-images.githubusercontent.com/47245874/135151107-f3b1b202-6b2b-44f3-bc39-605a59cab5e9.png)
 
@@ -49,7 +49,7 @@ Each project member chose a working team in which is most comfortable. This was 
 - **Documentation**
   - Sahak Ivašauskas @sahiva
 
-##4. Mandatory Functionality
+## 4. Mandatory Functionality
 
 One of the key functionalities that our project will consist:
 
@@ -83,26 +83,26 @@ Some other information may be added later on to be filled in. Upon registration,
 
 **4.3. MAP** 
 
-It is located in the center of the home page on the right side of the search bar. After submitting a search query to the search bar: 
+It is located in the centre of the home page on the right side of the search bar. After submitting a search query to the search bar: 
 - In the enlarged window, the user sees all the results that best match the search criteria. 
 - When zoomed in, the user sees all the products in the area that match the criteria. 
 - Clicking on one of the search results will take you to that seller on the map.
 
 **4.4. SEARCH BAR** 
 
-Clicking the primary button on the homepage leads you to the main page with the Search Bar. It'll be located at the top-left of the page. After the search, the search bar will list the most relevant results for the products, and the goods and services tax (PVM) adjusted prices will be displayed. The most suitable product is determined by the combination of your preferred results (vendor's subscription products will be at top), selected categories (product color), keyword best match, and closest customer distance.
+Clicking the primary button on the homepage leads you to the main page with the Search Bar. It'll be located at the top-left of the page. After the search, the search bar will list the most relevant results for the products, and the goods and services tax (PVM) adjusted prices will be displayed. The most suitable product is determined by the combination of your preferred results (vendor's subscription products will be at top), selected categories (product colour), keyword best match, and closest customer distance.
 
 **4.5. OPTIONS BAR**
 
 If the user has logged in to the system, it's located at the top-right of the Main Page. Otherwise, it's not so. When the registered user clicks the button, it'll display for **Vendors**:
-- Subscription 
+- Subscription. Clicking it will display buttons, allowing to: 
   - Buy subscription
   - Check subscription history 
-- Edit product posts
+- Edit product posts. Clicking it will display buttons, allowing to:
   -  Edit location 
   -  Edit price
   -  Delete the post
-    - Once the remove button is clicked, a confirmation screen will appear in the center. 
+    - Once the remove button is clicked, a confirmation screen will appear in the centre. 
   - Change Phone Number
   - Change City of Living  
   - Change Address 
