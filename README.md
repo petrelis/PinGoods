@@ -132,21 +132,21 @@ Our login and registration system will be as simple as putting on your pants (al
 The website may be so optimized that it may even run on a grandmother's cell phone. We guarantee that:
   - The loading time won't exceed 4 seconds, so you will not get bored surfing our webpage. (because who likes to wait more than 4 seconds?)
 
-## Documentation
+## 6. Documentation
 
    The provided information must be referred by the developers in their workflow to prevent disorder and misunderstandings.
 
-   ### GitHub formatting
+   ###6.1 GitHub formatting
 
    GitHub formatting [syntaxes](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) should be known for formatting your issue description and commits.
 
-   ### Issues
+   ###6.2 Issues
 
    Issues are created for setting tasks and reporting bugs. All the Issues title must be as follows: "[**TEAMNAME**-**ISSUEID**] **ISSUENAME**", where **TEAMNAME** is the shortcut of the team that must handle this Issue, **ISSUEID** is a unique identification number for each team's Issue, **ISSUENAME** is the short title for the issue. Use uppercase letters appropriately in the title.
 
    [How We Write GitHub Issues](https://wiredcraft.com/blog/how-we-write-our-github-issues/)
 
-   **Shortcuts for each team**
+   **6.3 Shortcuts for each team**
 
    - **Front-End** - **FRNT**
    - **Back-End** - **BACK**
@@ -154,7 +154,7 @@ The website may be so optimized that it may even run on a grandmother's cell pho
    - **Graphics** - **GFX**
    - **Documentation** - **DOCS**
 
-   **Setting Issue fields**
+   **6.4 Setting Issue fields**
 
    - **Assignee**: to solve this Issue, assign a specific developer list. Set to null if the problem is not someone's concern, especially
    - **Label**: select the appropriate label for the Issue, including the label of the team to which it is assigned. **If the Issue is a bug**, then **bug** label must be set as well
@@ -162,17 +162,17 @@ The website may be so optimized that it may even run on a grandmother's cell pho
    - **Milestone**: set the Issue to an appropriate release
 
 
-   **Issue Description**
+   **6.5 Issue Description**
 
    **If the Issue is a task**, then write a clear, atomic specification of the task. If needed, use visual content, checkboxes, etc.
    
    **If the Issue is a bug**, then shortly describe the problem and write down what is the **Expected result:** and the **Actual result:**.
    
-  ### Gitflow Workflow
+  ###6.6 Gitflow Workflow
 
    This [article](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) contains the git-flow model that should be followed when creating, merging, and deleting branches. For naming branches, please refer to the git branch naming [convention](https://deepsource.io/blog/git-branch-naming-conventions/). **Important!: don't use the tracker ID in the branch name as it's provided in the article. We're not going to use it.**
 
-  ### Coding conventions
+  ###6.7 Coding conventions
 
   Each developer has a different coding style, and to avoid confusion, you should follow the Google Style Guide for each programming language.
 
