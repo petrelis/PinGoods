@@ -18,11 +18,11 @@ Each user role interaction with our project functionalities:
 
 Our deployment diagram containing the physical hardware and software of the system and their interaction:
 
-![Deployment Diagram](https://user-images.githubusercontent.com/47245874/137366413-53f24f3f-feea-4e57-b2e8-3844a2d48e9a.png)
+![Deployment Diagram](https://user-images.githubusercontent.com/47245874/137368741-1c94bb12-1a61-43e9-be80-ef9d7232edb6.jpg)
 
 All external entities of our system and their interaction:
 
-![System Contex Diagramt](https://user-images.githubusercontent.com/47245874/137367098-147fdcba-6023-41b7-8ae5-77a21983dddb.png)
+![System Context Diagram](https://user-images.githubusercontent.com/47245874/137368762-f4d93add-b510-4d7a-930d-607efc3b3f16.jpg)
 
 Workflow of the activity sequence in our project system, detailing the progression of events from the start to the finish:
 
