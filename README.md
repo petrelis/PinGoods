@@ -14,7 +14,7 @@ The aim of the system is to ensure that goods from the villages of all Lithuania
 
 Each user role interaction with our project functionalities:
 
-![Use-Case Diagram](https://user-images.githubusercontent.com/47245874/137365714-11c54df7-1938-449c-8273-8d4b15c6677f.png)
+![Use-Case Diagram](https://user-images.githubusercontent.com/47245874/137370247-c92db5df-895c-45e5-a4d3-b168d6251ef8.png)
 
 Our deployment diagram containing the physical hardware and software of the system and their interaction:
 
