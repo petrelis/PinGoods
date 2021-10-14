@@ -12,6 +12,23 @@ The aim of the system is to ensure that goods from the villages of all Lithuania
 
 ![Use-Case Matrix](https://user-images.githubusercontent.com/47245874/135151107-f3b1b202-6b2b-44f3-bc39-605a59cab5e9.png)
 
+Each user role interaction with our project functionalities:
+
+![Use-Case Diagram](https://user-images.githubusercontent.com/47245874/137365714-11c54df7-1938-449c-8273-8d4b15c6677f.png)
+
+Our deployment diagram containing the physical hardware and software of the system and their interaction:
+
+![Deployment Diagram](https://user-images.githubusercontent.com/47245874/137366413-53f24f3f-feea-4e57-b2e8-3844a2d48e9a.png)
+
+All external entities of our system and their interaction:
+
+![System Contex Diagramt](https://user-images.githubusercontent.com/47245874/137367098-147fdcba-6023-41b7-8ae5-77a21983dddb.png)
+
+Workflow of the activity sequence in our project system, detailing the progression of events from the start to the finish:
+
+![Activity Diagram](https://user-images.githubusercontent.com/47245874/137367706-4f2a6ac6-3c1e-4a22-92b6-9b8a1048bb1c.png)
+
+
 ## 3. The Great Gang
 
 Each project member chose a working team in which is most comfortable. This was done to save time and improve efficiency. As a well-coordinated team, we will collaborate with the rest of the team. We selected these specific teams as a part of our project. Why? Because the big guys on the internet said these specific teams should be enough for any project. And we decided to go for it.
@@ -168,7 +185,7 @@ The website may be so optimized that it may even run on a grandmother's cell pho
    
    **If the Issue is a bug**, then shortly describe the problem and write down what is the **Expected result:** and the **Actual result:**.
    
-  ###6.6 Gitflow Workflow
+  ### 6.6 Gitflow Workflow
 
    This [article](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) contains the git-flow model that should be followed when creating, merging, and deleting branches. For naming branches, please refer to the git branch naming [convention](https://deepsource.io/blog/git-branch-naming-conventions/). **Important!: don't use the tracker ID in the branch name as it's provided in the article. We're not going to use it.**
 
