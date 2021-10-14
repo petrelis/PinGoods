@@ -136,11 +136,11 @@ The website may be so optimized that it may even run on a grandmother's cell pho
 
    The provided information must be referred by the developers in their workflow to prevent disorder and misunderstandings.
 
-   ###6.1 GitHub formatting
+   ### 6.1 GitHub formatting
 
    GitHub formatting [syntaxes](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) should be known for formatting your issue description and commits.
 
-   ###6.2 Issues
+   ### 6.2 Issues
 
    Issues are created for setting tasks and reporting bugs. All the Issues title must be as follows: "[**TEAMNAME**-**ISSUEID**] **ISSUENAME**", where **TEAMNAME** is the shortcut of the team that must handle this Issue, **ISSUEID** is a unique identification number for each team's Issue, **ISSUENAME** is the short title for the issue. Use uppercase letters appropriately in the title.
 
@@ -172,7 +172,7 @@ The website may be so optimized that it may even run on a grandmother's cell pho
 
    This [article](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) contains the git-flow model that should be followed when creating, merging, and deleting branches. For naming branches, please refer to the git branch naming [convention](https://deepsource.io/blog/git-branch-naming-conventions/). **Important!: don't use the tracker ID in the branch name as it's provided in the article. We're not going to use it.**
 
-  ###6.7 Coding conventions
+  ### 6.7 Coding conventions
 
   Each developer has a different coding style, and to avoid confusion, you should follow the Google Style Guide for each programming language.
 
