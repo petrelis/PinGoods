@@ -1,0 +1,36 @@
+<html>
+<head>
+<style type="text/css">
+input[type=checkbox] {
+  display: none;
+}
+
+.container img {
+  margin: 100px;
+  transition: transform 0.25s ease;
+  cursor: zoom-in;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+input[type=checkbox]:checked ~ label > img {
+  transform: scale(2);
+  cursor: zoom-out;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <input type="checkbox" id="zoomCheck">
+  <label for="zoomCheck">
+    <img src="https://user-images.githubusercontent.com/90563638/136654396-f3562501-3f2b-4065-8579-15435d472fdc.jpeg" alt="test">
+  </label>
+</div>
+
+</body>
+
+</html>
