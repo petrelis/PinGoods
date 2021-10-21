@@ -14,11 +14,11 @@ The use case matrix below represents all the key features and user roles in our 
 
 Use case diagrams to represent all-important key features more abstractly. Unauthorized users are not included because they do not have many features available. The admin role is not included for the opposite reason - it has too many features available and nothing important to mention. Subscription-free sellers are mentioned because we expect there will be fewer sellers who subscribe, so we are majority-oriented. However, one of the roles of the subscription provider is mentioned as an extension of the subscription purchase function.
 
-![Use-Case Diagram](https://user-images.githubusercontent.com/47245874/137370247-c92db5df-895c-45e5-a4d3-b168d6251ef8.png)
+![Use-Case Diagram](https://user-images.githubusercontent.com/47245874/138371933-d2269812-3fe4-4401-a283-b177675cbaf1.jpg)
 
 This project contains many important hardware and software components. Users can connect with web browsers on their devices. All the main system files are located on the main web server, which we use Windows Server 2012 provided by the University. We chose Windows Server 2012 because we were limited with the resources we're provided. The Controller.jar script accesses the database and selects data from there, communicating with Google Host and the Paysera API for the banking simulation.
 
-![Deployment Diagram](https://user-images.githubusercontent.com/47245874/137368741-1c94bb12-1a61-43e9-be80-ef9d7232edb6.jpg)
+![Deployment Diagram](https://user-images.githubusercontent.com/47245874/138371971-ede48476-c96b-4229-83bf-2e2b1b427176.jpg)
 
 The interaction of our system at the high level is represented in the System Context diagram. In our project, we are going to use Google Ads, Google Maps APIs, and Paysera for simulation of banking transactions. We use Google APIs as they are the most popular and well-designed APIs for adding ads and map systems to our project. We were suggested using Paysera for simulation of banking systems, and we decided to use it instead of creating our banking system only for simulation. It'd take an additional time to work. In case, Google Maps API doesn't provide the functionality to calculate the distance between the Customer and the Vendor, then we'll write our own. Mostly, the Google Maps API is needed for the location of the Vendors. For the additional gain from the project, we're adding ads to our website. We expect to configure it in a way that is not going to bring any not user-friendly experience for our users.
 
@@ -26,8 +26,7 @@ The interaction of our system at the high level is represented in the System Con
 
 Looking at the entire behavior of the system would take too long and more than one diagram. We have decided to make one of the main features available to all users of our project in research activities - searching. Users have the option to browse the list of products presented when opening a search bar window or search by entering keywords and/or applying filters. If users find the product they need, they can do another search for another product or buy the one they have chosen.
 
-![Activity Diagram](https://user-images.githubusercontent.com/47245874/137367706-4f2a6ac6-3c1e-4a22-92b6-9b8a1048bb1c.png)
-
+![Activity Diagram](https://user-images.githubusercontent.com/47245874/138372152-64d421b9-b741-442f-a485-d2719a286a55.jpg)
 
 ## 2. The Great Gang
 
