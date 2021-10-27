@@ -142,6 +142,9 @@ form .button1 input{
  form .button input:hover{
   background: #b6d7a8;
   }
+form .button1 input:hover{
+  background: #b6d7a8;
+  }
  @media(max-width: 584px){
  .container{
   max-width: 100%;
