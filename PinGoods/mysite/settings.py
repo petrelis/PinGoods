@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'information',
+        'NAME': 'pingoods_information',
         'USER': 'myuser',
         'PASSWORD': 'mypass',
         'HOST': 'localhost',
