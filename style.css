@@ -108,12 +108,30 @@ form .input-box span.details{
   width: 200px;
   margin: 5px 0;
  }
+form .button1{
+  height: 45px;
+  width: 350px;
+  margin: 5px 0;
+}
  form .button input{
    height: 100%;
    width: 100%;
    border-radius: 5px;
    border: none;
-   color: #fff;
+   color: #000000;
+   font-size: 18px;
+   font-weight: 600;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   background: linear-gradient(135deg, #ffe599, #b6d7a8);
+ }
+form .button1 input{
+   height: 100%;
+   width: 100%;
+   border-radius: 5px;
+   border: none;
+   color: #000000;
    font-size: 18px;
    font-weight: 600;
    letter-spacing: 1px;
