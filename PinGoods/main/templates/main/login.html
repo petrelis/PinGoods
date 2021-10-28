@@ -1,19 +1,39 @@
-<div class="login-page">
-  <div class="form">
-    <form method="POST" action="">
-      {% csrf_token %}
-      <h3 class="login-title">LOGIN</h3>
-      <div class="input-group mb-3">
-        <input type="text" name="username" placeholder="Username..." class="form-control">
-      </div>
-      <div class="input-group mb-2">
-          <input type="password" name="password" placeholder="Password..." class="form-control" >
-      </div>
-      <button type="submit"> Submit </button>
-      <p class="message">Don't have an account? <a href="{% url 'main:register' %}">Register</a></p>
-    </form>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+    <div class="container">
+        <div class="title">Log In</div>
+        <div class="content">
+            <form method="POST" action="">
+                <div class="user-details">
+					{% csrf_token %}
+                    <div class="input-box">
+                        <span class="details">Username</span>
+                        <input type="text" name="username" placeholder="Enter your username" required>
+                    </div>                             
+                    <div class="input-box">
+                        <span class="details">Password</span>
+                        <input type="password" name="password" placeholder="Enter your password" required>
+                    </div>                  
+                    <div class="button">
+                        <input type="submit" value="Log In">
+                    </div>
+                  <div class="button1">
+                    <input type="submit" onclick="location.href='{% url 'main:registrationchoice' %}'" value="If you are not registered, register" />
+			
+                  </div>
+                </div>
+            </form>
+        </div>
   </div>
-{% for message in messages %}
-    <p class= "text-center">{{message}}</p>
-  {% endfor %}
-</div>
+    </body>
+</html>

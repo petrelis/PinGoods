@@ -26,7 +26,10 @@ def logout_page(request):
 def home_page(request):
     return render(request, 'main/home.html')
 
-def register_page(request):
+def registrationchoice_page(request):
+    return render(request, 'main/registrationchoice.html')
+
+def customerregister_page(request):
     if request.method != 'POST':
         form = CustomUserForm()
     else:
@@ -37,4 +40,17 @@ def register_page(request):
 
     context = {'form': form}
 
-    return render(request, 'main/register.html', context)
+    return render(request, 'main/customerregister.html', context)
+
+def sellerregister_page(request):
+    if request.method != 'POST':
+        form = CustomUserForm()
+    else:
+        form = CustomUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('main:login')
+
+    context = {'form': form}
+
+    return render(request, 'main/sellerregister.html', context)
