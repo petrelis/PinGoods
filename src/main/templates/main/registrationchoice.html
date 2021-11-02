@@ -1,0 +1,28 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Registration Choice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+    <div class="container">
+        <div class="title">Register</div>
+        <div class="content">
+            <form action="#">
+                <div class="button">
+                    <input type="button" onclick="location.href='{% url 'main:sellerregister' %}'" value="As a Seller" />
+                </div>
+                <div class="button">
+                    <input type="button" onclick="location.href='{% url 'main:customerregister' %}'" value="As a Customer" />
+                </div>
+</div>
+            </form>
+        </div>
+    </body>
+</html>
