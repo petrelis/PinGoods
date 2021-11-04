@@ -17,6 +17,15 @@ class Index(generic.ListView):
         return Offer.objects.filter(
             pub_date__lte=timezone.now()
             ).order_by('-pub_date')[:5]
+    
+class DetailView(generic.DetailView):
+   model = Offer
+   template_name = 'goods/detail.html'
+   def get_queryset(self):
+       """
+       Excludes any questions that aren't published yet.
+       """
+       return Offer.objects.filter(pub_date__lte=timezone.now())
 
 @login_required
 def AddOffer(request):
@@ -37,5 +46,5 @@ def AddOffer(request):
                 offer_price=price,
                 pub_date=date)
             offer.save()
-            return redirect("/")
+            return redirect("/goods")
     return render(request, "goods/addoffer.html", {"offers": offers})

@@ -1,7 +1,7 @@
 {% if latest_offer_list %}
     <ul>
     {% for offer in latest_offer_list %}
-        <li>{{ offer.offer_title }} {{ offer.user }}</li>
+        <li><a href="{% url 'goods:detail' offer.id %}">{{ offer.offer_title }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

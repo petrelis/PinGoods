@@ -1,0 +1,32 @@
+<form action="{% url 'goods:detail' offer.id %}" method="post">
+{% csrf_token %}
+<fieldset>
+	<div class="offer_detail"
+	<span class="details">Title: {{ offer.offer_title }}</span>
+	</div>
+	<div class="offer_detail"
+	<span class="details">Seller: {{ offer.user }}</span>
+	</div>
+	<div class="offer_detail"
+	<span class="details">Description: {{ offer.offer_text }}</span>
+	</div>
+	<div class="offer_detail"
+	<span class="details">Category: {{ offer.offer_category }}</span>
+	</div>
+	<div class="offer_detail"
+	<span class="details">Phone number: {{ offer.offer_phonenumber }}</span>
+	</div>
+	<div class="offer_detail"
+	<span class="details">Address: {{ offer.offer_address }}</span>
+	</div>
+	<div class="offer_detail"
+	<span class="details">Price: {{ offer.offer_price }}</span>
+	</div>
+    <legend><h1>Offer</h1></legend>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    {% for review in offer.review_set.all %}
+        <input type="radio" name="review" id="review{{ forloop.counter }}" value="{{ review.id }}">
+        <label for="choice{{ forloop.counter }}">{{ review.review_text }}</label><br>
+    {% endfor %}
+</fieldset>
+</form>
