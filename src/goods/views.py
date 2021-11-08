@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Offer
+from .models import Offer, Review
 from datetime import datetime
 from django.utils import timezone
 from django.views import generic
@@ -37,6 +37,8 @@ def AddOffer(request):
             text = request.POST["text"]
             category = request.POST["category"]
             price = request.POST["price"]
+            phonenumber = request.POST["phonenumber"]
+            address = request.POST["address"]
             date = datetime.now()
             offer = Offer(
                 user=current_user,
@@ -44,7 +46,31 @@ def AddOffer(request):
                 offer_text=text, 
                 offer_category=category, 
                 offer_price=price,
+                offer_phonenumber=phonenumber,
+                offer_address=address,
                 pub_date=date)
             offer.save()
             return redirect("/goods")
     return render(request, "goods/addoffer.html", {"offers": offers})
+
+@login_required
+def AddReview(request, offer_id):
+    reviews = Review.objects.all()
+    offer = get_object_or_404(Offer, pk=offer_id)
+    print(offer)
+    print("Hello")
+    if request.method == "POST": 
+        if "reviewAdd" in request.POST: 
+            current_user = request.user
+            text = request.POST["text"]
+            rating = request.POST["rating"]
+            date = datetime.now()
+            review = Review(
+                offer=offer,
+                author=current_user,
+                review_text=text, 
+                rating=rating, 
+                pub_date=date)
+            review.save()
+            return redirect("/goods/" + str(offer_id))
+    return render(request, "goods/addreview.html", {"reviews": reviews})

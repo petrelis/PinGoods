@@ -12,30 +12,18 @@
 <div django-app="TaskManager">        
     <div class="container">
             <div class="content">
-            <h1>Add Offer</h1>
-            <p class="tagline">Add Offer</p>
+            <h1>Add Review</h1>
+            <p class="tagline">Add Review</p>
             <form action="" method="post">
             {% csrf_token %} <!-- csrf token for basic security -->
-                <div class="inputContainer">
-                    <input type="title" id="title" class="taskName" placeholder="Title" name="title" required>
-                </div>
                 <div class="inputContainer">
                     <input type="text" id="text" class="taskName" placeholder="Text" name="text" required>
                 </div>
 				<div class="inputContainer">
-                    <input type="category" id="category" class="taskName" placeholder="Category" name="category" required>
-                </div>
-				<div class="inputContainer">
-                    <input type="price" id="price" class="taskName" placeholder="Price" name="price" required>
-                </div>
-				<div class="inputContainer">
-                <input type="phonenumber" id="phonenumber" class="taskName" placeholder="Phone Number" name="phonenumber" required>
-                </div>
-				<div class="inputContainer">
-                <input type="address" id="address" class="taskName" placeholder="Address" name="address" required>
+                    <input type="rating" id="rating" class="taskName" placeholder="Rating" name="rating" required>
                 </div>
                 <div class="row">
-                    <button class="offerAdd" name="offerAdd" type="submit"><i class="fa fa-plus icon"></i>Add offer</button>
+                    <button class="reviewAdd" name="reviewAdd" type="submit"><i class="fa fa-plus icon"></i>Add review</button>
                 </div>
             </form>
             </div><!-- content -->
