@@ -21,8 +21,22 @@
                 <div class="button">
                     <input type="button" onclick="location.href='{% url 'main:customerregister' %}'" value="As a Customer" />
                 </div>
-</div>
+			</div>
             </form>
+			<div class="goBack">
+			    <form>
+			        <div class="button">
+			        <input type="button" value="Go back!" onclick="history.back()">
+			    </form>
+				</div>
+		    </div>
+		    <div class="homeButton">
+				<form>
+        	        <div class="button">
+          		    <input type="button" value="Home" onclick="location.href='{% url 'main:homepage' %}'">
+          		</form>
+        	    </div>
+  		    </div>
         </div>
     </body>
 </html>

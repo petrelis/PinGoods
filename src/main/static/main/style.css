@@ -113,6 +113,28 @@ form .button1{
   width: 350px;
   margin: 5px 0;
 }
+.goBack .button {
+  position: relative;
+  display: flex;
+  float: right;
+  position: absolute;
+  padding: 6px;
+  border: none;
+  top: 10px;
+  left: 10px;
+  margin: 10px;
+}
+.homeButton .button{
+  position: relative;
+  display: flex;
+  float: right;
+  position: absolute;
+  padding: 6px;
+  border: none;
+  top: 10px;
+  left: 200px;
+  margin: 10px;
+}
  form .button input{
    height: 100%;
    width: 100%;
