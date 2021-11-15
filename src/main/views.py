@@ -53,7 +53,6 @@ def customerregister_page(request):
             return redirect('main:login')
         else:
             print(form.errors)
-            form = SignUpForm()
     return render(request, 'main/customerregister.html', {'form': form})
 
 def sellerregister_page(request):
@@ -78,5 +77,4 @@ def sellerregister_page(request):
             return redirect('main:login')
         else:
             print(form.errors)
-            form = SignUpForm()
     return render(request, 'main/sellerregister.html', {'form': form})
