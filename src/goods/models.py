@@ -6,14 +6,23 @@ from django.utils import timezone
 from django.utils.timezone import now
 from django.contrib import admin
 
-#class Category(models.Model): 
-    #(so customers can assign a category to an offer instead of writing it in)
+class Category(models.Model): 
+    category_name = models.CharField(max_length=50)
+    category_colour = models.CharField(max_length=50)
+    
+    class Meta:
+        verbose_name = ("Category")
+        verbose_name_plural = ("Categories")
+    
+    def __str__(self):
+        return self.category_name
+
 
 class Offer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=0)
     offer_title = models.CharField(max_length=50)
     offer_text = models.CharField(max_length=500, blank=True)
-    offer_category = models.CharField(max_length=50, blank=True)
     offer_price = models.CharField(max_length=20, blank=True)
     offer_phonenumber = models.CharField(max_length=15, blank=True)
     offer_address = models.CharField(max_length=30, blank=True)

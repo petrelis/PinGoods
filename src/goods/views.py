@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Offer, Review
+from .models import Offer, Review, Category
 from datetime import datetime
 from django.utils import timezone
 from django.views import generic
@@ -30,28 +30,29 @@ class DetailView(generic.DetailView):
 @login_required
 def AddOffer(request):
     offers = Offer.objects.all()
+    categories = Category.objects.all()
     if request.method == "POST": 
         if "offerAdd" in request.POST: 
             current_user = request.user
+            chosen_category = request.POST["category_select"]
             title = request.POST["title"]
             text = request.POST["text"]
-            category = request.POST["category"]
             price = request.POST["price"]
             phonenumber = request.POST["phonenumber"]
             address = request.POST["address"]
             date = datetime.now()
             offer = Offer(
                 user=current_user,
+                category=Category.objects.get(category_name=chosen_category),
                 offer_title=title, 
                 offer_text=text, 
-                offer_category=category, 
                 offer_price=price,
                 offer_phonenumber=phonenumber,
                 offer_address=address,
                 pub_date=date)
             offer.save()
             return redirect("/goods")
-    return render(request, "goods/addoffer.html", {"offers": offers})
+    return render(request, "goods/addoffer.html", {"offers": offers, "categories":categories})
 
 @login_required
 def AddReview(request, offer_id):

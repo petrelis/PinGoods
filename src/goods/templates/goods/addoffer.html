@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>TodoApp - Create A Todo With Django</title>
+  <title>Add Offer</title>
   {% load static %}
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,8 +22,14 @@
                 <div class="inputContainer">
                     <input type="text" id="text" class="taskName" placeholder="Text" name="text" required>
                 </div>
-				<div class="inputContainer">
-                    <input type="category" id="category" class="taskName" placeholder="Category" name="category" required>
+				<div class="inputContainer half last">
+                    <i class="fa fa-caret-down selectArrow"></i>
+                    <select id="category" class="taskCategory" name="category_select">
+                    {% for category in categories %}
+                        <option class="" value="{{ category.category_name }}" name="{{ category.category_name }}">{{ category.category_name }}</option>
+                    {% endfor %}
+                    </select>
+                    <label for="category">Category</label>
                 </div>
 				<div class="inputContainer">
                     <input type="price" id="price" class="taskName" placeholder="Price" name="price" required>
