@@ -13,11 +13,42 @@ body{
   padding: 10px;
   background: linear-gradient(135deg, #ffe599, #b6d7a8);
 }
+
+.nav-bar{
+  position: absolute;
+  top: 10px;
+  left: 80px;
+  font-size: 18px;
+}
+.button-nav-bar{
+  min-width: 130px;
+  height: 40px;
+  color:#000000;
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  background: #fff;
+
+}
+
+.button-nav-bar:active {
+  box-shadow: inset 1px 1px 3px #c8d0e7, inset -1px -1px 3px #fff;
+}
+.nav-bar1{
+  position: absolute;
+  top: 10px;
+  right: 80px;
+  font-size: 18px;
+}
+
 .container{
   max-width: 700px;
   width: 100%;
   background-color: #fff;
   padding: 25px 30px;
+  
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
@@ -26,16 +57,7 @@ body{
   font-weight: 500;
   position: relative;
 }
-.container .title::before{
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: 80px;
-  border-radius: 5px;
-  background: linear-gradient(135deg, #ffe599, #b6d7a8);
-}
+
 .content form .user-details{
   display: flex;
   flex-wrap: wrap;
@@ -108,16 +130,25 @@ form .input-box span.details{
   width: 200px;
   margin: 5px 0;
  }
+
+/*registration-form */
+
 form .button1{
   height: 45px;
   width: 350px;
   margin: 5px 0;
 }
+/* main */
+
  form .button input{
    height: 100%;
    width: 100%;
    border-radius: 5px;
    border: none;
+   
+/* registration-form */
+   
+   color: #fff;
    color: #000000;
    font-size: 18px;
    font-weight: 600;
@@ -126,12 +157,15 @@ form .button1{
    transition: all 0.3s ease;
    background: linear-gradient(135deg, #ffe599, #b6d7a8);
  }
+
 form .button1 input{
    height: 100%;
    width: 100%;
    border-radius: 5px;
    border: none;
    color: #000000;
+
+  /* main */
    font-size: 18px;
    font-weight: 600;
    letter-spacing: 1px;
@@ -142,9 +176,11 @@ form .button1 input{
  form .button input:hover{
   background: #b6d7a8;
   }
+/* registration-form */
 form .button1 input:hover{
   background: #b6d7a8;
   }
+/* main */
  @media(max-width: 584px){
  .container{
   max-width: 100%;
