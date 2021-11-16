@@ -1,39 +1,66 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-<title>Register as a seller</title>
-    <link rel="stylesheet" type="text/css" href="style.css" media="all"/>
-</head>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Seller Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
 <body>
-    <div class="button">
-        <input type="button" onclick="location.href='homepage.html'" value="Home" />
-        <input type="button" onclick="location.href='loginForm.html'" value="Login">
-        <input type="button" onclick="location.href='registrationChoice.html'" value="Registration">
+    <div class="nav-bar">
+        <a class="button-nav-bar" onclick="location.href='registrationChoice.html'">Go back</a>
     </div>
+    
+    <div class="nav-bar1">
+        <a class="button-nav-bar"  onclick="location.href='homepage.html'">Home</a>
+        <a class="button-nav-bar"  onclick="location.href='loginForm.html'">Login</a>
+    </div>
+
     <div class="container">
-			<header>
-				<h1><p align="center"><strong> Register as a seller </strong></p></h1>
-            </header> 
-    <div class="form">
-    		<form id="contactform"> 
-                 
-    			<input id="username" name="username" placeholder="Username" required tabindex="2" type="text">
-
-    			<input id="firstLastName" name="firstLastName" placeholder="First/Last Name" required tabindex="1" type="text"> 
-
-                <input id="phone" name="phone" placeholder="Phone number (Optional)" type="text"> <br>
-    			 
-    			<input id="city" name="city" placeholder="City of residence" required type="text"> 
-
-    			<input id="address" name="address" placeholder="Address (Optional)" type="text">
-                
-    			<input id="password" name="password" placeholder="Password" required type="password"> 
-
-                <input id="repeatPassword" name="repeatPassword" placeholder="Repeat password" required type="password"> 
-        
-                <input class="buttom" name="register" id="register" tabindex="5" value="Register" type="submit"> 	 
-            </form> 
-    </div>    
-</div>
-</body>
+        <div class="title">Seller Registration</div>
+        <div class="content">
+            <form action="#">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Username</span>
+                        <input type="text" placeholder="Enter your username" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">First Name</span>
+                        <input type="password" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Last name</span>
+                        <input type="text" placeholder="Enter your last name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Phone number<small>(Optional)</small></span>
+                        <input type="text" placeholder="Enter your phone number" optional>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">City of residence </span>
+                        <input type="text" placeholder="Enter your city of residence" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Address</span>
+                        <input type="text" placeholder="Enter your address" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Password</span>
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Confirm password</span>
+                        <input type="password" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="Register">
+                    </div>
+                    <div>
+                        <p align="center"><strong><i>Upon registering you agree <br> with our Privacy Policy</i></strong></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
 </html>
