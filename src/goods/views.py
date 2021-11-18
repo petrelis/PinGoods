@@ -27,6 +27,12 @@ class DetailView(generic.DetailView):
        """
        return Offer.objects.filter(pub_date__lte=timezone.now())
 
+def MainView(request):
+    if request.method == 'GET' :
+        search = request.GET.get('search')
+        offer = Offer.objects.all ().filter(offer_title=search)
+        return render (request, "goods/main.html", {"offer": offer})
+
 @login_required
 def AddOffer(request):
     offers = Offer.objects.all()
