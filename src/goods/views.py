@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from mysite.settings import GOOGLE_MAPS_API_KEY
 from .models import Offer, Review, Category
 from datetime import datetime
 from django.utils import timezone
 from django.views import generic
+import requests
+from urllib.parse import urlencode
 
 class Index(generic.ListView):
     template_name = 'goods/index.html'
@@ -30,8 +33,36 @@ class DetailView(generic.DetailView):
 def MainView(request):
     if request.method == 'GET' :
         search = request.GET.get('search')
-        offer = Offer.objects.all ().filter(offer_title=search)
-        return render (request, "goods/main.html", {"offer": offer})
+        offer = Offer.objects.all().filter(offer_title=search)
+        if offer.exists():
+            address = offer.values('offer_address')
+        else:
+            address = "Vilnius"
+        lat = extract_lat_lng(address)[0]
+        lng = extract_lat_lng(address)[1]
+        context = {
+            'offer': offer,
+            'Lat': lat,
+            'Lng': lng
+        }
+        return render (request, "goods/main.html", context)
+
+def extract_lat_lng(address_or_postalcode, data_type = 'json'):
+    endpoint = f"https://maps.googleapis.com/maps/api/geocode/{data_type}"
+    params = {"address": address_or_postalcode, "key": GOOGLE_MAPS_API_KEY}
+    url_params = urlencode(params)
+    url = f"{endpoint}?{url_params}"
+    r = requests.get(url)
+    if r.status_code not in range(200, 299): 
+        return {}
+    latlng = {}
+    try:
+        latlng = r.json()['results'][0]['geometry']['location']
+    except:
+        pass
+    return latlng.get("lat"), latlng.get("lng")
+
+
 
 @login_required
 def AddOffer(request):
