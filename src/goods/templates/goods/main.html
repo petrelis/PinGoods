@@ -51,10 +51,12 @@
     center: myLatLng,
   });
   
+  {% if offer %}
   new google.maps.Marker({
     position: myLatLng,
     map,
   });
+  {%endif%}
   }
   </script>
   
