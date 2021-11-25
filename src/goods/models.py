@@ -27,6 +27,7 @@ class Offer(models.Model):
     offer_phonenumber = models.CharField(max_length=15, blank=True)
     offer_address = models.CharField(max_length=30, blank=True)
     pub_date = models.DateTimeField('date published')
+    offer_image = models.ImageField(default='default.jpg', upload_to='offer_pics')
     def __str__(self):
         return self.offer_title
     @admin.display(
