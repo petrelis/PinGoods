@@ -55,7 +55,8 @@ def AddOffer(request):
                 offer_price=price,
                 offer_phonenumber=phonenumber,
                 offer_address=address,
-                pub_date=date)
+                pub_date=date,
+                offer_image='default.jpg')
             offer.save()
             return redirect("/goods")
     return render(request, "goods/addoffer.html", {"offers": offers, "categories":categories})

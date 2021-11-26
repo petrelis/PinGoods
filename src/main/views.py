@@ -45,6 +45,7 @@ def customerregister_page(request):
             user.profile.last_name = form.cleaned_data.get('last_name')
             user.profile.email = form.cleaned_data.get('email')
             user.profile.city = form.cleaned_data.get('city')
+            user.profile.image = 'default.jpg'
             user.profile.iscustomer = True
             user.save()
             username = form.cleaned_data.get('username')
@@ -69,6 +70,7 @@ def sellerregister_page(request):
             user.profile.phone = form.cleaned_data.get('phone')
             user.profile.city = form.cleaned_data.get('city')
             user.profile.address = form.cleaned_data.get('address')
+            user.profile.image = 'default.jpg'
             user.profile.isseller = True
             user.save()
             username = form.cleaned_data.get('username')
