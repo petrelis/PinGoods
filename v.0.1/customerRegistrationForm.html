@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Customer Registration Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+    <div class="nav-bar">
+        <a class="button-nav-bar" onclick="goBack()">Go back</a>
+	        <script>
+	function goBack() {window.history.back();
+}
+		</script>
+    </div>
+    
+    <div class="nav-bar1">
+        <a class="button-nav-bar"  onclick="location.href='index.html'">Home</a>
+        <a class="button-nav-bar"  onclick="location.href='loginForm.html'">Login</a>
+    </div>
+
+    <div class="container">
+        <div class="title">Customer Registration</div>
+        <div class="content">
+            <form action="#">
+                <div class="user-details">
+                    <div class="input-box">
+                        <span class="details">Username</span>
+                        <input type="text" placeholder="Enter your username" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">First Name</span>
+                        <input type="password" placeholder="Enter your first name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Last name</span>
+                        <input type="text" placeholder="Enter your last name" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">City of residence <small>(Optional)</small></span>
+                        <input type="text" placeholder="Enter your city of residence" optional>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Password</span>
+                        <input type="password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Confirm password</span>
+                        <input type="password" placeholder="Confirm your password" required>
+                    </div>
+                    <div class="button">
+                        <input type="submit" value="Register">
+                    </div>
+                    <div>
+                        <p align="center"><strong><i>Upon registering you agree <br> with our Privacy Policy</i></strong></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

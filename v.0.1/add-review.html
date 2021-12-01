@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--This gives the browser instructions on how to control the page's dimensions and scaling.
+         The width=device-width part sets the width of the page to follow the screen-width of the device
+        The initial-scale=1 part sets the initial zoom level when the page is first loaded by the browser-->
+        <!-- CSS only -->
+<link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div class="nav-bar">
+        <a class="button-nav-bar" onclick="goBack()">Go back</a>
+	        <script>
+	function goBack() {window.history.back();
+}
+		</script>
+    </div>
+    <script src="popup.js"></script>
+    <div class="nav-bar1">
+        <a class="button-nav-bar"  onclick="location.href='index.html'">Home</a>
+      <a class="button-nav-bar" onclick="openSellProductForm()">Add review</a>
+        <a class="button-nav-bar"  onclick="#">Profile</a>
+    
+    
+    </div>
+    <div class="center">
+    
+    </div>
+    <div class="popupR-overlay"></div>
+    <div class="popupR">
+      <div class="popupR-close" onclick="closeSellProductForm()">&times;</div>
+      <div class="form">
+       <div class="avatar">
+         <img src="https://www.seekpng.com/png/detail/381-3812018_qualified-icon-5-star-rating-icon-png.png" alt="Qualified Icon - 5 Star Rating Icon Png@seekpng.com">
+        </div>
+         <div class="header">
+           Create review
+        </div>
+        <div class="element">
+          <label for="Comment">Comment</label>
+          <input type="text" id="ReviewComment" required>
+        </div>
+        <div class="element">
+          <label for="Rating">Rating</label>
+        <div class="star-rating">
+      <input type="radio" name="rate" id="star5" value="5"/>
+      <label for="star5"></label>
+      <input type="radio" name="rate" id="star4" value="4"/>
+      <label for="star4"></label>
+      <input type="radio" name="rate" id="star3" value="3"/>
+      <label for="star3"></label>
+      <input type="radio" name="rate" id="star2" value="2"/>
+      <label for="star2"></label>
+      <input type="radio" name="rate" id="star1" value="1"/>
+      <label for="star1"></label>
+</div>
+        </div>
+            <div class="element">
+          <button>Add review</button>
+        </div>
+      </div>
+      </body>
+   </html>

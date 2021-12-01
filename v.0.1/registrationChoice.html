@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Registration Choice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+    <div class="nav-bar">
+        <a class="button-nav-bar" onclick="goBack()">Go back</a>
+	        <script>
+	function goBack() {window.history.back();
+}
+		</script>
+    </div>
+    
+    <div class="nav-bar1">
+        <a class="button-nav-bar"  onclick="location.href='index.html'">Home</a>
+        <a class="button-nav-bar"  onclick="location.href='loginForm.html'">Login</a>
+    </div>
+    
+    <div class="container">
+        <div class="title">Register</div>
+        <div class="content">
+            <form action="#">
+                <div class="button">
+                    <input type="button" onclick="location.href='sellersRegistrationForm.html'" value="As a Seller" />
+                </div>
+                <div class="button">
+                    <input type="button" onclick="location.href='customerRegistrationForm.html'" value="As a Customer" />
+                </div>
+</div>
+            </form>
+        </div>
+    </body>
+</html>
