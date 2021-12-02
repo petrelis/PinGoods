@@ -7,26 +7,17 @@
 <link rel="stylesheet" href="mainPage.css">
 </head>
 <body>
-<div class="search-bar">
-  <div class="search">
-	<form action=" {% url 'goods:main' %}" method ="get">
-		<input type="text" name="search" class="searchTerm" placeholder="Search..">
-		<button type="submit" class="searchButton">
-			<i class="fa fa-search" aria-hidden="true"></i>
-		</button>
-	</form>
+  <div class="search-bar">
+    <div class="search">
+      <form action=" {% url 'goods:main' %}" method ="get">
+      <input type="text" name="addressSearch" class="searchTerm" placeholder="Your Address..">
+      <input type="text" name="search" class="searchTerm" placeholder="Search..">
+          <button type="submit" class="searchButton">
+              <i class="fa fa-search" aria-hidden="true"></i>
+          </button>
+      </form>
+    </div>
   </div>
-</div>
-<div class="search-bar">
-  <div class="search">
-	<form action=" {% url 'goods:main' %}" method ="get">
-		<input type="text" name="addressSearch" class="searchTerm" placeholder="Your Address..">
-		<button type="submit" class="searchButton">
-			<i class="fa fa-search" aria-hidden="true"></i>
-		</button>
-	</form>
-  </div>
-</div>
 <div class="button">
  <input type="button" onclick="location.href='{% url 'main:homepage' %}'" value="Home" />
  {% if user.is_authenticated %} 
@@ -85,8 +76,8 @@
   {% endfor %}
   
   // if offer is found through searchbar create markers at found offer locations
-  {% if offer %}
-  {% for off in offer %}
+  {% if offer.offers %}
+  {% for off in offer.offers %}
     myLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
     new google.maps.Marker({
       position: myLatLng,
@@ -102,9 +93,9 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi0Sbbta29PDgKrcgzIiR-5NlMgv203ps&callback=myMap"></script>
 
   <ul>
-    {% for off in offer %}
-      <li> {{ off.offer_title }} : {{ offer_distance }}</li>
-    {% endfor %} 
+    {% for off in offerAndDist %}
+    <li>{{forloop.counter}}. {{ off.title }}: {{ off.distance }}</li>
+    {% endfor %}
   </ul>
 
 </body>

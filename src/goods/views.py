@@ -47,17 +47,13 @@ def extract_lat_lng(address_or_postalcode, data_type = 'json'):
         pass
     return latlng.get("lat"), latlng.get("lng")
 
-offers_all = Offer.objects.all()
-for off in offers_all:
-        off.offer_coords_lat = extract_lat_lng(off.offer_address)[0]
-        off.offer_coords_lng = extract_lat_lng(off.offer_address)[1]
-        off.save()
 
 def MainView(request):
     if request.method == 'GET' :
         search = request.GET.get('search')
         addressSearch = request.GET.get('addressSearch')
 
+        offers_all = Offer.objects.all()
         if search:
             offer = offers_all.filter(offer_title__icontains=search)
         else: offer = offers_all.filter(offer_price = -1)
@@ -68,33 +64,32 @@ def MainView(request):
             lat = extract_lat_lng("Vilnius")[0]
             lng = extract_lat_lng("Vilnius")[1]
 
-        offer_distance = []
+        offerAndDist = []
+
         if addressSearch:
             user_coords_lat = extract_lat_lng(addressSearch)[0]
             user_coords_lng = extract_lat_lng(addressSearch)[1]
             user_location = (user_coords_lat, user_coords_lng)
-            i=0
-            #for off in offer:
-                #offer_location = (off.offer_coords_lat, off.offer_coords_lng)
-                #offer_distance[i] = distance(user_location, offer_location).km
-                #i += 1
+            for off in offer:
+                offer_location = (off.offer_coords_lat, off.offer_coords_lng)
+                offer_distance = (distance(user_location, offer_location).km)
+                offerAndDist.append({
+                    'title': off.offer_title,
+                    'distance': offer_distance
+                })
         else:
             user_coords_lat = 0
             user_coords_lng = 0
 
-        user_location = (54.6841961, 25.3096042)
-        for off in offers_all:
-                offer_location = (off.offer_coords_lat, off.offer_coords_lng)
-                offer_distance.append(distance(user_location, offer_location).km)
-
         context = {
             'offers_all': offers_all,
             'offer': offer,
+            'offerAndDist': offerAndDist,
             'Lat': lat,
             'Lng': lng,
             'user_coords_lat': user_coords_lat,
             'user_coords_lng': user_coords_lng,
-            'offer_distance': offer_distance,
+            'range': range(len(offerAndDist))
         }
         return render (request, "goods/main.html", context)
 
@@ -120,6 +115,8 @@ def AddOffer(request):
                 offer_price=price,
                 offer_phonenumber=phonenumber,
                 offer_address=address,
+                offer_coords_lat = extract_lat_lng(address)[0],
+                offer_coords_lng = extract_lat_lng(address)[1],
                 pub_date=date)
             offer.save()
             return redirect("/goods")
