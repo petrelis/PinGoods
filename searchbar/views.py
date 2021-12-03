@@ -12,8 +12,8 @@ class BlogSearchView(ListView):
       return Blog.objects.filter(title__icontains=query).order_by('-created_at')
 
 
-def searchbar (request):
+'''def searchbar (request):
     if request.method == 'GET' :
         search = request.GET.get('search')
         post= Post.objects.all ().filter(content_contains=result)
-        return render (request, 'searchbar.html, {'post': post})
+        return render (request, 'searchbar.html, {'post': post}) '''
