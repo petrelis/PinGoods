@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from .forms import SignUpForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from .forms import SignUpForm, UpdateUserForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView, PasswordResetDoneView
+from django.contrib.messages.views import SuccessMessageMixin
 
 def login_page(request):
     if request.method == 'POST':
@@ -80,3 +82,24 @@ def sellerregister_page(request):
         else:
             print(form.errors)
     return render(request, 'main/sellerregister.html', {'form': form})
+
+def usereditview_page(request):
+    if request.method == 'POST':
+        user_form = UpdateUserForm(request.POST, instance=request.user)
+
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request, 'Your profile is updated successfully')
+            return redirect('/home')
+    else:
+        user_form = UpdateUserForm(instance=request.user)
+
+    return render(request, 'main/edit_profile.html', {'user_form': user_form})
+
+class MyPasswordChangeView(PasswordChangeView):
+    template_name = 'main/password-change.html'
+    sucess_url = reverse_lazy()
+    
+class MyPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'main/password-reset-done.html'
+    

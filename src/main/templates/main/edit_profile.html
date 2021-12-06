@@ -1,0 +1,66 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Edit Profile</title>
+    
+    
+       {% if user_form.errors %}
+    
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <div id="form_errors">
+                {% for key, value in user_form.errors.items %}
+                    <strong>{{ value }}</strong>
+                {% endfor %}
+            </div>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endif %}
+   
+</head>
+<body>
+ <div class="container">
+        <header>
+            <h1><center><strong>Edit Profile [demo]</strong></center></h1>
+        </header>       
+        <div class="form">
+            <form class="form-control" method="POST" action=""> 
+                {% csrf_token %}
+                <p class="contact"><label for="username">Username</label></p> 
+                    {{ user_form.username }}
+                <input id="username" name="username" placeholder="New Username"  tabindex="2" type="text">
+
+                <p class="small mb-1"><label for="email">Email</label></p> 
+                    {{ user_form.email }}
+                <input id="email" name="email" placeholder="New Email"  tabindex="2" type="text"> 
+                
+
+              
+                
+                <p class="contact"><label for="phone">Phone number</label></p> 
+                    {{ user_form.phone_number }}
+                <input id="phone" name="phone" placeholder="New Phone number"  type="text"> <br>
+                
+                <p class="contact"><label for="city">City of residence</label></p> 
+                    {{ user_form.city }}
+                <input id="city" name="city" placeholder="New City of residence"  type="text"> 
+
+                <p class="contact"><label for="city">Address</label></p> 
+                    {{ user_form.home_address }}
+                <input id="address" name="address" placeholder="New Address"  type="text">
+
+        
+                <input class="buttom" name="submit" id="submit" tabindex="5" value="Update info" type="submit"> 
+                
+                <a href="{% url 'main:password-change-view' %}">Change Password</a>
+            
+            </form> 
+            {{ form.errors }}
+        </div>       
+    </div>
+</body>

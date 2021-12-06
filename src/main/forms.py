@@ -12,8 +12,20 @@ class SignUpForm(UserCreationForm):
     address = forms.CharField(max_length=30, label="address", help_text='Address', required=False)
     iscustomer = forms.BooleanField(required=False)
     isseller = forms.BooleanField(required=False)
+    
+    class Meta:
+          model = User
+          fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 
+                    'phone', 'city', 'address', 'iscustomer', 'isseller',)
+    
+class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone_number = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    city = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    home_address = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 
-                  'phone', 'city', 'address', 'iscustomer', 'isseller',)
+        fields = ['username', 'email', 'phone_number', 'city', 'home_address']
+        
