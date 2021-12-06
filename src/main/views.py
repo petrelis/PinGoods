@@ -98,8 +98,7 @@ def usereditview_page(request):
 
 class MyPasswordChangeView(PasswordChangeView):
     template_name = 'main/password-change.html'
-    sucess_url = reverse_lazy()
     
-class MyPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'main/password-reset-done.html'
+def MyPasswordResetDoneView(request):
+    return render(request, 'main/password-reset-done.html')
     
