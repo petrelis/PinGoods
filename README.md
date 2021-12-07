@@ -1,4 +1,4 @@
-# Software Engineering project "PinGoods"
+﻿# Software Engineering project "PinGoods"
 # Group II
 # Technical Requirements
 
@@ -20,7 +20,7 @@ This project contains many important hardware and software components. Users can
 
 ![Deployment Diagram](https://user-images.githubusercontent.com/47245874/138371971-ede48476-c96b-4229-83bf-2e2b1b427176.jpg)
 
-The interaction of our system at the high level is represented in the System Context diagram. In our project, we are going to use Google Ads, Google Maps APIs, and Paysera for simulation of banking transactions. We use Google APIs as they are the most popular and well-designed APIs for adding ads and map systems to our project. We were suggested using Paysera for simulation of banking systems, and we decided to use it instead of creating our banking system only for simulation. It'd take an additional time to work. In case, Google Maps API doesn't provide the functionality to calculate the distance between the Customer and the Vendor, then we'll write our own. Mostly, the Google Maps API is needed for the location of the Vendors. For the additional gain from the project, we're adding ads to our website. We expect to configure it in a way that is not going to bring any not user-friendly experience for our users.
+The interaction of our system at the high level is represented in the System Context diagram. In our project, we are going to use Google Ads, Google Maps APIs, and Paypal for simulation of banking transactions. We use Google APIs as they are the most popular and well-designed APIs for adding ads and map systems to our project. While the original intention was to use Paysera, we decided to use Paypal instead, as Paysera seemed too complicated to implement. In case, Google Maps API doesn't provide the functionality to calculate the distance between the Customer and the Vendor, then we'll write our own. Mostly, the Google Maps API is needed for the location of the Vendors. For the additional gain from the project, we're adding ads to our website. We expect to configure it in a way that is not going to bring any not user-friendly experience for our users.
 
 ![System Context Diagram](https://user-images.githubusercontent.com/47245874/137368762-f4d93add-b510-4d7a-930d-607efc3b3f16.jpg)
 
@@ -42,10 +42,10 @@ Each project member chose a working team in which is most comfortable. This was 
   - Liudas Kraujalis @Liudaskr
   - David Kisel @DavidK14
   - Maksym Hrynak @hrymasik
+  - Martynas Jakučionis @Jaku12345
   
 - **Back-End**
   - **Marius Raupelis @mariusraupel (Sub-Lead)**
-  - Martynas Jakučionis @Jaku12345
   - Gustas Strimaitis @Radorkan
   - Aurimas Miliauskas @AuriTheGreat
   - Petras Rudys @petrelis
@@ -72,11 +72,15 @@ One of the key functionalities that our project will consist:
 **3.1. HOMEPAGE** 
 
 This is the page that the user sees once he visits the website. 
-- At the top, there is the primary button. Clicking it leads you to the main page, which includes the following functionalities:
-  - Search bar 
-  - Map 
-  - Options Bar 
-- Under the button, the description of the website is displayed.
+- At the top, there is a navbar. It includes the following:
+  - Redirection to the Map page
+  - Redirection to the Login page
+  - Redirection to the Registration page
+  - Username. Clicking on it also has redirections to additional pages:
+    - Options Bar 
+    - Logout
+
+- The description of the website and privacy policy is also displayed.
 
 **3.2. REGISTRATION WINDOW**
 
@@ -95,25 +99,22 @@ If you register as a customer, a window will appear with a required fields to fi
 - Password 
 - Retype password 
 
-Some other information may be added later on to be filled in. Upon registration, **noreply@pingoods.com** will send a message with confirmation to the user.
+Some other information may be added later on to be filled in. 
 
-**3.3. MAP** 
+**3.3. MAP PAGE** 
+There are two primary components to this page – the map and the search bar.
 
-It is located in the centre of the home page on the right side of the search bar. After submitting a search query to the search bar: 
-- In the enlarged window, the user sees all the results that best match the search criteria. 
-- When zoomed in, the user sees all the products in the area that match the criteria. 
-- Clicking on one of the search results will take you to that seller on the map.
+The search bar has two components – the search component and results component. The search component contains two windows to be filled in – your current address, and what you are interested in. Results component contains the results of the search, sorted by how close they fit the search string and distance.
 
-**3.4. SEARCH BAR** 
+The second feature is the map. The map is extended through the entire page. 
+- When the user enters the page, he can see pins through the entire map, marking all the current offers on the website.
+- When the search result is submitted, user will be able to see their location and the location of the most fitting offers.
 
-Clicking the primary button on the homepage leads you to the main page with the Search Bar. It'll be located at the top-left of the page. After the search, the search bar will list the most relevant results for the products, and the goods and services tax (PVM) adjusted prices will be displayed. The most suitable product is determined by the combination of your preferred results (vendor's subscription products will be at top), selected categories (product colour), keyword best match, and closest customer distance.
+**3.4. OPTIONS BAR**
 
-**3.5. OPTIONS BAR**
-
-If the user has logged in to the system, it's located at the top-right of the Main Page. Otherwise, it's not so. When the registered user clicks the button, it'll display for **Vendors**:
+If the user has logged in to the system, the options bar can be accessed by clicking on the username, and then clicking Options in the drop box. it's not so. When the registered user clicks the button, it'll display for **Vendors**:
 - Subscription. Clicking it will display buttons, allowing to: 
   - Buy subscription
-  - Check subscription history 
 - Edit product posts. Clicking it will display buttons, allowing to:
   -  Edit location 
   -  Edit price
@@ -125,11 +126,38 @@ If the user has logged in to the system, it's located at the top-right of the Ma
   - Change Password
 
 If it's clicked by a **Customer**, then he'll get displayed with:
-  - History of Purchases 
   - Change Phone Number 
   - Change City of Living 
   - Change Address 
   - Change Password
+
+**3.5. ADMIN PANEL** 
+
+The admin panel may only be accessed by admin users. This admin panel is not accessible by clicking any buttons, but rather by writing /admin in the URL. This project is using the default Django admin panel. This admin panel will allow admins to manage most aspects of the website:
+  - Adding new categories that may be chosen when creating an offer.
+  - Deleting Users
+  - Deleting Offers/Revies
+
+
+Notably, admins are not allowed to edit users’ reviews on offers.
+
+**3.6. ADD-OFFER PAGE** 
+
+The Add-Offer page can only be accessible by sellers. In this page a new offer may be added by the sellers after the following information is filled:
+  - Offer title
+  - Offer description
+  - Offer category
+  - Offer image (if none, then default is used)
+
+Normal sellers can make only 2 offers. Subscribed ones can add as many as they like.
+
+**3.7. ADD-REVIEW PAGE** 
+
+The Add-Review page can only be accessed by customers. In this page a review can be added for the offers after the information is filled:
+  - Review text
+  - Review rating
+
+Edit button is also needed for the reviews. 
 
 ## 4. Non-Functional Requirements
 
