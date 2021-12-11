@@ -26,9 +26,10 @@ class Offer(models.Model):
     offer_price = models.CharField(max_length=20, blank=True)
     offer_phonenumber = models.CharField(max_length=15, blank=True)
     offer_address = models.CharField(max_length=30, blank=True)
+    pub_date = models.DateTimeField('date published')
     offer_coords_lat = models.FloatField(default=0)
     offer_coords_lng = models.FloatField(default=0)
-    pub_date = models.DateTimeField('date published')
+    offer_image = models.ImageField(default='default.jpg', upload_to='offer_pics')
     def __str__(self):
         return self.offer_title
     @admin.display(

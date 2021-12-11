@@ -8,6 +8,7 @@ from django.views import generic
 import requests
 from urllib.parse import urlencode
 from geopy.distance import lonlat, distance
+from main.models import Profile
 
 class Index(generic.ListView):
     template_name = 'goods/index.html'
@@ -30,7 +31,7 @@ class DetailView(generic.DetailView):
        Excludes any questions that aren't published yet.
        """
        return Offer.objects.filter(pub_date__lte=timezone.now())
-
+   
 def extract_lat_lng(address_or_postalcode, data_type = 'json'):
     endpoint = f"https://maps.googleapis.com/maps/api/geocode/{data_type}"
     params = {"address": address_or_postalcode, "key": GOOGLE_MAPS_API_KEY}
@@ -46,8 +47,14 @@ def extract_lat_lng(address_or_postalcode, data_type = 'json'):
         pass
     return latlng.get("lat"), latlng.get("lng")
 
-
 def MainView(request):
+    user = request.user
+    isseller=False
+    iscustomer=False
+    if user!=None:    
+        profile = Profile.objects.get(user_id=user)
+        isseller=profile.isseller
+        iscustomer=profile.iscustomer
     if request.method == 'GET' :
         search = request.GET.get('search')
         addressSearch = request.GET.get('addressSearch')
@@ -90,7 +97,12 @@ def MainView(request):
             'user_coords_lng': user_coords_lng,
             'range': range(len(offerAndDist))
         }
-        return render (request, "goods/main.html", context)
+        if isseller==True:
+            return render (request, "goods/mainseller.html", context)
+        elif iscustomer==True:
+            return render (request, "goods/maincustomer.html", context)
+        else:
+            return render (request, "goods/mainguest.html", context)
 
 @login_required
 def AddOffer(request):
@@ -116,7 +128,8 @@ def AddOffer(request):
                 offer_address=address,
                 offer_coords_lat = extract_lat_lng(address)[0],
                 offer_coords_lng = extract_lat_lng(address)[1],
-                pub_date=date)
+                pub_date=date,
+                offer_image='default.jpg')
             offer.save()
             return redirect("/goods")
     return render(request, "goods/addoffer.html", {"offers": offers, "categories":categories})
@@ -125,8 +138,6 @@ def AddOffer(request):
 def AddReview(request, offer_id):
     reviews = Review.objects.all()
     offer = get_object_or_404(Offer, pk=offer_id)
-    print(offer)
-    print("Hello")
     if request.method == "POST": 
         if "reviewAdd" in request.POST: 
             current_user = request.user

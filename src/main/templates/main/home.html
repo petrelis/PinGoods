@@ -1,67 +1,75 @@
-<html>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
 <head>
-<style type="text/css">
-input[type=checkbox] {
-  display: none;
-}
-.container img {
-  margin: 100px;
-  transition: transform 0.25s ease;
-  cursor: zoom-in;
-  position: relative;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-
-}
-input[type=checkbox]:checked ~ label > img {
-  transform: scale(2);
-  cursor: zoom-out;
-  
-}
-  @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Nunito Sans', sans-serif;
-}
-body{
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  background: linear-gradient(135deg, #ffe599, #b6d7a8);
-}
-.button{
-  padding: 20px;
-  float: right;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  margin: 10px;
-}
-</style>
+<title>PinGoods</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'main/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
 </head>
-<body>
+<body id="top">
 
-<div class="container">
-  <input type="checkbox" id="zoomCheck">
-  <label for="zoomCheck">
-    <img src="https://user-images.githubusercontent.com/91023523/137926142-eea87029-a89d-43aa-ae15-f34aa01cfb19.png" alt="PinGoods logo">
-  </label>
-</div>
-<div class="button">
- <input type="button" onclick="location.href='{% url 'main:homepage' %}'" value="Home" />
-	
-	{% if user.is_authenticated %} 
-	<input type="button" onclick="location.href='{% url 'main:logout' %}'" value="Logout">
-
-	{% else %}
-	<input type="button" onclick="location.href='{% url 'main:login' %}'" value="Login">
-	<input type="button" onclick="location.href='{% url 'main:registrationchoice' %}'" value="Registration">
-
-{% endif %}
+<div class="bgded overlay" style="background-image:url('{% static 'main/farm2.jpg' %}');"> 
+  
+  <div class="wrapper row0">
+    <div id="topbar" class="hoc clear"> 
+      
+      <p class="fl_left nospace"><i class="fas fa-phone"></i> Customer support: <a  href="https://github.com/sahiva/pingoods" class="gustas" >Click here </a> </p>
+	  {% if user.is_authenticated %} 
+	  {% else %}
+      <p class="fl_right nospace"><a class="btn" href="{% url 'main:login' %}">Log In</a></p>
+      <p class="fl_right nospace"><a class="btn" href="{% url 'main:registrationchoice' %}">Sign up</a></p>
+      {% endif %}
+    </div>
   </div>
+
+  <div class="wrapper row1">
+    <header id="header" class="hoc clear">
+      <div id="logo" class="center"> 
+        
+        <h1><a href="{% url 'main:homepage' %}">PinGoods</a></h1>
+        
+      </div>
+      <nav id="mainav" class="fl_right"> 
+        
+        <ul class="clear">
+          
+          
+          <li><a href="#"></a></li>
+        </ul>
+       
+	   
+      </nav>
+    </header>
+  </div>
+  
+  <div id="pageintro" class="hoc clear"> 
+    
+    <article>
+      
+      <h3 class="heading">Fresh goodies from your local farmer.</h3>
+      <p>Go ahead and search for goodies!</p>
+      <p class="quick-fix">ok</p>
+      <footer>
+        <ul class="nospace inline pushright">
+          <li><a class="btn inverse" href="{% url 'goods:main' %}">Search</a></li>
+        </ul>
+      </footer>
+
+      <div class="picture">
+        <img class="logo-image" src="https://play-lh.googleusercontent.com/gDLgYeTaZUTQXa9hu0f4OgxAJedWvpcz3puIj3rgWwYhUjsruRfmKWheF1Wm-oVvPgDe" alt="">
+      </div>
+
+    </article>
+    
+  </div>
+
+  
+  
+</div>
+
+
+
 </body>
+</html>

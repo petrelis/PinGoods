@@ -65,21 +65,56 @@
     });
     {% endif %}
 
+  var markersArray = [];
+
   // create markers for all offers at their locations
   {% for off in offers_all %}
     myLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
-    new google.maps.Marker({
+	index = markersArray.length;
+    var marker = new google.maps.Marker({
       position: myLatLng,
+	  index: index,
       map,
       title: "{{ off.offer_title }}"
     });
+	
+	markersArray.push(marker);
+	
+	
+	
+	var selectedInfoWindow
+	
+	google.maps.event.addListener(marker, 'click', function () {
+	
+	
+	    if (selectedInfoWindow != null && selectedInfoWindow.getMap() != null) {
+        selectedInfoWindow.close();
+        //If the clicked window is the selected window, deselect it and return
+        if (selectedInfoWindow == infoWindow) {
+            selectedInfoWindow = null;
+            return;
+        }
+    }
+	
+	var info = this.index
+	
+	var infowindow = new google.maps.InfoWindow({
+	content:"{{ off.offer_title }}"
+	});
+	
+	
+	selectedInfoWindow = infowindow;
+	infowindow.open(map,markersArray[info]);
+	
+  });
+	
   {% endfor %}
   
   // if offer is found through searchbar create markers at found offer locations
   {% if offer.offers %}
   {% for off in offer.offers %}
     myLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
-    new google.maps.Marker({
+    var marker = new google.maps.Marker({
       position: myLatLng,
       map,
       title: "{{ off.offer_title }}"
@@ -88,6 +123,7 @@
   {% endfor %}
   {% endif %}
   };
+  
   </script>
   
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi0Sbbta29PDgKrcgzIiR-5NlMgv203ps&callback=myMap"></script>

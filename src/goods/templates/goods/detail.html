@@ -4,6 +4,9 @@
 	<div class="offer_detail"
 	<span class="details">Title: {{ offer.offer_title }}</span>
 	</div>
+	<div class="media">
+	<img src="{{ offer.offer_image.url }}" height='100' width='100'>
+	</div>
 	<div class="offer_detail"
 	<span class="details">Seller: {{ offer.user }}</span>
 	</div>
@@ -21,12 +24,6 @@
 	</div>
 	<div class="offer_detail"
 	<span class="details">Price: {{ offer.offer_price }}</span>
-	</div>
-	<div class="offer_detail"
-	<span class="details">Lat: {{ offer.offer_coords_lat }}</span>
-	</div>
-	<div class="offer_detail"
-	<span class="details">Lng: {{ offer.offer_coords_lng}}</span>
 	</div>
     <legend><h1>Offer</h1></legend>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}

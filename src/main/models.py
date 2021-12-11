@@ -10,6 +10,8 @@ class Profile(models.Model):
     address = models.CharField(max_length=30, blank=True)
     iscustomer = models.BooleanField(default=False)
     isseller = models.BooleanField(default=False)
+    issubscribed = models.BooleanField(default=False) #DO NOT USE
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
 
 
     def __str__(self):
