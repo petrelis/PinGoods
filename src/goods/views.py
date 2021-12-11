@@ -7,7 +7,6 @@ from django.utils import timezone
 from django.views import generic
 import requests
 from urllib.parse import urlencode
-#from django.contrib.gis.measure import Distance, D
 from geopy.distance import lonlat, distance
 
 class Index(generic.ListView):
