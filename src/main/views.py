@@ -16,7 +16,7 @@ def login_page(request):
             if 'next' in request.POST:
                 return redirect(request.POST['next'])
             else:
-                return redirect('main:homepage')
+                return redirect('goods:main')
         else:
             messages.info(request, 'Try again! username or password is incorrect')
 
@@ -25,7 +25,7 @@ def login_page(request):
 
 def logout_page(request):
     logout(request)
-    return redirect('main:login')
+    return redirect('main:homepage')
 
 def home_page(request):
     return render(request, 'main/home.html')

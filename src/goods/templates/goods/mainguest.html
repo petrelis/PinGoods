@@ -1,0 +1,164 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>PinGoods</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="{% static 'main/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body id="top">
+    <div class="bgded overlay" style="background-image:url('{% static 'main/farm2.jpg' %}');">
+        <!-- ################################################################################################ -->
+        <div class="wrapper row4">
+            <footer id="footer" class="hoc clear">
+                <!-- ################################################################################################ -->
+                <div class="group btmspace-50">
+
+                    <div class="one_half">
+                        <h6 class="heading">Search for goods in your local area</h6>
+
+                        <form action=" {% url 'goods:main' %}" method="get">
+                            <fieldset>
+                                <legend>Newsletter:</legend>
+
+								<input class="btmspace-15" name="addressSearch" type="text" value="" placeholder="Current location">
+                                <input class="btmspace-15" name="search" type="text" value="" placeholder="Search">
+
+
+                                <p class="nospace btmspace-15">Provided by: Google Maps</p>
+
+
+
+                                <button class="btn" type="submit" value="submit">Search</button>
+                                <a class="btn" href="./index.html">Home</a>
+
+
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+                    <!-- ################################################################################################ -->
+                    <hr class="btmspace-50">
+                    <!-- ################################################################################################ -->
+
+                    <!-- ################################################################################################ -->
+            </footer>
+        </div>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+
+        <!-- ################################################################################################ -->
+    </div>
+
+    <div style="background-color: black;" class="wrapper row3">
+        <main class="hoc container clear">
+            <!-- main body -->
+            <!-- ################################################################################################ -->
+
+            <div id="map" style="width:100%;height:760px;background:grey"></div>
+            <script>
+			function myMap() {
+			{% if user_coords_lat != 0 %}
+				var myLatLng = { lat: {{user_coords_lat}}, lng: {{user_coords_lng}} };
+			{% else %}
+			var myLatLng = { lat: {{Lat}}, lng: {{Lng}} };
+			{% endif %}
+			const map = new google.maps.Map(document.getElementById("map"), {
+			zoom: 12,
+			center: myLatLng,
+			options: {
+				gestureHandling: 'greedy'
+			}
+			});
+			
+			{% if user_coords_lat != 0 %}
+			myLatLng = { lat: {{ user_coords_lat }}, lng: {{ user_coords_lng }} };
+			new google.maps.Marker({
+				position: myLatLng,
+				map,
+				title: "Your location"
+			});
+			{% endif %}
+			
+			var markersArray = [];
+			
+			// create markers for all offers at their locations
+			{% for off in offers_all %}
+			myLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
+				index = markersArray.length;
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				index: index,
+				map,
+				title: "{{ off.offer_title }}"
+			});
+				
+				markersArray.push(marker);
+				
+				
+				
+				var selectedInfoWindow
+				
+				google.maps.event.addListener(marker, 'click', function () {
+				
+				
+					if (selectedInfoWindow != null && selectedInfoWindow.getMap() != null) {
+				selectedInfoWindow.close();
+				//If the clicked window is the selected window, deselect it and return
+				if (selectedInfoWindow == infoWindow) {
+					selectedInfoWindow = null;
+					return;
+				}
+			}
+				
+				var info = this.index
+				
+				var infowindow = new google.maps.InfoWindow({
+				content:"{{ off.offer_title }}"
+				});
+				
+				
+				selectedInfoWindow = infowindow;
+				infowindow.open(map,markersArray[info]);
+				
+			});
+				
+			{% endfor %}
+			
+			// if offer is found through searchbar create markers at found offer locations
+			{% if offer.offers %}
+			{% for off in offer.offers %}
+			myLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map,
+				title: "{{ off.offer_title }}"
+				// different style needed for found offer
+			});
+			{% endfor %}
+			{% endif %}
+			};
+  </script>
+  
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi0Sbbta29PDgKrcgzIiR-5NlMgv203ps&callback=myMap"></script>
+
+                
+        
+
+
+
+        </main>
+    </div>
+    
+    <script src=" ../layout/scripts/jquery.min.js"> </script> <script src="../layout/scripts/jquery.backtotop.js">
+            </script>
+            <script src="../layout/scripts/jquery.mobilemenu.js"></script>
+</body>
+
+</html>

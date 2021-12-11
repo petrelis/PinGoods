@@ -34,13 +34,16 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'main.apps.MainConfig',
     'goods.apps.GoodsConfig',  
-    'polls.apps.PollsConfig',    
+    'polls.apps.PollsConfig',
+    'pay.apps.PayConfig',    
+    'paypal.standard.ipn',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_google_maps',
 ]
 
 MIDDLEWARE = [
@@ -79,12 +82,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pingoods_information',
-        'USER': 'myuser',
-        'PASSWORD': 'mypass',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -136,3 +135,9 @@ MEDIA_URL = '/media/' # Public URL at the browser
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login'
+
+PAYPAL_RECEIVER_EMAIL = 'sellingsellerthings@gmail.com'
+
+PAYPAL_TEST = True
+
+GOOGLE_MAPS_API_KEY = "AIzaSyBi0Sbbta29PDgKrcgzIiR-5NlMgv203ps"
