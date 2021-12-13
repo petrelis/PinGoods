@@ -9,6 +9,7 @@ import requests
 from urllib.parse import urlencode
 from geopy.distance import lonlat, distance
 from main.models import Profile
+import difflib
 
 class Index(generic.ListView):
     template_name = 'goods/index.html'
@@ -51,7 +52,7 @@ def MainView(request):
     user = request.user
     isseller=False
     iscustomer=False
-    if user!=None:    
+    if user.id != None: 
         profile = Profile.objects.get(user_id=user)
         isseller=profile.isseller
         iscustomer=profile.iscustomer
@@ -60,8 +61,16 @@ def MainView(request):
         addressSearch = request.GET.get('addressSearch')
 
         offers_all = Offer.objects.all()
+    
         if search:
-            offer = offers_all.filter(offer_title__icontains=search)
+            offer_score={}
+            offers=Offer.objects.values_list('offer_title', flat=True)
+            
+            for i in offers:
+                offer_score[i]=difflib.SequenceMatcher(None, search.lower(), i.lower()).ratio()
+            
+            results = sorted(offer_score, key=offer_score.get, reverse=True)[:1] 
+            offer = offers_all.filter(offer_title__in=results)
         else: offer = offers_all.filter(offer_price = -1)
         if offer.exists():
             lat = offer.first().offer_coords_lat
@@ -78,8 +87,11 @@ def MainView(request):
             user_location = (user_coords_lat, user_coords_lng)
             for off in offer:
                 offer_location = (off.offer_coords_lat, off.offer_coords_lng)
-                offer_distance = (distance(user_location, offer_location).km)
+                offer_distance = format((distance(user_location, offer_location).km),'.2f')
                 offerAndDist.append({
+                    'id':off.id,
+                    'user_coords_lat': user_coords_lat,
+                    'user_coords_lng': user_coords_lng,
                     'title': off.offer_title,
                     'distance': offer_distance
                 })
@@ -97,6 +109,7 @@ def MainView(request):
             'user_coords_lng': user_coords_lng,
             'range': range(len(offerAndDist))
         }
+        
         if isseller==True:
             return render (request, "goods/mainseller.html", context)
         elif iscustomer==True:
