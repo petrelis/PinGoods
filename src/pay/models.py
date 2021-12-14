@@ -22,9 +22,9 @@ class Order(models.Model):
 
 class SubscriptionOrder(models.Model):
     name = models.CharField(max_length=191)
-    email = models.EmailField()
-    postal_code = models.IntegerField()
-    address = models.CharField(max_length=191)
+    email = models.EmailField() #Irrelevant
+    postal_code = models.IntegerField() #Irrelevant
+    address = models.CharField(max_length=191) #Irrelevant
     date = models.DateTimeField(auto_now_add=True)
     paid = models.BooleanField(default=False)
 

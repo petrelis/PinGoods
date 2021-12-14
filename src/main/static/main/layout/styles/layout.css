@@ -1,13 +1,5 @@
 @charset "utf-8";
-/*
-Template Name: Yammoe
-Author: <a href="https://www.os-templates.com/">OS Templates</a>
-Author URI: https://www.os-templates.com/
-Copyright: OS-Templates.com
-Licence: Free to use under our free template licence terms
-Licence URI: https://www.os-templates.com/template-terms
-File: Layout CSS
-*/
+
 
 @import url("fontawesome-free/css/all.css");
 @import url("framework.css");
@@ -305,18 +297,18 @@ td{border-width:0 1px;}
 /* Colours
 --------------------------------------------------------------------------------------------------------------- */
 body{color:#A8A8A8; background-color:#202020/* Fallback incase a background image doesn't load */;}
-a{color:#828BF4;}
+a{color:#8c8065;}
 a:active, a:focus{background:transparent !important;}/* IE10 + 11 Bugfix - prevents grey background */
 hr, .borderedbox{border-color:#D7D7D7;}
 label span{color:#FF0000; background-color:inherit;}
-input:focus, textarea:focus, *:required:focus{border-color:#828BF4 !important;}
+input:focus, textarea:focus, *:required:focus{border-color:#8c8065 !important;}
 
 .overlay{color:#FFFFFF; background-color:inherit;}
 .overlay::after{color:inherit; background-color:rgba(0,0,0,.55);}
 .overlay.light{color:#474747;}
 .overlay.light::after{background-color:rgba(255,255,255,.7);}
 
-.btn, .btn.inverse:hover{color:#FFFFFF; background-color:#828BF4; border-color:#828BF4;}
+.btn, .btn.inverse:hover{color:#FFFFFF; background-color:#8c8065; border-color:#8c8065;}
 .btn:hover, .btn.inverse{color:inherit; background-color:transparent; border-color:inherit;}
 
 .imgover:hover::before{background-color:rgba(130,139,244,.3);/* #828BF4 */}
@@ -362,12 +354,12 @@ input:focus, textarea:focus, *:required:focus{border-color:#828BF4 !important;}
 
 #footer input, #footer button{border-color:transparent;}
 #footer input{color:#FFFFFF; background-color:rgba(255,255,255,.2);}
-#footer input:focus{background-color:#828BF4;}
-#footer button{color:#FFFFFF; background-color:#828BF4;}
+#footer input:focus{background-color:#8c8065;}
+#footer button{color:#FFFFFF; background-color:#8c8065;}
 #footer button:hover{color:inherit; background-color:transparent; border-color:inherit;}
 
 #footer nav a{color:#FFFFFF;}
-#footer nav a:hover{color:#828BF4;}
+#footer nav a:hover{color:#8c8065;}
 
 
 /* Copyright */
@@ -382,15 +374,15 @@ input:focus, textarea:focus, *:required:focus{border-color:#828BF4 !important;}
 #mainav form select{color:#474747; background-color:#FFFFFF; border-color:#D7D7D7;}
 
 #breadcrumb *{color:#FFFFFF; background-color:inherit;}
-#breadcrumb li:last-child a{color:#828BF4;}
+#breadcrumb li:last-child a{color:#8c8065;}
 
 .container .sidebar nav a{color:inherit; border-color:#D7D7D7;}
-.container .sidebar nav a:hover{color:#828BF4;}
+.container .sidebar nav a:hover{color:#8c8065;}
 
 .pagination a, .pagination strong{border-color:#D7D7D7;}
-.pagination .current *{color:#FFFFFF; background-color:#828BF4;}
+.pagination .current *{color:#FFFFFF; background-color:#8c8065;}
 
-#backtotop{color:#FFFFFF; background-color:#828BF4;}
+#backtotop{color:#FFFFFF; background-color:#8c8065;}
 
 
 /* Tables + Comments */
@@ -528,3 +520,8 @@ table a, #comments a{background-color:inherit;}
 .gustas{
 	color: white;
 }
+
+.rowPurchase{
+	height: 900px;
+}
+

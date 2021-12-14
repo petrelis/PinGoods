@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>PinGoods</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="{% static 'goods/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<div class="bgded overlay" style="background-image:url('{% static 'goods/farm2.jpg' %}');">
+    <section class="hoc container clear">
+        <ul class="nospace group team sd-third">
+            <p class="nospace btmspace-15">My Offers</p>
+			{% for off in offers %}
+			{% if off.user.username == user.get_username %}
+			{% if forloop.first %}
+			<li class="one_quarter first">
+              <figure><a class="imgover" href="#"><img src="images/demo/348x400.png" alt=""></a>
+                <figcaption><strong>{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em></figcaption>
+              </figure>
+            </li>
+			{% else %}
+            <li class="one_quarter">
+              <figure><a class="imgover" href="#"><img src="images/demo/348x400.png" alt=""></a>
+                <figcaption><strong>{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em></figcaption>
+              </figure>
+            </li>
+			{% endif %}
+			{% else %}
+			{% if forloop.first %}
+			<p>You have not made any offers.</p>
+			{% endif %}
+			{% endif %}
+			{% endfor %}
+          </ul>
+
+
+    </section>
+  </div>
+
+
+</body>
+
+</html>

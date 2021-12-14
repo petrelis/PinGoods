@@ -26,12 +26,16 @@
           <nav id="mainav" class="fl_right"> 
             <p>Username: {{ user.get_username }}</p>
             <li><a class="btn" href="{% url 'goods:addoffer' %}">Sell Goods</a></li>
-            <li><a class="btn" href="./SellerReviewOffers.html">View My Offers</a></li>
+            <li><a class="btn" href="{% url 'goods:offerlist' %}">View My Offers</a></li>
             <li><a class="btn" href="">View Favorites</a></li>
-            <li><a class="btn" href="./index.html">Enable/Cancel subsription</a></li>
+			{% if user.profile.subscribed == False %}
+            <li><a class="btn" href="{% url 'pay:checkout' %}">Buy subscription</a></li>
+			{% else %}
+			<li><a class="btn" >Subscribed until: {{ user.profile.subscriptionenddate }}</a></li>
+			{% endif %}
             <li><a class="btn" href="./SellerEditPage.html">Edit My Profile</a></li>
             <li><a class="btn" href="{% url 'main:logout' %}">Log out</a></li>
-            <li><a class="btn" href="./index.html">Deactivate My Profile</a></li>
+            <li><a class="btn" href="./index.html">Delete Profile</a></li>
 
           </nav>
         </header>
@@ -70,7 +74,13 @@
                               <button class="btn" type="submit" >Search</button>
 							</form>
                               
-          
+							{% if offerAndDist %}
+								<br>
+								{% for i in offerAndDist %}
+									<center><h2>{{ i.title }} {{ i.distance }}km </h2></center>
+								{% endfor %}
+							{% else %} 
+							{%endif%} 
                              
                             </fieldset>
                         </div>
@@ -95,6 +105,8 @@
 
             <div id="map" style="width:100%;height:760px;background:grey"></div>
             <script>
+			let off = "2";
+			
 			function myMap() {
 			{% if user_coords_lat != 0 %}
 				var myLatLng = { lat: {{user_coords_lat}}, lng: {{user_coords_lng}} };
@@ -120,7 +132,92 @@
 			
 			var markersArray = [];
 			
-			// create markers for all offers at their locations
+			// if offer is found through searchbar create markers at found offer locations
+			{% if offerAndDist %}
+			{% for off in offerAndDist %} //Found offer
+			myLatLng = { lat: {{ off.user_coords_lat }}, lng: {{ off.user_coords_lng }} };
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map,
+				title: "Your location"
+				
+			});
+			
+			{% endfor %}
+			
+			{% for off in offer %} //Offers in the search bar
+			{% for current in offerAndDist %}
+			{% if off.id == current.id %} //Id of each offer is compared to id of best result
+			offerLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
+			index = markersArray.length;
+			var marker = new google.maps.Marker({
+				position: offerLatLng,
+				map,
+				index: index,
+				title: "{{ off.offer_title }}"
+				
+				
+			});
+			
+			markersArray.push(marker); //Pushes a marker to a list of marker arrays, to keep track of indice
+			
+			
+			var selectedInfoWindow
+			
+			//if marker is clicked:
+			google.maps.event.addListener(marker, 'click', function () {
+			
+			
+			if (selectedInfoWindow != null && selectedInfoWindow.getMap() != null) {
+			selectedInfoWindow.close();
+			//If the clicked window is the selected window, deselect it and return
+			if (selectedInfoWindow == infoWindow) {
+				selectedInfoWindow = null;
+				return;
+			}
+			}
+				
+			var info = this.index
+			
+			
+			
+			off = {{ off.id }}
+			listReviews(); //triggers function which changes reviews
+			
+			//Infobox info
+			const contentString =
+			'<div id="content">' +
+			'<div id="siteNotice">' +
+			"</div>" +
+			"<div style='float:left'><img src='{{ off.offer_image.url }}' style='width:200px;height:200px;'></div>" +
+			'<a class="btn" href="">Purchase</a>' +
+			'<h1 id="firstHeading" class="firstHeading"> {{ off.offer_price }}</h1>' +
+			'<h1 id="firstHeading" class="firstHeading">{{ off.offer_title }}</h1>' +
+			'<p class="btmspace-15">{{ off.user }}</p>' +
+			'<div id="bodyContent">' +
+			"{{ off.offer_text }} " +
+			"</div>" +
+			"</div>";
+			
+			//creates an infobox
+			var infowindow = new google.maps.InfoWindow({
+			content: contentString,
+			});
+			
+			//checks last selected info box, so only one infobox is open at the time
+			selectedInfoWindow = infowindow;
+			infowindow.open(map,markersArray[info]);
+			
+			});
+			
+			{% endif %}
+			{% endfor %}
+			{% endfor %}
+			
+			{% else %}
+			
+			// Otherwise, if there is no search result, create markers for all offers at their locations
+
 			{% for off in offers_all %}
 			myLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
 				index = markersArray.length;
@@ -131,48 +228,57 @@
 				title: "{{ off.offer_title }}"
 			});
 				
-				markersArray.push(marker);
-				
-				
-				
-				var selectedInfoWindow
-				
-				google.maps.event.addListener(marker, 'click', function () {
-				
-				
-					if (selectedInfoWindow != null && selectedInfoWindow.getMap() != null) {
-				selectedInfoWindow.close();
-				//If the clicked window is the selected window, deselect it and return
-				if (selectedInfoWindow == infoWindow) {
-					selectedInfoWindow = null;
-					return;
-				}
+			markersArray.push(marker); //Pushes a marker to a list of marker arrays, to keep track of indice
+			
+			
+			
+			var selectedInfoWindow
+			
+			//if marker is clicked:
+			google.maps.event.addListener(marker, 'click', function () {
+			
+			
+			if (selectedInfoWindow != null && selectedInfoWindow.getMap() != null) {
+			selectedInfoWindow.close();
+			//If the clicked window is the selected window, deselect it and return
+			if (selectedInfoWindow == infoWindow) {
+				selectedInfoWindow = null;
+				return;
+			}
 			}
 				
-				var info = this.index
-				
-				var infowindow = new google.maps.InfoWindow({
-				content:"{{ off.offer_title }}"
-				});
-				
-				
-				selectedInfoWindow = infowindow;
-				infowindow.open(map,markersArray[info]);
-				
-			});
-				
-			{% endfor %}
+			var info = this.index
 			
-			// if offer is found through searchbar create markers at found offer locations
-			{% if offer.offers %}
-			{% for off in offer.offers %}
-			myLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
-			var marker = new google.maps.Marker({
-				position: myLatLng,
-				map,
-				title: "{{ off.offer_title }}"
-				// different style needed for found offer
+			off = {{ off.id }}
+			listReviews(); //triggers function which changes reviews
+			
+			//Infobox info
+			const contentString =
+			'<div id="content">' +
+			'<div id="siteNotice">' +
+			"</div>" +
+			"<div style='float:left'><img src='{{ off.offer_image.url }}' style='width:200px;height:200px;'></div>" +
+			'<a class="btn" href="">Purchase</a>' +
+			'<a class="btn" href="">Favouritise</a>' +
+			'<h1 id="firstHeading" class="firstHeading"> {{ off.offer_price }}</h1>' +
+			'<h1 id="firstHeading" class="firstHeading">{{ off.offer_title }}</h1>' +
+			'<p class="btmspace-15">{{ off.user }}</p>' +
+			'<div id="bodyContent">' +
+			"{{ off.offer_text }} " +
+			"</div>" +
+			"</div>";
+			
+			//creates an infobox
+			var infowindow = new google.maps.InfoWindow({
+			content: contentString,
 			});
+			
+			//checks last selected info box, so only one infobox is open at the time
+			selectedInfoWindow = infowindow;
+			infowindow.open(map,markersArray[info]);
+			
+			});
+				
 			{% endfor %}
 			{% endif %}
 			};
@@ -197,26 +303,40 @@
     <div class="bgded overlay" style="background-image:url('{% static 'main/images/demo/backgrounds/01.png' %}');">
         <section id="testimonials" class="hoc container clear"> 
           <!-- ################################################################################################ -->
-          <div class="sectiontitle">
             
-            <h6 class="heading font-x2">Reviews</h6>
-          </div>
-          <article class="one_half first">
-            <figure class="clear"><img src="images/demo/100x100.png" alt="">
-              <figcaption>
-                <h6 class="heading">E. Doe</h6>
-                <em>Conubia nostra per inceptos</em></figcaption>
-            </figure>
-            <blockquote>Himenaeos curabitur feugiat etiam in enim sed felis interdum lobortis phasellus nec eros ut arcu sollicitudin pellentesque curabitur porta justo vitae molestie semper ligula.</blockquote>
-          </article>
-          <article class="one_half">
-            <figure class="clear"><img src="images/demo/100x100.png" alt="">
-              <figcaption>
-                <h6 class="heading">F. Doe</h6>
-                <em>Neque euismod nisi non</em></figcaption>
-            </figure>
-            <blockquote>Suscipit sem ante quis tortor curabitur ornare justo ut lobortis pulvinar diam elit accumsan felis non suscipit nunc erat sed justo etiam luctus imperdiet mauris donec id sapien.</blockquote>
-          </article>
+            <script>
+			function listReviews(){
+				{% for offer in offers_all %}
+				off2 = "{{ offer.id }}"
+				
+				if(off == off2)
+				{
+				const parent = document.getElementById("testimonials")
+				while (parent.firstChild) {
+					parent.firstChild.remove()
+				}
+				node = document.getElementById('testimonials');
+				node.insertAdjacentHTML('beforeend', '<div class="sectiontitle"><h6 class="heading font-x2">Reviews</h6></div>');
+				var count = 1;
+				{% for review in offer.review_set.all %}
+				if(count%2==1)
+				{
+			    count = count + 1;
+				node = document.getElementById('testimonials');
+				node.insertAdjacentHTML('beforeend', '<article class="one_half first"> <figure class="clear"><img src="images/demo/100x100.png" alt=""> <figcaption> <h6 class="heading">{{ review.author }}</h6> <em>{{ review.pub_date }}</em></figcaption> </figure> <blockquote>{{ review.review_text }}</blockquote> </article>');
+				}
+				else
+				{
+				count = count + 1;
+				node = document.getElementById('testimonials');
+				node.insertAdjacentHTML('beforeend', '<article class="one_half"> <figure class="clear"><img src="images/demo/100x100.png" alt=""> <figcaption> <h6 class="heading">{{ review.author }}</h6> <em>{{ review.pub_date }}</em></figcaption> </figure> <blockquote>{{ review.review_text }}</blockquote> </article>');
+				}
+				{% endfor %}
+				}
+				{% endfor %}
+				};
+			</script>
+			
           <!-- ################################################################################################ -->
         </section>
       </div>

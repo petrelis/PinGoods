@@ -1,8 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="">
 
+<head>
+    <title>PinGoods</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="{% static 'pay/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
 
-{% block title %}Make Payment{% endblock %}
+<body id="top">
+    
+    <div class="bgded overlay" style="background-image:url('{% static 'pay/farm2.jpg' %}');">
+        <!-- ################################################################################################ -->
+        <div class="wrapper row4 rowPurchase">
+            <footer id="footer" class="hoc clear">
+                <!-- ################################################################################################ -->
+                <div class="group btmspace-50">
 
-{% block content %}
-    <h4>Pay with PayPal</h4>
-    {{ form.render }}
-{% endblock %}
+                    <div class="one_half">
+
+                        {% block title %}Make Payment{% endblock %}
+
+						{% block content %}
+							<h4>Pay with PayPal</h4>
+							{{ form.render }}
+						{% endblock %}
+
+                        
+                    </div>
+
+                    <!-- ################################################################################################ -->
+                    <hr class="btmspace-50">
+                    <!-- ################################################################################################ -->
+
+                    <!-- ################################################################################################ -->
+            </footer>
+        </div>
+
+        
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+
+        <!-- ################################################################################################ -->
+    </div>
+
+    
+    
+    <script src=" ../layout/scripts/jquery.min.js"> </script> <script src="../layout/scripts/jquery.backtotop.js">
+            </script>
+            <script src="../layout/scripts/jquery.mobilemenu.js"></script>
+</body>
+
+</html>

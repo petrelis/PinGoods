@@ -119,33 +119,45 @@ def MainView(request):
 
 @login_required
 def AddOffer(request):
-    offers = Offer.objects.all()
-    categories = Category.objects.all()
-    if request.method == "POST": 
-        if "offerAdd" in request.POST: 
-            current_user = request.user
-            chosen_category = request.POST["category_select"]
-            title = request.POST["title"]
-            text = request.POST["text"]
-            price = request.POST["price"]
-            phonenumber = request.POST["phonenumber"]
-            address = request.POST["address"]
-            date = datetime.now()
-            offer = Offer(
-                user=current_user,
-                category=Category.objects.get(category_name=chosen_category),
-                offer_title=title, 
-                offer_text=text, 
-                offer_price=price,
-                offer_phonenumber=phonenumber,
-                offer_address=address,
-                offer_coords_lat = extract_lat_lng(address)[0],
-                offer_coords_lng = extract_lat_lng(address)[1],
-                pub_date=date,
-                offer_image='default.jpg')
-            offer.save()
-            return redirect("/goods")
-    return render(request, "goods/addoffer.html", {"offers": offers, "categories":categories})
+    user = request.user
+    profile = Profile.objects.get(user_id=user)
+    if profile.isseller != True:
+        return redirect("/goods/main")
+    else:
+        offers = Offer.objects.all()
+        categories = Category.objects.all()
+        if request.method == "POST": 
+            if "offerAdd" in request.POST: 
+                current_user = request.user
+                title = request.POST["title"]
+                chosen_category = request.POST["category_select"]
+                quantity = request.POST["quantity"]
+                price = request.POST["price"]
+                address = request.POST["address"]
+                phonenumber = request.POST["phonenumber"]
+                text = request.POST["text"]  
+                if request.method == 'POST' and 'imageinput' in request.FILES:
+                    doc = request.FILES #returns a dict-like object
+                    doc_name = doc['imageinput']
+                else:
+                    doc_name="default.jpg"
+                    date = datetime.now()
+                    offer = Offer(
+                        user=current_user,
+                        category=Category.objects.get(category_name=chosen_category),
+                        offer_title=title, 
+                        offer_text=text, 
+                        offer_quantity=quantity,
+                        offer_price=price,
+                        offer_phonenumber=phonenumber,
+                        offer_address=address,
+                        offer_coords_lat = extract_lat_lng(address)[0],
+                        offer_coords_lng = extract_lat_lng(address)[1],
+                        offer_image=doc_name,
+                        pub_date=date)
+                    offer.save()
+                    return redirect("/goods")
+        return render(request, "goods/addoffer.html", {"offers": offers, "categories":categories})
 
 @login_required
 def AddReview(request, offer_id):
@@ -166,3 +178,12 @@ def AddReview(request, offer_id):
             review.save()
             return redirect("/goods/" + str(offer_id))
     return render(request, "goods/addreview.html", {"reviews": reviews})
+
+class OfferList(generic.ListView):
+    template_name = 'goods/offerlist.html'
+    context_object_name = 'offers'
+
+    def get_queryset(self):
+        return Offer.objects.filter(
+            pub_date__lte=timezone.now()
+            ).order_by('-pub_date')[:5]

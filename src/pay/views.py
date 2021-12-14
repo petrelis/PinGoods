@@ -20,37 +20,33 @@ def index(request):
 
 def checkout(request):
     if request.method == 'POST':
-        form = CheckoutForm(request.POST)
-        if form.is_valid():
-            cleaned_data = form.cleaned_data
-            o = SubscriptionOrder(
-                name = request.user,
-                email = cleaned_data.get('email'),
-                postal_code = cleaned_data.get('postal_code'),
-                address = cleaned_data.get('address'),
-            )
-            o.save()
+        o = SubscriptionOrder(
+            name = request.user,
+            email = "None",
+            postal_code = 0,
+            address = "None",
+        )
+        o.save()
 
-            current_user = request.user
-            date = datetime.now()
-            li = Subscription(
-                user=current_user,
-                start_date=date,
-                end_date=date+timedelta(days=30),
-                order_id = o.id,
-                valid = False)
+        current_user = request.user
+        date = datetime.now()
+        li = Subscription(
+            user=current_user,
+            start_date=date,
+            end_date=date+timedelta(days=30),
+            order_id = o.id,
+            valid = False)
 
-            li.save()
+        li.save()
 
-            request.session['order_id'] = o.id
+        request.session['order_id'] = o.id
 
-            messages.add_message(request, messages.INFO, 'Order Placed!')
-            return redirect('process_payment')
+        messages.add_message(request, messages.INFO, 'Order Placed!')
+        return redirect('/pay/process-payment')
 
 
     else:
-        form = CheckoutForm()
-        return render(request, 'pay/checkout.html', {'form': form})
+        return render(request, 'pay/checkout.html')
 
 def process_payment(request):
     order_id = request.session.get('order_id')
@@ -66,9 +62,9 @@ def process_payment(request):
         'notify_url': 'http://{}{}'.format(host,
                                            reverse('paypal-ipn')),
         'return_url': 'http://{}{}'.format(host,
-                                           reverse('payment_done')),
+                                           reverse('pay:payment_done')),
         'cancel_return': 'http://{}{}'.format(host,
-                                              reverse('payment_cancelled')),
+                                              reverse('pay:payment_cancelled')),
     }
 
     form = PayPalPaymentsForm(initial=paypal_dict)

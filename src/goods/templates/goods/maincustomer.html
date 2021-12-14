@@ -194,9 +194,6 @@
 			'<p class="btmspace-15">{{ off.user }}</p>' +
 			'<div id="bodyContent">' +
 			"{{ off.offer_text }} " +
-			{% for review in off.review_set.all %}
-			'<p class="btmspace-15">{{ review.review_text }}</p>' +
-			{% endfor %}
 			"</div>" +
 			"</div>";
 			
@@ -260,14 +257,12 @@
 			"</div>" +
 			"<div style='float:left'><img src='{{ off.offer_image.url }}' style='width:200px;height:200px;'></div>" +
 			'<a class="btn" href="">Purchase</a>' +
+			'<a class="btn" href="">Favouritise</a>' +
 			'<h1 id="firstHeading" class="firstHeading"> {{ off.offer_price }}</h1>' +
 			'<h1 id="firstHeading" class="firstHeading">{{ off.offer_title }}</h1>' +
 			'<p class="btmspace-15">{{ off.user }}</p>' +
 			'<div id="bodyContent">' +
 			"{{ off.offer_text }} " +
-			{% for review in off.review_set.all %}
-			'<p class="btmspace-15">{{ review.review_text }}</p>' +
-			{% endfor %}
 			"</div>" +
 			"</div>";
 			
