@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from .forms import OfferEditForm
 from .models import Offer, Review, Category
 from datetime import datetime
 from django.utils import timezone
 from django.views import generic
+from django.contrib import messages
 
 class Index(generic.ListView):
     template_name = 'goods/index.html'
@@ -60,6 +62,29 @@ def AddOffer(request):
             offer.save()
             return redirect("/goods")
     return render(request, "goods/addoffer.html", {"offers": offers, "categories":categories})
+
+@login_required
+def EditOffer(request, offer_id):
+    offer = get_object_or_404(Offer, pk=offer_id)
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        offeredit_form = OfferEditForm(request.POST, instance=request.user)
+
+        if offeredit_form.is_valid():
+            current_user = request.user
+            offer.refresh_from_db()
+            Offer.objects.filter(pk=offer_id).update(offer_text = offeredit_form.cleaned_data.get('description'))
+            Offer.objects.filter(pk=offer_id).update(category = offeredit_form.cleaner_data.get('gustas'))
+            Offer.objects.filter(pk=offer_id).update(offer_phonenumber = offeredit_form.cleaned_data.get('phone_number'))
+            Offer.objects.filter(pk=offer_id).update(offer_address = offeredit_form.cleaned_data.get('address'))
+            Offer.objects.filter(pk=offer_id).update(offer_price = offeredit_form.cleaned_data.get('price'))
+            #print(offer.Offer.address)
+            offeredit_form.save()
+            messages.success(request, 'Your offer is updated successfully')
+            return redirect("/goods/" + str(offer_id))
+    else:
+        offeredit_form = OfferEditForm(instance=request.user)
+    return render(request, "goods/offeredit.html", {"offer": offer, "categories":categories})
 
 @login_required
 def AddReview(request, offer_id):

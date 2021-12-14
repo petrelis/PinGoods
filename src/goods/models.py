@@ -9,12 +9,12 @@ from django.contrib import admin
 class Category(models.Model): 
     category_name = models.CharField(max_length=50)
     category_colour = models.CharField(max_length=50)
-    
+
     class Meta:
         verbose_name = ("Category")
         verbose_name_plural = ("Categories")
-    
-    def __str__(self):
+
+    def str(self):
         return self.category_name
 
 
@@ -28,7 +28,7 @@ class Offer(models.Model):
     offer_address = models.CharField(max_length=30, blank=True)
     pub_date = models.DateTimeField('date published')
     offer_image = models.ImageField(default='default.jpg', upload_to='offer_pics')
-    def __str__(self):
+    def str(self):
         return self.offer_title
     @admin.display(
         boolean=True,
@@ -45,5 +45,5 @@ class Review(models.Model):
     review_text = models.CharField(max_length=200)
     rating = models.IntegerField(default=0)
     pub_date = models.DateTimeField('date published', default=now)
-    def __str__(self):
+    def str(self):
         return self.review_text

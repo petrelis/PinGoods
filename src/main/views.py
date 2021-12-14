@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView, PasswordResetDoneView
 from django.contrib.messages.views import SuccessMessageMixin
+from .models import Profile
 
 def login_page(request):
     if request.method == 'POST':
@@ -84,10 +85,16 @@ def sellerregister_page(request):
     return render(request, 'main/sellerregister.html', {'form': form})
 
 def usereditview_page(request):
+    user = request.user
+    profile = Profile.objects.get(user_id=user)
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
-
         if user_form.is_valid():
+            user.refresh_from_db()
+            user.profile.phone = user_form.cleaned_data.get('phone')
+            user.profile.city = user_form.cleaned_data.get('city')
+            user.profile.address = user_form.cleaned_data.get('address')
+            print(user.profile.address)
             user_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect('/home')
