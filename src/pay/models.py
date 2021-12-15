@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.utils.timezone import now
 from django.contrib import admin
     
-class Order(models.Model):
+class Order(models.Model): #DO NOT USE
     name = models.CharField(max_length=191)
     email = models.EmailField()
     postal_code = models.IntegerField()

@@ -20,7 +20,7 @@
                 <div class="group btmspace-50">
 
                     <div class="center">
-                        <h6 class="heading">Sell your product</h6>
+                        <h6 class="heading">Edit offer</h6>
                         
                         <form action="#" method="post" enctype="multipart/form-data">
 							{% csrf_token %}
@@ -32,32 +32,34 @@
 
 
 
-                                <input class="btmspace-15" name="title" type="text" value="" placeholder="Title">
+                                <input class="btmspace-15" name="title" type="text" value="{{offer.offer_title}}" placeholder="Title">
 
                                 <div class="inputfield">
                                     <label>Product category</label>
                                     <div class="custom_select" class = "btmspace-15">
                                         <select name="category_select" class="btmspace-15 btn">
-											<option value="">Select</option>
+										<option name="category"> {{ offer.category.category_name }}</option>
 											{% for category in categories %}
-											<option value="{{ category.category_name }}">{{ category.category_name }}</option>
+											{% ifnotequal offer.category.category_name category.category_name %}
+											<option name="category"> {{ category.category_name }}</option>
+											{% endifnotequal %}
 											{% endfor %}
 
                                         </select>
                                     </div>
 
-                                    <input class="btmspace-15" name="quantity"  type="text" value="" placeholder="Quantity">
-                                    <input class="btmspace-15" name="price"  type="text" value="" placeholder="Price">
-                                    <input class="btmspace-15" name="address"  type="text" value="" placeholder="Address">
-									<input class="btmspace-15" name="paypal"  type="text" value="" placeholder="Paypal link">
-									<input class="btmspace-15" name="phonenumber"  type="text" value="" placeholder="Phone Number">
-                                    <input class="btmspace-15" name="text"  type="text" value="" placeholder="Description">
+                                    <input class="btmspace-15" name="quantity"  type="text" value="{{offer.offer_quantity}}" placeholder="Quantity">
+                                    <input class="btmspace-15" name="price"  type="text" value="{{offer.offer_price}}" placeholder="Price">
+                                    <input class="btmspace-15" name="address"  type="text" value="{{offer.offer_address}}" placeholder="Address">
+									<input class="btmspace-15" name="paypal"  type="text" value="{{offer.offer_paypal}}" placeholder="Paypal link">
+									<input class="btmspace-15" name="phonenumber"  type="text" value="{{offer.offer_phonenumber}}" placeholder="Phone Number">
+                                    <input class="btmspace-15" name="text"  type="text" value="{{offer.offer_text}}" placeholder="Description">
 
 
 
                                     <div class="inputfield">
 
-                                        <input type="file" name="imageinput" id="id_imageinput" accept="image/png, image/jpg">
+                                        <input type="file" name="imageinput" id="id_imageinput" value="" accept="image/png, image/jpg">
 
                                         <div id="display_image"></div>
 
@@ -74,8 +76,8 @@
 
 
 
-                                    <button class="btn" name="offerAdd" type="submit">Submit</a>
-                                    <a class="btn" href="{% url 'main:homepage' %}">Home</a>
+									<button  class="btn" name="offerAdd" type="submit" value="submit">Submit</button>
+									<a class="btn" href="{% url 'main:homepage' %}">Home</a>
 
 
                             </fieldset>

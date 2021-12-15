@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
 from mysite.settings import GOOGLE_MAPS_API_KEY
-from .models import Offer, Review, Category
+from .models import Offer, Review, Category, Order
 from datetime import datetime
 from django.utils import timezone
 from django.views import generic
@@ -9,6 +11,8 @@ import requests
 from urllib.parse import urlencode
 from geopy.distance import lonlat, distance
 from main.models import Profile
+from paypal.standard.forms import PayPalPaymentsForm
+from .forms import OfferEditForm
 import difflib
 
 class Index(generic.ListView):
@@ -134,6 +138,7 @@ def AddOffer(request):
                 quantity = request.POST["quantity"]
                 price = request.POST["price"]
                 address = request.POST["address"]
+                paypal = request.POST["paypal"]
                 phonenumber = request.POST["phonenumber"]
                 text = request.POST["text"]  
                 if request.method == 'POST' and 'imageinput' in request.FILES:
@@ -141,22 +146,23 @@ def AddOffer(request):
                     doc_name = doc['imageinput']
                 else:
                     doc_name="default.jpg"
-                    date = datetime.now()
-                    offer = Offer(
-                        user=current_user,
-                        category=Category.objects.get(category_name=chosen_category),
-                        offer_title=title, 
-                        offer_text=text, 
-                        offer_quantity=quantity,
-                        offer_price=price,
-                        offer_phonenumber=phonenumber,
-                        offer_address=address,
-                        offer_coords_lat = extract_lat_lng(address)[0],
-                        offer_coords_lng = extract_lat_lng(address)[1],
-                        offer_image=doc_name,
-                        pub_date=date)
-                    offer.save()
-                    return redirect("/goods")
+                date = datetime.now()
+                offer = Offer(
+                    user=current_user,
+                    category=Category.objects.get(category_name=chosen_category),
+                    offer_title=title, 
+                    offer_text=text, 
+                    offer_quantity=quantity,
+                    offer_price=price,
+                    offer_phonenumber=phonenumber,
+                    offer_address=address,
+                    offer_paypal=paypal,
+                    offer_coords_lat = extract_lat_lng(address)[0],
+                    offer_coords_lng = extract_lat_lng(address)[1],
+                    offer_image=doc_name,
+                    pub_date=date)
+                offer.save()
+                return redirect("/goods")
         return render(request, "goods/addoffer.html", {"offers": offers, "categories":categories})
 
 @login_required
@@ -187,3 +193,88 @@ class OfferList(generic.ListView):
         return Offer.objects.filter(
             pub_date__lte=timezone.now()
             ).order_by('-pub_date')[:5]
+    
+@login_required
+def EditOffer(request, offer_id):
+    offer = get_object_or_404(Offer, pk=offer_id)
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        offeredit_form = OfferEditForm(request.POST, instance=request.user)
+
+        if offeredit_form.is_valid():
+            current_user = request.user
+            offer.refresh_from_db()
+            Offer.objects.filter(pk=offer_id).update(offer_text = offeredit_form.cleaned_data.get('description'))
+            #Offer.objects.filter(pk=offer_id).update(category = offeredit_form.cleaner_data.get('category'))
+            Offer.objects.filter(pk=offer_id).update(offer_phonenumber = offeredit_form.cleaned_data.get('phone_number'))
+            Offer.objects.filter(pk=offer_id).update(offer_address = offeredit_form.cleaned_data.get('address'))
+            Offer.objects.filter(pk=offer_id).update(offer_price = offeredit_form.cleaned_data.get('price'))
+            Offer.objects.filter(pk=offer_id).update(offer_price = offeredit_form.cleaned_data.get('price'))
+            #print(offer.Offer.address)
+            if request.method == 'POST' and 'imageinput' in request.FILES:
+                doc = request.FILES #returns a dict-like object
+                doc_name = doc['imageinput']
+            else:
+                doc_name=offer.offer_image
+            Offer.objects.filter(pk=offer_id).update(category=Category.objects.get(category_name=request.POST["category_select"]))
+            Offer.objects.filter(pk=offer_id).update(offer_image=doc_name)
+            offeredit_form.save()
+            messages.success(request, 'Your offer is updated successfully')
+            return redirect("/goods/" + str(offer_id))
+    else:
+        offeredit_form = OfferEditForm(instance=request.user)
+    return render(request, "goods/offeredit.html", {"offer": offer, "categories":categories})
+    
+def checkout(request, offer_id):
+    if request.method == 'POST':
+        date = datetime.now()
+        o = Order(
+            name = request.user,
+            offer = get_object_or_404(Offer, pk=offer_id),
+            email = "None",
+            address = "None",
+            date = date,
+            paid = False,
+        )
+        o.save()
+
+        request.session['order_id'] = o.id
+
+        messages.add_message(request, messages.INFO, 'Order Placed!')
+        return redirect('/goods/' + str(offer_id) + '/process_payment')
+
+
+    else:
+        return render(request, 'pay/checkout.html')
+
+def process_payment(request, offer_id):
+    order_id = request.session.get('order_id')
+    order = get_object_or_404(Order, id=order_id)
+    offer = get_object_or_404(Offer, pk=offer_id)
+    host = request.get_host()
+
+    paypal_dict = {
+        'business': offer.offer_paypal,
+        'amount': '%.2f' % order.cost(),
+        'item_name': 'Order {}'.format(order.id),
+        'invoice': str(offer_id) + str(offer.offer_title) + str(order.id),
+        'currency_code': 'USD',
+        'notify_url': 'http://{}{}'.format(host,
+                                           reverse('paypal-ipn')),
+        'return_url': 'http://{}{}'.format(host,
+                                           reverse('pay:payment_done')),
+        'cancel_return': 'http://{}{}'.format(host,
+                                              reverse('pay:payment_cancelled')),
+    }
+
+    form = PayPalPaymentsForm(initial=paypal_dict)
+    return render(request, 'pay/process_payment.html', {'order': order, 'form': form})
+
+@csrf_exempt
+def payment_done(request):
+    return render(request, 'pay/payment_done.html')
+
+
+@csrf_exempt
+def payment_canceled(request):
+    return render(request, 'pay/payment_cancelled.html')

@@ -14,6 +14,20 @@ class SignUpForm(UserCreationForm):
     isseller = forms.BooleanField(required=False)
 
     class Meta:
+          model = User
+          fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 
+                    'phone', 'city', 'address', 'iscustomer', 'isseller',)
+
+class UpdateUserForm(forms.ModelForm):
+    username = forms.CharField(max_length=100, required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    phone = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    city = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    address = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    image = forms.ImageField(required=False)
+
+    class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', 
-                  'phone', 'city', 'address', 'iscustomer', 'isseller',)
+                  'phone', 'city', 'address', 'iscustomer', 'isseller',) 
+        fields = ['username', 'email', 'phone', 'city', 'address'] 

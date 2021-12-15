@@ -26,7 +26,7 @@
           <nav id="mainav" class="fl_right"> 
 		    {% if user.is_authenticated %} 
             <p>Username: {{ user.get_username }}</p>
-            <li><a class="btn" href="./CustomerEditPage.html">Edit My Profile</a></li>
+            <li><a class="btn" href="{% url 'main:edit_profile' %}">Edit My Profile</a></li>
             <li><a class="btn" href="">View Favorites</a></li>
             
             

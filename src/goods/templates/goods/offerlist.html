@@ -19,13 +19,13 @@
 			{% if forloop.first %}
 			<li class="one_quarter first">
               <figure><a class="imgover" href="#"><img src="images/demo/348x400.png" alt=""></a>
-                <figcaption><strong>{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em></figcaption>
+                <figcaption><strong> <a href="{% url 'goods:editoffer' off.id %}">{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em> </a></figcaption>
               </figure>
             </li>
 			{% else %}
             <li class="one_quarter">
               <figure><a class="imgover" href="#"><img src="images/demo/348x400.png" alt=""></a>
-                <figcaption><strong>{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em></figcaption>
+                <figcaption><strong><a href="{% url 'goods:editoffer' off.id %}">{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em></a></figcaption>
               </figure>
             </li>
 			{% endif %}
@@ -40,6 +40,7 @@
 
     </section>
   </div>
+  
 
 
 </body>

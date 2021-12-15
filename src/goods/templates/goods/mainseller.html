@@ -33,7 +33,7 @@
 			{% else %}
 			<li><a class="btn" >Subscribed until: {{ user.profile.subscriptionenddate }}</a></li>
 			{% endif %}
-            <li><a class="btn" href="./SellerEditPage.html">Edit My Profile</a></li>
+            <li><a class="btn" href="{% url 'main:edit_profile' %}">Edit My Profile</a></li>
             <li><a class="btn" href="{% url 'main:logout' %}">Log out</a></li>
             <li><a class="btn" href="./index.html">Delete Profile</a></li>
 
@@ -186,18 +186,29 @@
 			
 			//Infobox info
 			const contentString =
-			'<div id="content">' +
-			'<div id="siteNotice">' +
-			"</div>" +
-			"<div style='float:left'><img src='{{ off.offer_image.url }}' style='width:200px;height:200px;'></div>" +
-			'<a class="btn" href="">Purchase</a>' +
-			'<h1 id="firstHeading" class="firstHeading"> {{ off.offer_price }}</h1>' +
-			'<h1 id="firstHeading" class="firstHeading">{{ off.offer_title }}</h1>' +
-			'<p class="btmspace-15">{{ off.user }}</p>' +
-			'<div id="bodyContent">' +
-			"{{ off.offer_text }} " +
-			"</div>" +
-			"</div>";
+			'<ul id="latest" class="nospace group sd-third">' +
+			'<li class="one_third first">' +
+            '<article>' +
+              '<h6 class="heading">{{ off.offer_title }}</h6>' +
+              '<ul class="nospace meta clear">' +
+                '<li><i class="fas fa-user"></i> <a href="#">{{ off.user }}</a></li>' +
+                '<li>' +
+                  '<p>{{ off.offer_price }}</p>' +
+                '</li>' +
+              '</ul>' +
+              "<div><img src='{{ off.offer_image.url }}' style='max-width:350px;max-height:200px;'></div>" +
+                '<figcaption >' +
+                  '<p>{{ off.offer_text }}</p>' +
+                  '<div class="marginas">' +
+                    '<a class="btn marginas" href="#">Buy</a>' +
+                    '<a class="btn marginas" href="#">Favouritise</a>' +
+                    '<a class="btn marginas" href="#">Add review</a>' +
+                  '</div>' +
+                '</figcaption>' +
+              '</div>' +
+            '</article>' +
+            '</li>' +
+			'</ul>';
 			
 			//creates an infobox
 			var infowindow = new google.maps.InfoWindow({
@@ -254,19 +265,29 @@
 			
 			//Infobox info
 			const contentString =
-			'<div id="content">' +
-			'<div id="siteNotice">' +
-			"</div>" +
-			"<div style='float:left'><img src='{{ off.offer_image.url }}' style='width:200px;height:200px;'></div>" +
-			'<a class="btn" href="">Purchase</a>' +
-			'<a class="btn" href="">Favouritise</a>' +
-			'<h1 id="firstHeading" class="firstHeading"> {{ off.offer_price }}</h1>' +
-			'<h1 id="firstHeading" class="firstHeading">{{ off.offer_title }}</h1>' +
-			'<p class="btmspace-15">{{ off.user }}</p>' +
-			'<div id="bodyContent">' +
-			"{{ off.offer_text }} " +
-			"</div>" +
-			"</div>";
+			'<ul id="latest" class="nospace group sd-third">' +
+			'<li class="one_third first">' +
+            '<article>' +
+              '<h6 class="heading">{{ off.offer_title }}</h6>' +
+              '<ul class="nospace meta clear">' +
+                '<li><i class="fas fa-user"></i> <a href="#">{{ off.user }}</a></li>' +
+                '<li>' +
+                  '<p>{{ off.offer_price }}</p>' +
+                '</li>' +
+              '</ul>' +
+              "<div><img src='{{ off.offer_image.url }}' style='max-width:350px;max-height:200px;'></div>" +
+                '<figcaption >' +
+                  '<p>{{ off.offer_text }}</p>' +
+                  '<div class="marginas">' +
+                    '<a class="btn marginas" href="{% url "goods:checkout" off.id %}">Buy</a>' +
+                    '<a class="btn marginas" href="#">Favoritise</a>' +
+                    '<a class="btn marginas" href="{% url "goods:addreview" off.id %}">Add review</a>' +
+                  '</div>' +
+                '</figcaption>' +
+              '</div>' +
+            '</article>' +
+            '</li>' +
+			'</ul>';
 			
 			//creates an infobox
 			var infowindow = new google.maps.InfoWindow({
