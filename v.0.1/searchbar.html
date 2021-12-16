@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Search bar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+    <div class="nav-bar">
+        <input type="text" placeholder="Search..">
+ 
+    </div>
+    
+    <div class="nav-bar1">
+    <a class="button-nav-bar" onclick="goBack()">Go Back</a>
+
+		<script>
+	function goBack() {	window.history.back();
+}
+		</script>
+        <a class="button-nav-bar"  onclick="location.href='index.html'">Home</a>
+        <a class="button-nav-bar"  onclick="location.href='loginForm.html'">Login</a>
+	<a class="button-nav-bar"  onclick="location.href='registrationChoice.html'">Registration</a>
+    </div>
+  <div id="map" style="width:100%;height:760px;background:grey"></div>
+<script>
+function myMap() {
+var mapOptions = {
+    center: new google.maps.LatLng(51.5, -0.12),
+    zoom: 10,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap%22%3E</script>
+            </form>
+        </div>
+    </body>
+</html>

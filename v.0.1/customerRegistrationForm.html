@@ -3,21 +3,25 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
-    <title>Seller Registration Form</title>
+    <title>Customer Registration Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
 <body>
     <div class="nav-bar">
-        <a class="button-nav-bar" onclick="location.href='registrationChoice.html'">Go back</a>
+        <a class="button-nav-bar" onclick="goBack()">Go back</a>
+	        <script>
+	function goBack() {window.history.back();
+}
+		</script>
     </div>
     
     <div class="nav-bar1">
-        <a class="button-nav-bar"  onclick="location.href='homepage.html'">Home</a>
+        <a class="button-nav-bar"  onclick="location.href='index.html'">Home</a>
         <a class="button-nav-bar"  onclick="location.href='loginForm.html'">Login</a>
     </div>
 
     <div class="container">
-        <div class="title">Seller Registration</div>
+        <div class="title">Customer Registration</div>
         <div class="content">
             <form action="#">
                 <div class="user-details">
@@ -34,16 +38,8 @@
                         <input type="text" placeholder="Enter your last name" required>
                     </div>
                     <div class="input-box">
-                        <span class="details">Phone number<small>(Optional)</small></span>
-                        <input type="text" placeholder="Enter your phone number" optional>
-                    </div>
-                    <div class="input-box">
-                        <span class="details">City of residence </span>
-                        <input type="text" placeholder="Enter your city of residence" required>
-                    </div>
-                    <div class="input-box">
-                        <span class="details">Address</span>
-                        <input type="text" placeholder="Enter your address" required>
+                        <span class="details">City of residence <small>(Optional)</small></span>
+                        <input type="text" placeholder="Enter your city of residence" optional>
                     </div>
                     <div class="input-box">
                         <span class="details">Password</span>
