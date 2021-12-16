@@ -22,7 +22,7 @@ class Offer(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=0)
     offer_title = models.CharField(max_length=50)
-    offer_text = models.CharField(max_length=1000, blank=True)
+    offer_text = models.CharField(max_length=1000, blank=True, null=True)
     offer_price = models.CharField(max_length=20, blank=True)
     offer_phonenumber = models.CharField(max_length=15, blank=True)
     offer_address = models.CharField(max_length=30, blank=True)

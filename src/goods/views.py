@@ -199,26 +199,27 @@ def EditOffer(request, offer_id):
     offer = get_object_or_404(Offer, pk=offer_id)
     categories = Category.objects.all()
     if request.method == 'POST':
-        offeredit_form = OfferEditForm(request.POST, instance=request.user)
-
+        offeredit_form = OfferEditForm(request.POST, request.FILES, instance=request.user)
         if offeredit_form.is_valid():
             current_user = request.user
             offer.refresh_from_db()
-            Offer.objects.filter(pk=offer_id).update(offer_text = offeredit_form.cleaned_data.get('description'))
-            #Offer.objects.filter(pk=offer_id).update(category = offeredit_form.cleaner_data.get('category'))
+            Offer.objects.filter(pk=offer_id).update(offer_title = offeredit_form.cleaned_data.get('title'))
+            Offer.objects.filter(pk=offer_id).update(offer_quantity = offeredit_form.cleaned_data.get('quantity'))
             Offer.objects.filter(pk=offer_id).update(offer_phonenumber = offeredit_form.cleaned_data.get('phone_number'))
             Offer.objects.filter(pk=offer_id).update(offer_address = offeredit_form.cleaned_data.get('address'))
+            Offer.objects.filter(pk=offer_id).update(offer_paypal = offeredit_form.cleaned_data.get('paypal'))
             Offer.objects.filter(pk=offer_id).update(offer_price = offeredit_form.cleaned_data.get('price'))
-            Offer.objects.filter(pk=offer_id).update(offer_price = offeredit_form.cleaned_data.get('price'))
-            #print(offer.Offer.address)
-            if request.method == 'POST' and 'imageinput' in request.FILES:
+            Offer.objects.filter(pk=offer_id).update(offer_text = offeredit_form.cleaned_data.get('text'))
+            offer.offer_coords_lat = extract_lat_lng(offeredit_form.cleaned_data.get('address'))[0]
+            offer.offer_coords_lng = extract_lat_lng(offeredit_form.cleaned_data.get('address'))[1]
+            offeredit_form.save()
+            if request.method == 'POST' and 'image' in request.FILES:
                 doc = request.FILES #returns a dict-like object
-                doc_name = doc['imageinput']
+                doc_name = doc['image']
             else:
                 doc_name=offer.offer_image
-            Offer.objects.filter(pk=offer_id).update(category=Category.objects.get(category_name=request.POST["category_select"]))
-            Offer.objects.filter(pk=offer_id).update(offer_image=doc_name)
-            offeredit_form.save()
+            offer.offer_image = doc_name
+            offer.save()
             messages.success(request, 'Your offer is updated successfully')
             return redirect("/goods/" + str(offer_id))
     else:
@@ -257,7 +258,7 @@ def process_payment(request, offer_id):
         'business': offer.offer_paypal,
         'amount': '%.2f' % order.cost(),
         'item_name': 'Order {}'.format(order.id),
-        'invoice': str(offer_id) + str(offer.offer_title) + str(order.id),
+        'invoice': str(0) + str(offer_id) + str(order.id),
         'currency_code': 'USD',
         'notify_url': 'http://{}{}'.format(host,
                                            reverse('paypal-ipn')),
@@ -268,13 +269,13 @@ def process_payment(request, offer_id):
     }
 
     form = PayPalPaymentsForm(initial=paypal_dict)
-    return render(request, 'pay/process_payment.html', {'order': order, 'form': form})
+    return render(request, 'goods/process_payment.html', {'order': order, 'form': form})
 
 @csrf_exempt
 def payment_done(request):
-    return render(request, 'pay/payment_done.html')
+    return render(request, 'goods/payment_done.html')
 
 
 @csrf_exempt
 def payment_canceled(request):
-    return render(request, 'pay/payment_cancelled.html')
+    return render(request, 'goods/payment_cancelled.html')

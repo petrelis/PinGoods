@@ -35,7 +35,6 @@
 			{% endif %}
             <li><a class="btn" href="{% url 'main:edit_profile' %}">Edit My Profile</a></li>
             <li><a class="btn" href="{% url 'main:logout' %}">Log out</a></li>
-            <li><a class="btn" href="./index.html">Delete Profile</a></li>
 
           </nav>
         </header>
@@ -114,7 +113,7 @@
 			var myLatLng = { lat: {{Lat}}, lng: {{Lng}} };
 			{% endif %}
 			const map = new google.maps.Map(document.getElementById("map"), {
-			zoom: 12,
+			zoom: 7,
 			center: myLatLng,
 			options: {
 				gestureHandling: 'greedy'
@@ -200,7 +199,7 @@
                 '<figcaption >' +
                   '<p>{{ off.offer_text }}</p>' +
                   '<div class="marginas">' +
-                    '<a class="btn marginas" href="#">Buy</a>' +
+                    '<a class="btn marginas" href="{% url "goods:checkout" off.id %}">Buy</a>' +
                     '<a class="btn marginas" href="#">Favouritise</a>' +
                     '<a class="btn marginas" href="#">Add review</a>' +
                   '</div>' +
@@ -270,7 +269,7 @@
             '<article>' +
               '<h6 class="heading">{{ off.offer_title }}</h6>' +
               '<ul class="nospace meta clear">' +
-                '<li><i class="fas fa-user"></i> <a href="#">{{ off.user }}</a></li>' +
+                '<li><i class="fas fa-user"></i> <a href="{% url "main:profile" user.id %}">{{ off.user }}</a></li>' +
                 '<li>' +
                   '<p>{{ off.offer_price }}</p>' +
                 '</li>' +
@@ -344,13 +343,13 @@
 				{
 			    count = count + 1;
 				node = document.getElementById('testimonials');
-				node.insertAdjacentHTML('beforeend', '<article class="one_half first"> <figure class="clear"><img src="images/demo/100x100.png" alt=""> <figcaption> <h6 class="heading">{{ review.author }}</h6> <em>{{ review.pub_date }}</em></figcaption> </figure> <blockquote>{{ review.review_text }}</blockquote> </article>');
+				node.insertAdjacentHTML('beforeend', '<article class="one_half first"> <figure class="clear"><img src="images/demo/100x100.png" alt=""> <figcaption> <h6 class="heading">{{ review.author }}</h6> <em>{{ review.pub_date }}</em></figcaption> </figure> <blockquote>{{ review.review_text }} <p> {{ review.rating }}/10</blockquote> </article>');
 				}
 				else
 				{
 				count = count + 1;
 				node = document.getElementById('testimonials');
-				node.insertAdjacentHTML('beforeend', '<article class="one_half"> <figure class="clear"><img src="images/demo/100x100.png" alt=""> <figcaption> <h6 class="heading">{{ review.author }}</h6> <em>{{ review.pub_date }}</em></figcaption> </figure> <blockquote>{{ review.review_text }}</blockquote> </article>');
+				node.insertAdjacentHTML('beforeend', '<article class="one_half"> <figure class="clear"><img src="images/demo/100x100.png" alt=""> <figcaption> <h6 class="heading">{{ review.author }}</h6> <em>{{ review.pub_date }}</em></figcaption> </figure> <blockquote>{{ review.review_text }} <p> {{ review.rating }}/10</blockquote> </article>');
 				}
 				{% endfor %}
 				}

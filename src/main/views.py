@@ -106,14 +106,12 @@ def usereditview_page(request):
             user.profile.city = user_form.cleaned_data.get('city')
             user.profile.address = user_form.cleaned_data.get('address')
             print(user.profile.address)
-            """
             if request.method == 'POST' and 'imageinput' in request.FILES:
                 doc = request.FILES #returns a dict-like object
                 doc_name = doc['imageinput']
             else:
                 doc_name=Profile.image
             user.profile.image = doc_name
-            """
             user_form.save()
             messages.success(request, 'Your profile is updated successfully')
             return redirect('/home')
