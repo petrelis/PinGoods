@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>PinGoods</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="{% static 'goods/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body id="top">
+
+    <div class="bgded overlay" style="background-image:url('{% static 'main/farm2.jpg' %}');">
+        <!-- ################################################################################################ -->
+        <div class="wrapper row4">
+            <footer id="footer" class="hoc clear">
+                <!-- ################################################################################################ -->
+                <div class="group btmspace-50">
+
+                    <div class="center">
+                        <h6 class="heading">Sell your product</h6>
+                        
+                        <form action="#" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+                            <fieldset>
+                                <legend>Newsletter:</legend>
+
+
+
+
+
+
+                                <input class="btmspace-15" name="title" type="text" value="" placeholder="Title">
+
+                                <div class="inputfield">
+                                    <label>Product category</label>
+                                    <div class="custom_select" class = "btmspace-15">
+                                        <select name="category_select" class="btmspace-15 btn">
+											<option value="">Select</option>
+											{% for category in categories %}
+											<option value="{{ category.category_name }}">{{ category.category_name }}</option>
+											{% endfor %}
+
+                                        </select>
+                                    </div>
+
+                                    <input class="btmspace-15" name="quantity"  type="text" value="" placeholder="Quantity">
+                                    <input class="btmspace-15" name="price"  type="text" value="" placeholder="Price">
+                                    <input class="btmspace-15" name="address"  type="text" value="" placeholder="Address">
+									<input class="btmspace-15" name="paypal"  type="text" value="" placeholder="Paypal link">
+									<input class="btmspace-15" name="phonenumber"  type="text" value="" placeholder="Phone Number">
+                                    <input class="btmspace-15" name="text"  type="text" value="" placeholder="Description">
+
+
+
+                                    <div class="inputfield">
+
+                                        <input type="file" name="imageinput" id="id_imageinput" accept="image/png, image/jpg">
+
+                                        <div id="display_image"></div>
+
+                                        <script src="file.js"></script>
+                                    </div>
+
+
+
+                                    <p class="nospace btmspace-15">
+
+                                        Upon submitting you agree
+                                        with our Privacy Policy.
+                                    </p>
+
+
+
+                                    <button class="btn" name="offerAdd" type="submit">Submit</a>
+                                    <a class="btn" href="{% url 'main:homepage' %}">Home</a>
+
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+                    <!-- ################################################################################################ -->
+                    <hr class="btmspace-50">
+                    <!-- ################################################################################################ -->
+
+                    <!-- ################################################################################################ -->
+            </footer>
+        </div>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <div class="wrapper row5">
+            <div id="copyright" class="hoc clear">
+                <!-- ################################################################################################ -->
+              
+                
+
+
+                <p class="fl_left">PinGoods 2021 </p>
+
+
+                <!-- ################################################################################################ -->
+            </div>
+        </div>
+        <!-- ################################################################################################ -->
+    </div>
+
+
+
+</body>
+
+</html>
