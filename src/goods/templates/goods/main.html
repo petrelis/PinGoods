@@ -22,6 +22,7 @@
  <input type="button" onclick="location.href='{% url 'main:homepage' %}'" value="Home" />
  {% if user.is_authenticated %} 
  <input type="button" onclick="location.href='{% url 'main:logout' %}'" value="Logout">
+ <input type="button" onclick="location.href='{% url 'main:edit_profile' %}'" value="Edit profile">
  {% else %}
  <input type="button" onclick="location.href='{% url 'main:login' %}'" value="Login">
  <input type="button" onclick="location.href='{% url 'main:registrationchoice' %}'" value="Registration">
