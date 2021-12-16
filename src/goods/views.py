@@ -64,7 +64,7 @@ def MainView(request):
     if request.method == 'GET' :
         search = request.GET.get('search')
         addressSearch = request.GET.get('addressSearch')
-
+          '''get the information from the html'''
         offers_all = Offer.objects.filter(active=True)
     
         if search:
@@ -73,10 +73,12 @@ def MainView(request):
             
             for i in offers:
                 offer_score[i]=difflib.SequenceMatcher(None, search.lower(), i.lower()).ratio()
-            
+             ''' for compare sequences of lines and seq of caracters within similar line '''
             results = sorted(offer_score, key=offer_score.get, reverse=True)[:2] 
+            '''sorting a seq with method get in descending order'''
             offer = offers_all.filter(offer_title__in=results)
         else: offer = offers_all.filter(offer_price = -1)
+       
         if offer.exists():
             lat = offer.first().offer_coords_lat
             lng = offer.first().offer_coords_lng
