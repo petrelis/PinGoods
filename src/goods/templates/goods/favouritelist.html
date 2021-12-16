@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="">
+
+<head>
+<title>Yammoe | Pages | Full Width</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'goods/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+
+<div class="bgded overlay rowPurchase" style="background-image:url('{% static 'goods/farm2.jpg' %}');"> 
+  
+  <div class="wrapper row0">
+    
+    <main class="hoc container clear"> 
+        
+        <section id="services">
+          <h6 class="heading font-x3">My favorite offers</h6>
+         
+          <ul class="nospace group">
+			{% for fav in favourites %}
+			{% if fav.user.username == user.get_username %}
+			{% if fav.offer.active == True %}
+			<li class="one_quarter">
+              <article><i class="fas fa-shopping-basket fa-5x"></i>
+                <h6 class="heading">{{ fav.offer.offer_title }}</h6>
+                
+                <footer><a class="btn" href="{% url 'goods:detail' fav.offer.id %}">See Details</a></footer>
+              </article>
+            </li>
+			{% endif %}
+			{% endif %}
+			{% endfor %}
+              
+          </ul>
+        </section>
+        
+        <div class="clear"></div>
+      </main>
+    
+
+
+
+  </div>
+ 
+  
+  
+</div>
+
+<div class="wrapper row3">
+  
+</div>
+
+</body>
+</html>

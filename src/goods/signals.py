@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 
-
+"""
 @receiver(valid_ipn_received)
 def payment_notification(sender, **kwargs):
     ipn = sender
@@ -14,10 +14,12 @@ def payment_notification(sender, **kwargs):
         # payment was successful
         order = get_object_or_404(Order, id=ipn.invoice)
         
+        print("Hello")
         print(order.id)
 
         if order.total_cost() == ipn.mc_gross:
             # mark the order as paid
             order.paid = True
             order.save()
+"""
             

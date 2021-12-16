@@ -10,7 +10,7 @@
     <link href="{% static 'goods/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
 </head>
 
-<div class="bgded overlay" style="background-image:url('{% static 'goods/farm2.jpg' %}');">
+<div class="bgded overlay rowPurchase" style="background-image:url('{% static 'goods/farm2.jpg' %}');">
     <section class="hoc container clear">
         <ul class="nospace group team sd-third">
             <p class="nospace btmspace-15">My Offers</p>
@@ -19,13 +19,13 @@
 			{% if forloop.first %}
 			<li class="one_quarter first">
               <figure><a class="imgover" href="#"><img src="images/demo/348x400.png" alt=""></a>
-                <figcaption><strong> <a href="{% url 'goods:editoffer' off.id %}">{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em> </a></figcaption>
+                <figcaption><strong> <a href="{% url 'goods:editoffer' off.id %}">{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em> </a> <em><a href="{% url 'goods:deactivateoffer' off.id %}">Deactivate</em> </a></em></figcaption>
               </figure>
             </li>
 			{% else %}
             <li class="one_quarter">
               <figure><a class="imgover" href="#"><img src="images/demo/348x400.png" alt=""></a>
-                <figcaption><strong><a href="{% url 'goods:editoffer' off.id %}">{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em></a></figcaption>
+                <figcaption><strong><a href="{% url 'goods:editoffer' off.id %}">{{ off.offer_title }}</strong> <em>{{ off.pub_date }}</em> </a> <em><a href="{% url 'goods:deactivateoffer' off.id %}">Deactivate</em> </a></figcaption>
               </figure>
             </li>
 			{% endif %}
