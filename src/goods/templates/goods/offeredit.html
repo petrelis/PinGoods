@@ -1,50 +1,117 @@
-<!DOCTYPE html>
-<html >
-<head>
-  <meta charset="UTF-8">
-  <title>Edit Offer</title>
-  {% load static %}
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css%22%3E
-   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-</head>
-<body>
-<div django-app="TaskManager">
-    <div class="container">
-            <div class="content">
-            <h1>Edit offer</h1>
-            <p class="tagline">Edit Offer</p>
-            <form action="" method="post">
-            {% csrf_token %} <!-- csrf token for basic security -->
+{% load static %}
 
-                <div class="inputContainer">
-                    <input type="description" id="description" class="taskName" placeholder="Description" name="description" >
-                </div>
-                <div class="inputContainer half last">
-                    <i class="fa fa-caret-down selectArrow"></i>
-                    <select id="category" class="taskCategory" name="category_select">
-                    {% for category in categories %}
-                        <option id="category" class="" value="{{ category.category_name }}" name="{{ category.category_name }}">{{ category.category_name }}</option>
-                    {% endfor %}
-                    </select>
-                    <label for="category">Category</label>
-                </div>
-                <div class="inputContainer">
-                    <input type="price" id="price" class="taskName" placeholder="Price" name="price" >
-                </div>
-                <div class="inputContainer">
-                <input type="phonenumber" id="phonenumber" class="taskName" placeholder="Phone Number" name="phonenumber" >
-                </div>
-                <div class="inputContainer">
-                <input type="address" id="address" class="taskName" placeholder="Address" name="address" >
-                </div>
-                <div class="row">
-                    <button class="offerAdd" name="offerAdd" type="submit"><i class="fa fa-plus icon"></i>Edit offer</button>
-                </div>
-            </form>
-            </div><!-- content -->
- </div><!-- container -->
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js%22%3E</script>
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>PinGoods</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="{% static 'goods/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+
+<body id="top">
+
+    <div class="bgded overlay" style="background-image:url('{% static 'main/farm2.jpg' %}');">
+        <!-- ################################################################################################ -->
+        <div class="wrapper row4">
+            <footer id="footer" class="hoc clear">
+                <!-- ################################################################################################ -->
+                <div class="group btmspace-50">
+
+                    <div class="center">
+                        <h6 class="heading">Edit offer</h6>
+                        
+                        <form action="#" method="post" enctype="multipart/form-data">
+							{% csrf_token %}
+                            <fieldset>
+                                <legend>Newsletter:</legend>
+
+
+
+
+
+
+                                <input class="btmspace-15" name="title" type="text" value="{{offer.offer_title}}" placeholder="Title">
+
+                                <div class="inputfield">
+                                    <label>Product category</label>
+                                    <div class="custom_select" class = "btmspace-15">
+                                        <select name="category_select" class="btmspace-15 btn">
+										<option name="category"> {{ offer.category.category_name }}</option>
+											{% for category in categories %}
+											{% ifnotequal offer.category.category_name category.category_name %}
+											<option name="category"> {{ category.category_name }}</option>
+											{% endifnotequal %}
+											{% endfor %}
+
+                                        </select>
+                                    </div>
+
+                                    <input class="btmspace-15" name="quantity"  type="text" value="{{offer.offer_quantity}}" placeholder="Quantity">
+                                    <input class="btmspace-15" name="price"  type="text" value="{{offer.offer_price}}" placeholder="Price">
+                                    <input class="btmspace-15" name="address"  type="text" value="{{offer.offer_address}}" placeholder="Address">
+									<input class="btmspace-15" name="paypal"  type="text" value="{{offer.offer_paypal}}" placeholder="Paypal link">
+									<input class="btmspace-15" name="phone_number"  type="text" value="{{offer.offer_phonenumber}}" placeholder="Phone Number">
+                                    <input class="btmspace-15" name="text"  type="text" value="{{offer.offer_text}}" placeholder="Description">
+
+
+
+                                    <div class="inputfield">
+
+                                        <input type="file" name="image" value="" accept="image/png, image/jpg">
+
+                                        <div id="display_image"></div>
+
+                                        <script src="file.js"></script>
+                                    </div>
+
+
+
+                                    <p class="nospace btmspace-15">
+
+                                        Upon submitting you agree
+                                        with our Privacy Policy.
+                                    </p>
+
+
+
+									<button  class="btn" name="offerAdd" type="submit" value="submit">Submit</button>
+									<a class="btn" href="{% url 'main:homepage' %}">Home</a>
+
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+                    <!-- ################################################################################################ -->
+                    <hr class="btmspace-50">
+                    <!-- ################################################################################################ -->
+
+                    <!-- ################################################################################################ -->
+            </footer>
+        </div>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <div class="wrapper row5">
+            <div id="copyright" class="hoc clear">
+                <!-- ################################################################################################ -->
+              
+                
+
+
+                <p class="fl_left">PinGoods 2021 </p>
+
+
+                <!-- ################################################################################################ -->
+            </div>
+        </div>
+        <!-- ################################################################################################ -->
+    </div>
+
+
+
 </body>
+
 </html>

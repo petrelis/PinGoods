@@ -1,0 +1,54 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+<title>PinGoods</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'main/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+
+    <div class="bgded overlay cursor_pointer" style="background-image:url('{% static 'main/farm2.jpg' %}');">
+        <section class="hoc container clear">
+          <div class="points group cursor_pointer"> 
+            <!-- ################################################################################################ -->
+            <div class="sectiontitle">
+             
+              <h6 class="heading font-x2 ">{{ user.username }}</h6>
+            </div>
+            <figure class="one_half first">
+              <ul class="nospace clear">
+                <li><a href="#"><i class="fas fa-user"></i></a>
+                    <h6 class="heading">{{ user.first_name }}</h6>
+                   
+                  </li>
+                  <li><a href="#"><i class="fas fa-user"></i></a>
+                    <h6 class="heading">{{ user.last_name }}</h6>
+                    
+                  </li>
+                <li><a href="#"><i class="fas fa-phone"></i></a>
+                  <h6 class="heading">{{ user.profile.phone }}</h6>
+                  
+                </li>
+                <li><a href="#"><i class="fas fa-building"></i></a>
+                  <h6 class="heading">{{ user.profile.city }} </h6>
+                 
+                </li>
+                <li><a href="#"><i class="fas fa-address-card"></i></a>
+                  <h6 class="heading">{{ user.profile.address }}</h6>
+                  
+                </li>
+              </ul>
+            </figure>
+            <div class="one_half"><a class="cursor_pointer" href="#"><img class="borderedbox inspace-10" src="{{ user.profile.image.url }}" alt=""></a></div>
+            <!-- ################################################################################################ -->
+          </div>
+        </section>
+      </div>
+
+
+
+</body>
+</html>

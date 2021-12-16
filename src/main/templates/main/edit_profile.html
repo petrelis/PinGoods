@@ -1,58 +1,72 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
-
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
-<title>Edit Profile</title>
-    
-    
-       {% if user_form.errors %}
-    
-        <div class="alert alert-danger alert-dismissible" role="alert">
-            <div id="form_errors">
-                {% for key, value in user_form.errors.items %}
-                    <strong>{{ value }}</strong>
-                {% endfor %}
-            </div>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    {% endif %}
-   
+<title>PinGoods</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'main/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
 </head>
-<body>
- <div class="container">
-        <header>
-            <h1><center><strong>Edit Profile [demo]</strong></center></h1>
-        </header>       
-        <div class="form">
-            <form class="form-control" method="POST" action=""> 
-                {% csrf_token %}
-                <p class="contact"><label for="username">Username</label></p> 
-                <input id="username" name="username" value="{{ request.user.username }}"  tabindex="2" type="text">
+<body id="top">
 
-                <p class="small mb-1"><label for="email">Email</label></p> 
-                <input id="email" name="email" value="{{ request.user.email }}"  tabindex="2" type="text"> 
-             
-                <p class="contact"><label for="phone">Phone number</label></p> 
-                <input id="phone" name="phone" value="{{ user.profile.phone }}"  type="text"> <br>
-                
-                <p class="contact"><label for="city">City of residence</label></p> 
-                <input id="city" name="city" value="{{ user.profile.city }}"  type="text"> 
+    <div class="bgded overlay" style="background-image:url('{% static 'main/farm2.jpg' %}');">
+        <footer id="footer" class="hoc clear"> 
+            <!-- ################################################################################################ -->
+            <div class="group btmspace-50">
+              
+              <div class="one_half">
+                <h6 class="heading">Edit My Account</h6>
+                <p class="nospace btmspace-15">Edit account details.</p>
+                <form class="form-control"  action="#" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+                  <fieldset>
+                    <legend>Newsletter:</legend>
+                   
+					<input class="btmspace-15" name="email" type="text" value="{{ request.user.email }}" placeholder="Email">
+					<input class="btmspace-15" name="phone" type="text" value="{{ user.profile.phone }}" placeholder="Phone">
+					<input class="btmspace-15" name="city" type="text" value="{{ user.profile.city }}" placeholder="City">
+					<input class="btmspace-15" name="address" type="text" value="{{ user.profile.address }}" placeholder="Address">
+					
+					<div class="inputfield">
 
-                <p class="contact"><label for="city">Address</label></p> 
-                <input id="address" name="address" value="{{ user.profile.address }}"  type="text">
+                                        <input type="file" name="imageinput" id="id_imageinput" value="" accept="image/png, image/jpg">
 
-        
-                <input class="buttom" name="submit" id="submit" tabindex="5" value="Update info" type="submit"> 
-                
-                <a href="{% url 'main:password-change-view' %}">Change Password</a>
+                                        <div id="display_image"></div>
+
+                                        <script src="file.js"></script>
+                                    </div>
+					
+                    <button  class="btn" type="submit" value="submit">Edit</button>
+                    <a class="btn" href="{% url 'main:homepage' %}">Home</a>
+					<a class="btn" href="{% url 'main:password-change-view' %}">Change Password</a>
+
+
+                    <p class="new">PinGo</p>
+            <p class="new">PinGo</p>
+            <p class="new">PinGo</p>
+            <p class="new">PinGo</p>
+            <p class="new">PinGo</p>
+            <p class="new">PinGo</p>
+            <p class="new">PinGo</p>
+            <p class="new">PinGo</p>
+                    
+                   
+                  </fieldset>
+                </form>
+              </div>
+              
+            <!-- ################################################################################################ -->
+            <hr class="btmspace-50">
+            <!-- ################################################################################################ -->
             
-            </form> 
-            {{ form.errors }}
-        </div>       
-    </div>
+            <!-- ################################################################################################ -->
+          </footer>
+      </div>
+
+      
+
+
+
 </body>
+</html>
