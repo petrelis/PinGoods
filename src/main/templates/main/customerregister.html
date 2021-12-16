@@ -30,7 +30,7 @@
                     </div>
 					<div class="input-box">
                         <span class="details">City of residence <small>(Optional)</small></span>
-                        <input type="text" placeholder="Enter your city of residence" optional>
+                       <input id="city" name="city" type="text" placeholder="Enter your city of residence" optional>
                     </div>
                     <div class="input-box">
                         <span class="details">Password</span>
@@ -46,6 +46,20 @@
                 </div>
             </form>
 			{{ form.errors }}
+			<div class="goBack">
+			    <form>
+			        <div class="button">
+			        <input type="button" value="Go back!" onclick="history.back()">
+			    </form>
+				</div>
+		    </div>
+		    <div class="homeButton">
+				<form>
+        	        <div class="button">
+          		    <input type="button" value="Home" onclick="location.href='{% url 'main:homepage' %}'">
+          		</form>
+        	    </div>
+  		    </div>
         </div>
     </body>
 </html>

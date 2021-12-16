@@ -28,12 +28,36 @@
                         <input type="submit" value="Log In">
                     </div>
                   <div class="button1">
+					{% if request.GET.next %}
+					<input type="hidden" name="next" value="{{request.GET.next}}"/>
+					{% endif %}
                     <input type="submit" onclick="location.href='{% url 'main:registrationchoice' %}'" value="If you are not registered, register" />
 			
                   </div>
                 </div>
             </form>
+			{% if messages %}
+				<ul class="messages">
+				{% for message in messages %}
+					<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+				{% endfor %}
+				</ul>
+			{% endif %}
+			<div class="goBack">
+			    <form>
+			        <div class="button">
+			        <input type="button" value="Go back!" onclick="history.back()">
+			    </form>
+				</div>
+		    </div>
+		    <div class="homeButton">
+				<form>
+        	        <div class="button">
+          		    <input type="button" value="Home" onclick="location.href='{% url 'main:homepage' %}'">
+          		</form>
+        	    </div>
+  		    </div>
         </div>
-  </div>
+	</div>
     </body>
 </html>
