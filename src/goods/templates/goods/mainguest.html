@@ -150,14 +150,14 @@
 			
 			//Infobox info
 			const contentString =
-			'<ul id="latest" class="nospace group sd-third">' +
-			'<li class="one_third first">' +
+			'<ul id="latest" class="nospace group center letsmakeitsmaller">' +
+			'<li class="center first">' +
             '<article>' +
               '<h6 class="heading">{{ off.offer_title }}</h6>' +
               '<ul class="nospace meta clear">' +
-                '<li><i class="fas fa-user"></i> <a href="#">{{ off.user }}</a></li>' +
+                '<li><i class="fas fa-user"></i> <a href="{% url "main:profile" off.user.id %}">{{ off.user }}</a></li>' +
                 '<li>' +
-                  '<p>{{ off.offer_price }}</p>' +
+                  '<p>{{ off.offer_price }} eur</p>' +
                 '</li>' +
               '</ul>' +
               "<div><img src='{{ off.offer_image.url }}' style='max-width:350px;max-height:200px;'></div>" +
@@ -165,8 +165,8 @@
                   '<p>{{ off.offer_text }}</p>' +
                   '<div class="marginas">' +
                     '<a class="btn marginas" href="{% url "goods:checkout" off.id %}">Buy</a>' +
-                    '<a class="btn marginas" href="#">Favouritise</a>' +
-                    '<a class="btn marginas" href="#">Add review</a>' +
+                    '<a class="btn marginas" href="{% url "goods:favourite" off.id %}">Favourite</a>' +
+                    '<a class="btn marginas" href="{% url "goods:addreview" off.id %}">Add review</a>' +
                   '</div>' +
                 '</figcaption>' +
               '</div>' +
@@ -229,14 +229,14 @@
 			
 			//Infobox info
 			const contentString =
-			'<ul id="latest" class="nospace group sd-third">' +
-			'<li class="one_third first">' +
+			'<ul id="latest" class="nospace group center letsmakeitsmaller">' +
+			'<li class="center first">' +
             '<article>' +
               '<h6 class="heading">{{ off.offer_title }}</h6>' +
               '<ul class="nospace meta clear">' +
-                '<li><i class="fas fa-user"></i> <a href="#">{{ off.user }}</a></li>' +
+                '<li><i class="fas fa-user"></i> <a href="{% url "main:profile" off.user.id %}">{{ off.user }}</a></li>' +
                 '<li>' +
-                  '<p>{{ off.offer_price }}</p>' +
+                  '<p>{{ off.offer_price }} eur</p>' +
                 '</li>' +
               '</ul>' +
               "<div><img src='{{ off.offer_image.url }}' style='max-width:350px;max-height:200px;'></div>" +
@@ -244,7 +244,7 @@
                   '<p>{{ off.offer_text }}</p>' +
                   '<div class="marginas">' +
                     '<a class="btn marginas" href="{% url "goods:checkout" off.id %}">Buy</a>' +
-                    '<a class="btn marginas" href="#">Favoritise</a>' +
+                    '<a class="btn marginas" href="{% url "goods:favourite" off.id %}">Favourite</a>' +
                     '<a class="btn marginas" href="{% url "goods:addreview" off.id %}">Add review</a>' +
                   '</div>' +
                 '</figcaption>' +
@@ -310,7 +310,7 @@
 			
           <!-- ################################################################################################ -->
         </section>
-      </div>            
+      </div>   
         
 
 

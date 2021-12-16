@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from mysite.settings import GOOGLE_MAPS_API_KEY
-from .models import Offer, Review, Category, Order
+from .models import Offer, Review, Category, Order, Favourite
 from datetime import datetime
 from django.utils import timezone
 from django.views import generic
@@ -25,6 +25,7 @@ class Index(generic.ListView):
                                                   published in the future).
         """
         return Offer.objects.filter(
+            active=True,
             pub_date__lte=timezone.now()
             ).order_by('-pub_date')[:5]
     
@@ -64,16 +65,16 @@ def MainView(request):
         search = request.GET.get('search')
         addressSearch = request.GET.get('addressSearch')
 
-        offers_all = Offer.objects.all()
+        offers_all = Offer.objects.filter(active=True)
     
         if search:
             offer_score={}
-            offers=Offer.objects.values_list('offer_title', flat=True)
+            offers=Offer.objects.filter(active=True).values_list('offer_title', flat=True)
             
             for i in offers:
                 offer_score[i]=difflib.SequenceMatcher(None, search.lower(), i.lower()).ratio()
             
-            results = sorted(offer_score, key=offer_score.get, reverse=True)[:1] 
+            results = sorted(offer_score, key=offer_score.get, reverse=True)[:2] 
             offer = offers_all.filter(offer_title__in=results)
         else: offer = offers_all.filter(offer_price = -1)
         if offer.exists():
@@ -182,7 +183,7 @@ def AddReview(request, offer_id):
                 rating=rating, 
                 pub_date=date)
             review.save()
-            return redirect("/goods/" + str(offer_id))
+            return redirect("/goods/main")
     return render(request, "goods/addreview.html", {"reviews": reviews})
 
 class OfferList(generic.ListView):
@@ -191,42 +192,48 @@ class OfferList(generic.ListView):
 
     def get_queryset(self):
         return Offer.objects.filter(
-            pub_date__lte=timezone.now()
-            ).order_by('-pub_date')[:5]
+            pub_date__lte=timezone.now(),
+            active=True,
+            ).order_by('-pub_date')
     
 @login_required
 def EditOffer(request, offer_id):
+    user = request.user
     offer = get_object_or_404(Offer, pk=offer_id)
-    categories = Category.objects.all()
-    if request.method == 'POST':
-        offeredit_form = OfferEditForm(request.POST, request.FILES, instance=request.user)
-        if offeredit_form.is_valid():
-            current_user = request.user
-            offer.refresh_from_db()
-            Offer.objects.filter(pk=offer_id).update(offer_title = offeredit_form.cleaned_data.get('title'))
-            Offer.objects.filter(pk=offer_id).update(offer_quantity = offeredit_form.cleaned_data.get('quantity'))
-            Offer.objects.filter(pk=offer_id).update(offer_phonenumber = offeredit_form.cleaned_data.get('phone_number'))
-            Offer.objects.filter(pk=offer_id).update(offer_address = offeredit_form.cleaned_data.get('address'))
-            Offer.objects.filter(pk=offer_id).update(offer_paypal = offeredit_form.cleaned_data.get('paypal'))
-            Offer.objects.filter(pk=offer_id).update(offer_price = offeredit_form.cleaned_data.get('price'))
-            Offer.objects.filter(pk=offer_id).update(offer_text = offeredit_form.cleaned_data.get('text'))
-            offer.offer_coords_lat = extract_lat_lng(offeredit_form.cleaned_data.get('address'))[0]
-            offer.offer_coords_lng = extract_lat_lng(offeredit_form.cleaned_data.get('address'))[1]
-            offeredit_form.save()
-            if request.method == 'POST' and 'image' in request.FILES:
-                doc = request.FILES #returns a dict-like object
-                doc_name = doc['image']
-            else:
-                doc_name=offer.offer_image
-            offer.offer_image = doc_name
-            offer.save()
-            messages.success(request, 'Your offer is updated successfully')
-            return redirect("/goods/" + str(offer_id))
+    if user==offer.user:
+        categories = Category.objects.all()
+        if request.method == 'POST':
+            offeredit_form = OfferEditForm(request.POST, request.FILES, instance=request.user)
+            if offeredit_form.is_valid():
+                current_user = request.user
+                offer.refresh_from_db()
+                Offer.objects.filter(pk=offer_id).update(offer_title = offeredit_form.cleaned_data.get('title'))
+                Offer.objects.filter(pk=offer_id).update(offer_quantity = offeredit_form.cleaned_data.get('quantity'))
+                Offer.objects.filter(pk=offer_id).update(offer_phonenumber = offeredit_form.cleaned_data.get('phone_number'))
+                Offer.objects.filter(pk=offer_id).update(offer_address = offeredit_form.cleaned_data.get('address'))
+                Offer.objects.filter(pk=offer_id).update(offer_paypal = offeredit_form.cleaned_data.get('paypal'))
+                Offer.objects.filter(pk=offer_id).update(offer_price = offeredit_form.cleaned_data.get('price'))
+                Offer.objects.filter(pk=offer_id).update(offer_text = offeredit_form.cleaned_data.get('text'))
+                offer.offer_coords_lat = extract_lat_lng(offeredit_form.cleaned_data.get('address'))[0]
+                offer.offer_coords_lng = extract_lat_lng(offeredit_form.cleaned_data.get('address'))[1]
+                offeredit_form.save()
+                if request.method == 'POST' and 'image' in request.FILES:
+                    doc = request.FILES #returns a dict-like object
+                    doc_name = doc['image']
+                else:
+                    doc_name=offer.offer_image
+                    offer.offer_image = doc_name
+                    offer.save()
+                    messages.success(request, 'Your offer is updated successfully')
+                    return redirect("/goods/" + str(offer_id))
+        else:
+            offeredit_form = OfferEditForm(instance=request.user)
     else:
-        offeredit_form = OfferEditForm(instance=request.user)
+        return redirect("/goods/main")
     return render(request, "goods/offeredit.html", {"offer": offer, "categories":categories})
     
 def checkout(request, offer_id):
+    offer = get_object_or_404(Offer, pk=offer_id)
     if request.method == 'POST':
         date = datetime.now()
         o = Order(
@@ -241,12 +248,12 @@ def checkout(request, offer_id):
 
         request.session['order_id'] = o.id
 
-        messages.add_message(request, messages.INFO, 'Order Placed!')
+        #messages.add_message(request, messages.INFO, 'Order Placed!')
         return redirect('/goods/' + str(offer_id) + '/process_payment')
 
 
     else:
-        return render(request, 'pay/checkout.html')
+        return render(request, 'goods/checkout.html', {"offer": offer})
 
 def process_payment(request, offer_id):
     order_id = request.session.get('order_id')
@@ -256,7 +263,7 @@ def process_payment(request, offer_id):
 
     paypal_dict = {
         'business': offer.offer_paypal,
-        'amount': '%.2f' % order.cost(),
+        'amount': '%.2f' % order.total_cost(),
         'item_name': 'Order {}'.format(order.id),
         'invoice': str(0) + str(offer_id) + str(order.id),
         'currency_code': 'USD',
@@ -279,3 +286,38 @@ def payment_done(request):
 @csrf_exempt
 def payment_canceled(request):
     return render(request, 'goods/payment_cancelled.html')
+
+def FavouriteAdd(request, offer_id):
+    favourites = Favourite.objects.all()
+    current_user = request.user
+    current_offer = get_object_or_404(Offer, pk=offer_id)
+    
+    if not Favourite.objects.filter(user=current_user, offer=current_offer).exists():
+        favourite=Favourite(
+            offer = current_offer,
+            user = current_user,
+            )
+        favourite.save()
+    else:
+        Favourite.objects.filter(user=current_user, offer=current_offer).delete()
+        
+    return redirect('goods:main')
+
+class FavouriteList(generic.ListView):
+    template_name = 'goods/favouritelist.html'
+    context_object_name = 'favourites'
+
+    def get_queryset(self):
+        return Favourite.objects.filter().order_by('offer')
+    
+def DeactivateOffer(request, offer_id):
+    favourites = Favourite.objects.all()
+    current_user = request.user
+    current_offer = get_object_or_404(Offer, pk=offer_id)
+    if current_user==current_offer.user:
+        current_offer.active=False
+        current_offer.save()
+    else:
+        redirect("/goods/main")
+        
+    return redirect('goods:offerlist')

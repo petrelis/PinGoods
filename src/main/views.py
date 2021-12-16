@@ -105,7 +105,6 @@ def usereditview_page(request):
             user.profile.phone = user_form.cleaned_data.get('phone')
             user.profile.city = user_form.cleaned_data.get('city')
             user.profile.address = user_form.cleaned_data.get('address')
-            print(user.profile.address)
             if request.method == 'POST' and 'imageinput' in request.FILES:
                 doc = request.FILES #returns a dict-like object
                 doc_name = doc['imageinput']
@@ -125,12 +124,3 @@ class MyPasswordChangeView(PasswordChangeView):
 
 def MyPasswordResetDoneView(request):
     return render(request, 'main/password-reset-done.html')
-
-
-def delete_profile(request):        
-    user = request.user
-    user.is_active = False
-    user.save()
-    logout(request)
-    messages.success(request, 'Profile successfully disabled.')
-    return redirect('main:homepage')

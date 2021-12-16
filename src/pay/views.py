@@ -19,34 +19,39 @@ def index(request):
 
 
 def checkout(request):
-    if request.method == 'POST':
-        o = SubscriptionOrder(
-            name = request.user,
-            email = "None",
-            postal_code = 0,
-            address = "None",
-        )
-        o.save()
-
-        current_user = request.user
-        date = datetime.now()
-        li = Subscription(
-            user=current_user,
-            start_date=date,
-            end_date=date+timedelta(days=30),
-            order_id = o.id,
-            valid = False)
-
-        li.save()
-
-        request.session['order_id'] = o.id
-
-        messages.add_message(request, messages.INFO, 'Order Placed!')
-        return redirect('/pay/process-payment')
-
-
+    user = request.user
+    print (user.profile.subscribed)
+    if user.profile.subscribed==False:
+        return redirect('goods:main')
     else:
-        return render(request, 'pay/checkout.html')
+        if request.method == 'POST':
+            o = SubscriptionOrder(
+                name = request.user,
+                email = "None",
+                postal_code = 0,
+                address = "None",
+                )
+            o.save()
+
+            current_user = request.user
+            date = datetime.now()
+            li = Subscription(
+                user=current_user,
+                start_date=date,
+                end_date=date+timedelta(days=30),
+                order_id = o.id,
+                valid = False)
+
+            li.save()
+
+            request.session['order_id'] = o.id
+
+            #messages.add_message(request, messages.INFO, 'Order Placed!')
+            return redirect('/pay/process-payment')
+
+
+        else:
+            return render(request, 'pay/checkout.html')
 
 def process_payment(request):
     order_id = request.session.get('order_id')

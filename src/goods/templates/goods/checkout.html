@@ -22,14 +22,14 @@
                 <div class="group btmspace-50">
 
                     <div class="one_half">
-                        <h6 class="heading">You are about to buy <p>subscription</p> Are you sure you want to do this?</h6>
+                        <h6 class="heading">You are about to buy <p>{{offer.offer_title}}</p> <p>for {{offer.offer_price}} euros</p> Are you sure you want to do this?</h6>
 
                         <form action="" method="post">
 						{% csrf_token %}
                             <fieldset>
                                 <p  class="nospace btmspace-15 ">By clicking 'buy' you accept our terms of service</p>                           
                                 <button class="btn" type="submit" value="Place Order" >Buy</button>
-                                <button class="btn" onclick="history.back()">Go Back</button> 
+                                <button class="btn" onclick="{% url 'goods:main' %}">Go Back</button> 
                                 
                                 
                             </fieldset>

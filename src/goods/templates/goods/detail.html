@@ -1,39 +1,53 @@
-<form action="{% url 'goods:detail' offer.id %}" method="post">
-{% csrf_token %}
-<fieldset>
-	<div class="offer_detail"
-	<span class="details">Title: {{ offer.offer_title }}</span>
-	</div>
-	<div class="media">
-	<img src="{{ offer.offer_image.url }}" height='100' width='100'>
-	</div>
-	<div class="offer_detail"
-	<span class="details">Seller: {{ offer.user }}</span>
-	</div>
-	<div class="offer_detail"
-	<span class="details">Description: {{ offer.offer_text }}</span>
-	</div>
-	<div class="offer_detail"
-	<span class="details">Category: {{ offer.category }}</span>
-	</div>
-	<div class="offer_detail"
-	<span class="details">Phone number: {{ offer.offer_phonenumber }}</span>
-	</div>
-	<div class="offer_detail"
-	<span class="details">Address: {{ offer.offer_address }}</span>
-	</div>
-	<div class="offer_detail"
-	<span class="details">Price: {{ offer.offer_price }}</span>
-	</div>
-    <legend><h1>Offer</h1></legend>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    {% for review in offer.review_set.all %}
-        <div class="review_detail" 
-		<span class="details">{{ review.review_text }}</span>
-		<span class="details">{{ review.author }}</span>
-		<span class="details">{{ review.pub_date }}</span>
-		<span class="details">{{ review.rating }}</span>
-		</div>
-    {% endfor %}
-</fieldset>
-</form>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+<title>PinGoods</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'goods/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+
+<div class="bgded overlay center" style="background-image:url('{% static 'goods/farm2.jpg' %}');"> 
+  
+    <section class="hoc container clear rowPurchase center"> 
+        <!-- ################################################################################################ -->
+        
+        <ul id="latest" class="nospace group center">
+          <li class="one_half first">
+            <article>
+              <h6 class="heading">{{ offer.offer_title }}</h6>
+              <ul class="nospace meta clear">
+                <li><i class="fas fa-user"></i> <a class="change_author_color" href='{% url "main:profile" offer.user.id %}'>{{ offer.user }}</a></li>
+                <li>
+                  <p>{{ offer.offer_price }} eur</p>
+                </li>
+              </ul>
+              <figure><a class="cursor_pointer" href="#"><img src="{{ offer.offer_image.url }}" alt=""></a>
+                <figcaption >
+                  <p>{{ offer.offer_text }}</p>
+                  <div class="marginas">
+                    <a class="btn marginas" href="{% url 'goods:checkout' offer.id %}">Buy</a>
+                    <a class="btn marginas" href="{% url 'goods:favourite' offer.id %}">Favourite</a>
+                    <a class="btn marginas" href="{% url 'goods:addreview' offer.id %}">Add review</a>
+                  </div>
+                </figcaption>
+              </figure>
+            </article>
+          </li>
+          
+          
+        </ul>
+        <!-- ################################################################################################ -->
+      </section>
+
+  
+  
+</div>
+
+
+
+</body>
+</html>

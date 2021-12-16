@@ -64,5 +64,9 @@ class Order(models.Model):
     def __str__(self):
         return "{}:{}".format(self.id, self.email)
 
-    def cost(self):
+    def total_cost(self):
         return float(self.offer.offer_price)
+    
+class Favourite(models.Model):
+    offer = models.ForeignKey(Offer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
