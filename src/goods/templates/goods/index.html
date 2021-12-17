@@ -1,0 +1,9 @@
+{% if latest_offer_list %}
+    <ul>
+    {% for offer in latest_offer_list %}
+        <li><a href="{% url 'goods:detail' offer.id %}">{{ offer.offer_title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No offers are available.</p>
+{% endif %}

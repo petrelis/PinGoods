@@ -1,28 +1,40 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
-
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <title>Registration Choice</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-<body>
-    <div class="container">
-        <div class="title">Register</div>
-        <div class="content">
-            <form action="#">
-                <div class="button">
-                    <input type="button" onclick="location.href='{% url 'main:sellerregister' %}'" value="As a Seller" />
-                </div>
-                <div class="button">
-                    <input type="button" onclick="location.href='{% url 'main:customerregister' %}'" value="As a Customer" />
-                </div>
-</div>
-            </form>
+<html lang="">
+<head>
+<title>PinGoods</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'main/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+
+    <div class="bgded overlay" style="background-image:url('{% static 'main/farm2.jpg' %}');"> 
+        
+        <div id="pageintro" class="hoc clear"> 
+          <!-- ################################################################################################ -->
+          <article>
+            <p>Start your journey with us</p>
+            <h3 class="heading">PinGoods</h3>
+            <p>We provide you with user friendly experience to sell or buy goods.</p>
+            <p>Register:</p>
+            <footer>
+              <ul class="nospace inline pushright">
+                <li><a class="btn" href="{% url 'main:sellerregister' %}">As a seller</a></li>
+                <li><a class="btn inverse" href="{% url 'main:customerregister' %}">As a customer</a></li>
+              </ul>
+            </footer>
+            <footer class="again">
+                <ul class="nospace inline pushright">
+                  <img class="okok" src="./pingoods-logos.jpeg" alt="">
+                </ul>
+              </footer>
+          </article>
+          <!-- ################################################################################################ -->
         </div>
-    </body>
+        <!-- ################################################################################################ -->
+      </div>
+
+</body>
 </html>

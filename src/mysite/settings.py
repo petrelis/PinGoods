@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,22 +24,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k*ft&daqyqq*i&7bq-x(7tw9e%b1ic*41zq8)bl+_dlg!m@gm='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['193.219.91.103', 'www.pingoods.lt']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'main.apps.MainConfig',
-    'polls.apps.PollsConfig',    
+    'goods.apps.GoodsConfig',  
+    'polls.apps.PollsConfig',
+    'pay.apps.PayConfig',    
+    'paypal.standard.ipn',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_google_maps',
 ]
 
 MIDDLEWARE = [
@@ -77,12 +82,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'pingoods_information',
-        'USER': 'myuser',
-        'PASSWORD': 'mypass',
-        'HOST': 'localhost',
-        'PORT': '',
+        'USER': 'ping_db_adm',
+        'PASSWORD': 'pinpassgoods',
+        'HOST': '10.0.1.161',
+        'PORT': '5432',
     }
 }
 
@@ -125,7 +130,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media') # Directory where uploaded media is saved.'
+
+MEDIA_URL = '/media/' # Public URL at the browser
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/login'
+
+PAYPAL_RECEIVER_EMAIL = 'sellingsellerthings@gmail.com'
+
+PAYPAL_TEST = True
+
+GOOGLE_MAPS_API_KEY = "AIzaSyBi0Sbbta29PDgKrcgzIiR-5NlMgv203ps"

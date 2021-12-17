@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+<title>PinGoods</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'goods/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+
+<div class="bgded overlay center" style="background-image:url('{% static 'goods/farm2.jpg' %}');"> 
+  
+    <section class="hoc container clear rowPurchase center"> 
+        <!-- ################################################################################################ -->
+        
+        <ul id="latest" class="nospace group center">
+          <li class="one_half first">
+            <article>
+              <h6 class="heading">{{ offer.offer_title }}</h6>
+              <ul class="nospace meta clear">
+                <li><i class="fas fa-user"></i> <a class="change_author_color" href='{% url "main:profile" offer.user.id %}'>{{ offer.user }}</a></li>
+                <li>
+                  <p>{{ offer.offer_price }} eur</p>
+                </li>
+              </ul>
+              <figure><a class="cursor_pointer" href="#"><img src="{{ offer.offer_image.url }}" alt=""></a>
+                <figcaption >
+                  <p>{{ offer.offer_text }}</p>
+                  <div class="marginas">
+                    <a class="btn marginas" href="{% url 'goods:checkout' offer.id %}">Buy</a>
+                    <a class="btn marginas" href="{% url 'goods:favourite' offer.id %}">Favourite</a>
+                    <a class="btn marginas" href="{% url 'goods:addreview' offer.id %}">Add review</a>
+                  </div>
+                </figcaption>
+              </figure>
+            </article>
+          </li>
+          
+          
+        </ul>
+        <!-- ################################################################################################ -->
+      </section>
+
+  
+  
+</div>
+
+
+
+</body>
+</html>

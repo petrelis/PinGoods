@@ -1,39 +1,61 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
-
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title>Log In</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-<body>
-    <div class="container">
-        <div class="title">Log In</div>
-        <div class="content">
-            <form method="POST" action="">
-                <div class="user-details">
+<html lang="">
+<head>
+<title>PinGoods</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'main/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+
+    <div class="bgded overlay rowPurchase" style="background-image:url('{% static 'main/farm2.jpg' %}');"> 
+        <!-- ################################################################################################ -->
+        <div class="wrapper row4">
+          <footer id="footer" class="hoc clear"> 
+            <!-- ################################################################################################ -->
+            <div class="group btmspace-50">
+              
+              <div class="one_half">
+                <h6 class="heading">Login</h6>
+                <p class="nospace btmspace-15">Welcome back, happy to see you!</p>
+                <form action="#" method="post">
+                  <fieldset>
+                    <legend>Newsletter:</legend>
 					{% csrf_token %}
-                    <div class="input-box">
-                        <span class="details">Username</span>
-                        <input type="text" name="username" placeholder="Enter your username" required>
-                    </div>                             
-                    <div class="input-box">
-                        <span class="details">Password</span>
-                        <input type="password" name="password" placeholder="Enter your password" required>
-                    </div>                  
-                    <div class="button">
-                        <input type="submit" value="Log In">
-                    </div>
-                  <div class="button1">
-                    <input type="submit" onclick="location.href='{% url 'main:registrationchoice' %}'" value="If you are not registered, register" />
-			
-                  </div>
-                </div>
-            </form>
+                    <input class="btmspace-15" name="username" type="text" value="" placeholder="Username">
+                    <input class="btmspace-15" name="password" type="password" value="" placeholder="Password">
+                    <button class="btn" type="submit" value="submit">Log In</button>
+                    <a class="btn" href="{% url 'main:registrationchoice' %}">Register</a>
+                    <a class="btn" href="{% url 'main:homepage' %}">Go Back</a>
+					
+					{% if messages %}
+						<ul class="messages">
+							{% for message in messages %}
+								<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+                   
+                  </fieldset>
+                </form>
+              </div>
+              
+            <!-- ################################################################################################ -->
+            <hr class="btmspace-50">
+            <!-- ################################################################################################ -->
+            
+            <!-- ################################################################################################ -->
+          </footer>
         </div>
-  </div>
-    </body>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+      </div>
+
+
+
+</body>
 </html>

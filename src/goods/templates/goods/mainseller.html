@@ -1,0 +1,373 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+<title>PinGoods</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link href="{% static 'main/layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+</head>
+<body id="top">
+    
+    <div class="bgded overlay" style="background-image:url('{% static 'main/farm2.jpg' %}');"> 
+      
+      
+      <!-- ################################################################################################ -->
+      <!-- ################################################################################################ -->
+      <!-- ################################################################################################ -->
+      <div class="wrapper row1">
+        <header id="header" class="hoc clear">
+          <div id="logo" class="fl_left"> 
+            <!-- ################################################################################################ -->
+            <h1><a href="{% url 'main:homepage' %}">PinGoods</a></h1>
+            <!-- ################################################################################################ -->
+          </div>
+          <nav id="mainav" class="fl_right"> 
+            <p>Username: {{ user.get_username }}</p>
+            <li><a class="btn" href="{% url 'goods:addoffer' %}">Sell Goods</a></li>
+            <li><a class="btn" href="{% url 'goods:offerlist' %}">View My Offers</a></li>
+            <li><a class="btn" href="{% url 'goods:favouritelist' %}">View Favorites</a></li>
+			{% if user.profile.subscribed == False %}
+            <li><a class="btn" href="{% url 'pay:checkout' %}">Buy subscription</a></li>
+			{% else %}
+			<li><a class="btn" >Subscribed until: {{ user.profile.subscriptionenddate }}</a></li>
+			{% endif %}
+            <li><a class="btn" href="{% url 'main:edit_profile' %}">Edit My Profile</a></li>
+            <li><a class="btn" href="{% url 'main:logout' %}">Log out</a></li>
+
+          </nav>
+        </header>
+      </div>
+
+      
+
+
+
+
+      <!-- ################################################################################################ -->
+      <!-- ################################################################################################ -->
+      <!-- ################################################################################################ -->
+      <div id="pageintro" class="hoc clear"> 
+        <!-- ################################################################################################ -->
+        <article>
+          <p>Welcome To PinGoods!</p>
+          <h3 class="heading">Search or sells for goods!</h3>
+          <p>Search results provided by: Google Inc.</p>
+          <footer>
+            
+                <div class="wrapper row4">
+                    <footer id="footer" class="hoc clear"> 
+                      <!-- ################################################################################################ -->
+                      <div class="smaller" class="group btmspace-50">
+                        
+                        <div class="center">
+                          
+                          
+                            <fieldset>
+                              <form action=" {% url 'goods:main' %}" method ="get">
+                              <legend>Newsletter:</legend>
+							  <input class="btmspace-15" name="addressSearch" type="text" value="" placeholder="Current location">
+                              <input class="btmspace-15" name="search" type="text" value="" placeholder="Search">
+                              <p class="nospace btmspace-15">Provided by: Google Maps</p>
+                              <button class="btn" type="submit" >Search</button>
+							</form>
+                              
+							{% if offerAndDist %}
+								<br>
+								{% for i in offerAndDist %}
+									<center><h2><a href="{% url 'goods:detail' i.id %}">{{ i.title }} {{ i.distance }}km </a> </h2></center>
+								{% endfor %}
+							{% else %} 
+							{%endif%} 
+                             
+                            </fieldset>
+                        </div>
+                        
+                      <!-- ################################################################################################ -->
+                      <!-- ################################################################################################ -->
+                      
+                      <!-- ################################################################################################ -->
+                    </footer>
+                  </div>
+            
+          </footer>
+        </article>
+        <!-- ################################################################################################ -->
+      </div>
+
+      <div style="background-color: #e0e0e0;" class="wrapper row3">
+        <main class="hoc container clear">
+            <!-- main body -->
+            <!-- ################################################################################################ -->
+
+            <div id="map" style="width:100%;height:760px;background:grey"></div>
+            <script>
+			let off = "2";
+			
+			function myMap() {
+			{% if user_coords_lat != 0 %}
+				var myLatLng = { lat: {{user_coords_lat}}, lng: {{user_coords_lng}} };
+			{% else %}
+			var myLatLng = { lat: {{Lat}}, lng: {{Lng}} };
+			{% endif %}
+			const map = new google.maps.Map(document.getElementById("map"), {
+			zoom: 7,
+			center: myLatLng,
+			options: {
+				gestureHandling: 'greedy'
+			}
+			});
+			
+			{% if user_coords_lat != 0 %}
+			myLatLng = { lat: {{ user_coords_lat }}, lng: {{ user_coords_lng }} };
+			new google.maps.Marker({
+				position: myLatLng,
+				map,
+				title: "Your location"
+			});
+			{% endif %}
+			
+			var markersArray = [];
+			
+			// if offer is found through searchbar create markers at found offer locations
+			{% if offerAndDist %}
+			{% for off in offerAndDist %} //Found offer
+			myLatLng = { lat: {{ off.user_coords_lat }}, lng: {{ off.user_coords_lng }} };
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map,
+				title: "Your location"
+				
+			});
+			
+			{% endfor %}
+			
+			{% for off in offer %} //Offers in the search bar
+			{% for current in offerAndDist %}
+			{% if off.id == current.id %} //Id of each offer is compared to id of best result
+			offerLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
+			index = markersArray.length;
+			var marker = new google.maps.Marker({
+				position: offerLatLng,
+				map,
+				index: index,
+				title: "{{ off.offer_title }}"
+				
+				
+			});
+			
+			markersArray.push(marker); //Pushes a marker to a list of marker arrays, to keep track of indice
+			
+			
+			var selectedInfoWindow
+			
+			//if marker is clicked:
+			google.maps.event.addListener(marker, 'click', function () {
+			
+			
+			if (selectedInfoWindow != null && selectedInfoWindow.getMap() != null) {
+			selectedInfoWindow.close();
+			//If the clicked window is the selected window, deselect it and return
+			if (selectedInfoWindow == infoWindow) {
+				selectedInfoWindow = null;
+				return;
+			}
+			}
+				
+			var info = this.index
+			
+			
+			
+			off = {{ off.id }}
+			listReviews(); //triggers function which changes reviews
+			
+			//Infobox info
+			const contentString =
+			'<ul id="latest" class="nospace group center letsmakeitsmaller">' +
+			'<li class="center first">' +
+            '<article>' +
+              '<h6 class="heading">{{ off.offer_title }}</h6>' +
+              '<ul class="nospace meta clear">' +
+                '<li><i class="fas fa-user"></i> <a href="{% url "main:profile" off.user.id %}">{{ off.user }}</a></li>' +
+                '<li>' +
+                  '<p>{{ off.offer_price }} eur</p>' +
+                '</li>' +
+              '</ul>' +
+              "<div><img src='{{ off.offer_image.url }}' style='max-width:350px;max-height:200px;'></div>" +
+                '<figcaption >' +
+                  '<p>{{ off.offer_text }}</p>' +
+                  '<div class="marginas">' +
+                    '<a class="btn marginas" href="{% url "goods:checkout" off.id %}">Buy</a>' +
+                    '<a class="btn marginas" href="{% url "goods:favourite" off.id %}">Favourite</a>' +
+                    '<a class="btn marginas" href="{% url "goods:addreview" off.id %}">Add review</a>' +
+                  '</div>' +
+                '</figcaption>' +
+              '</div>' +
+            '</article>' +
+            '</li>' +
+			'</ul>';
+			
+			//creates an infobox
+			var infowindow = new google.maps.InfoWindow({
+			content: contentString,
+			});
+			
+			//checks last selected info box, so only one infobox is open at the time
+			selectedInfoWindow = infowindow;
+			infowindow.open(map,markersArray[info]);
+			
+			});
+			
+			{% endif %}
+			{% endfor %}
+			{% endfor %}
+			
+			{% else %}
+			
+			// Otherwise, if there is no search result, create markers for all offers at their locations
+
+			{% for off in offers_all %}
+			myLatLng = { lat: {{ off.offer_coords_lat }}, lng: {{ off.offer_coords_lng }} };
+				index = markersArray.length;
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				index: index,
+				map,
+				title: "{{ off.offer_title }}"
+			});
+				
+			markersArray.push(marker); //Pushes a marker to a list of marker arrays, to keep track of indice
+			
+			
+			
+			var selectedInfoWindow
+			
+			//if marker is clicked:
+			google.maps.event.addListener(marker, 'click', function () {
+			
+			
+			if (selectedInfoWindow != null && selectedInfoWindow.getMap() != null) {
+			selectedInfoWindow.close();
+			//If the clicked window is the selected window, deselect it and return
+			if (selectedInfoWindow == infoWindow) {
+				selectedInfoWindow = null;
+				return;
+			}
+			}
+				
+			var info = this.index
+			
+			off = {{ off.id }}
+			listReviews(); //triggers function which changes reviews
+			
+			//Infobox info
+			const contentString =
+			'<ul id="latest" class="nospace group center letsmakeitsmaller">' +
+			'<li class="center first">' +
+            '<article>' +
+              '<h6 class="heading">{{ off.offer_title }}</h6>' +
+              '<ul class="nospace meta clear">' +
+                '<li><i class="fas fa-user"></i> <a href="{% url "main:profile" off.user.id %}">{{ off.user }}</a></li>' +
+                '<li>' +
+                  '<p>{{ off.offer_price }} eur</p>' +
+                '</li>' +
+              '</ul>' +
+              "<div><img src='{{ off.offer_image.url }}' style='max-width:350px;max-height:200px;'></div>" +
+                '<figcaption >' +
+                  '<p>{{ off.offer_text }}</p>' +
+                  '<div class="marginas">' +
+                    '<a class="btn marginas" href="{% url "goods:checkout" off.id %}">Buy</a>' +
+                    '<a class="btn marginas" href="{% url "goods:favourite" off.id %}">Favourite</a>' +
+                    '<a class="btn marginas" href="{% url "goods:addreview" off.id %}">Add review</a>' +
+                  '</div>' +
+                '</figcaption>' +
+              '</div>' +
+            '</article>' +
+            '</li>' +
+			'</ul>';
+			
+			//creates an infobox
+			var infowindow = new google.maps.InfoWindow({
+			content: contentString,
+			});
+			
+			//checks last selected info box, so only one infobox is open at the time
+			selectedInfoWindow = infowindow;
+			infowindow.open(map,markersArray[info]);
+			
+			});
+				
+			{% endfor %}
+			{% endif %}
+			};
+  </script>
+  
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi0Sbbta29PDgKrcgzIiR-5NlMgv203ps&callback=myMap"></script>
+
+                
+        
+
+
+
+        </main>
+    </div>
+      <!-- ################################################################################################ -->
+    </div>
+    
+    <!-- JAVASCRIPTS -->
+    <script src="layout/scripts/jquery.min.js"></script>
+
+
+    <div class="bgded overlay" style="background-image:url('{% static 'main/images/demo/backgrounds/01.png' %}');">
+        <section id="testimonials" class="hoc container clear"> 
+          <!-- ################################################################################################ -->
+            
+            <script>
+			function listReviews(){
+				{% for offer in offers_all %}
+				off2 = "{{ offer.id }}"
+				
+				if(off == off2)
+				{
+				const parent = document.getElementById("testimonials")
+				while (parent.firstChild) {
+					parent.firstChild.remove()
+				}
+				node = document.getElementById('testimonials');
+				node.insertAdjacentHTML('beforeend', '<div class="sectiontitle"><h6 class="heading font-x2">Reviews</h6></div>');
+				var count = 1;
+				{% for review in offer.review_set.all %}
+				if(count%2==1)
+				{
+			    count = count + 1;
+				node = document.getElementById('testimonials');
+				node.insertAdjacentHTML('beforeend', '<article class="one_half first"> <figure class="clear"><img src="images/demo/100x100.png" alt=""> <figcaption> <h6 class="heading">{{ review.author }}</h6> <em>{{ review.pub_date }}</em></figcaption> </figure> <blockquote>{{ review.review_text }} <p> {{ review.rating }}/10</blockquote> </article>');
+				}
+				else
+				{
+				count = count + 1;
+				node = document.getElementById('testimonials');
+				node.insertAdjacentHTML('beforeend', '<article class="one_half"> <figure class="clear"><img src="images/demo/100x100.png" alt=""> <figcaption> <h6 class="heading">{{ review.author }}</h6> <em>{{ review.pub_date }}</em></figcaption> </figure> <blockquote>{{ review.review_text }} <p> {{ review.rating }}/10</blockquote> </article>');
+				}
+				{% endfor %}
+				}
+				{% endfor %}
+				};
+			</script>
+			
+          <!-- ################################################################################################ -->
+        </section>
+      </div>
+
+
+
+
+
+
+
+
+    <script src="layout/scripts/jquery.backtotop.js"></script>
+    <script src="layout/scripts/jquery.mobilemenu.js"></script>
+    </body>
+</html>
