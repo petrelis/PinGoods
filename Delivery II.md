@@ -14,7 +14,7 @@ We dedicate to provide an opportunity for our Customers to search and find fresh
 
 However, due to low experience and knowledge, we're not able to develop all the functionalities. For example, we haven't added the Google Ads API as we've had difficulties with the API installation. The changes can be compared between the two context diagrams above and below.
 
-[NEW-CONTEXT-DIAGRAM]
+![System Context Diagram](https://user-images.githubusercontent.com/47245874/146478540-297831df-9981-450f-a885-314dfe402019.jpg)
 
 ### 2. Internal devices
 
@@ -24,7 +24,7 @@ The internal part of our system currently consists of three main blocks: Web Bro
 
 After further discussion it was decided to change web server Operating System from Windows Server 2012 to Ubuntu 20.04 and to Apache2 web server. The reason for that decision was more easy web server configuration and less virtual machine resource consumption. Regarding the database we've moved from PostgreSQL to MySQL for testing purposes when configuring Django and Apache2 connection. After successful configuration, we've moved back to PostgreSQL. However, in the v.0.1 release we had to move to SQLite 3 as PayPal requires. For ease the work, we used the Ansible.
 
-[NEW DEPLOYMENT DIAGRAM]
+![Deployment Diagram](https://user-images.githubusercontent.com/47245874/146477553-687e9241-68ae-4888-8fa7-d365798f6ce3.jpg)
 
 ### 3. Main functionalities
 
@@ -33,6 +33,8 @@ If we want users to use the features of our project, we have to earn the interes
 ![Use Case Matrix](https://user-images.githubusercontent.com/47245874/139297258-1c159b51-5653-4137-8f86-12b92e628811.png)
 
 In the v.0.1 release some functionalities have been rejected due to insufficient time remaining.
+
+![use-case diagram-5 drawio](https://user-images.githubusercontent.com/47245874/146477675-360b743a-e772-41a1-90de-ec757b3ba6b5.jpg)
 
 Cells marked in green indicate that for the user the available functionality for the according row and column. Red-coloured cells represent the opposite. Unauthorized user is the most restricted user role and we're not going to mention it alot. With those functionality prohibitions we desire encouraging them to sign up on our website. Although most of the features are limited to them, however, we still allow them to experience our system by using our Search bar and viewing Vendor products and information. The main and obvious difference between Customer and Vendor roles is that the first is dedicated to buying and the other to selling. However, for one email accounts, users can still register both Customer and Vendor accounts. Also, it can be found on the diagram that the Vendor role is divided into two sub-roles: with and without a subscription. The subscription fee is not specified yet, but adding the subscription system we are seeking to find alternative paths of earning besides from ads. Currently, the main difference is that we give our subscribed Vendors to sell more items, boost their products for free in search and disable ads. We might add more functionalities for our subscribers in the future. Finally, the Admin role has the access to all key functionalities, including Customers' and Vendors'. They are responsible for checking for bugs and patrolling the website for impolite reviews. Even though, we allow Admins to delete reviews, it's important that this functionality could be used only in urgent needs as opinion of each Customer is respected. For that reason, the only limitation for the Admins is to edit user reviews as the opinion must be let changed only by the Customer himself. 
 
@@ -80,5 +82,5 @@ Sara and Pablo have worked on the Login and Registration windows, Maksym helped 
 **Back-End**
 Aurimas as the new Sub-Lead of the Back-End team have participated in the development of many tasks: Login/SignUp, Adding offer and reviews, Favourite Offers with Petras, Buying goods and Subcription functionalities. Most of the work was done alone. Petras, except of participating with Aurimas on Favourite offers functionality, has also individually imported the Google Maps API and added to the server. It's considered to be the longest work in the Back-End team. Chiara have spent many hours on implementing one of the main functionalities - the Search Bar. Gustas Strimaitis and Arnas together worked on the Edit Profile and Edit Offers functions.
 **Server**
-In the Server team, both Samir and Sahak have been working together on configuring Ansible, Web and Database servers. The longest task was configuring the Apache2 x Django connection that was done by Sahak because of many probles occuring at migration from localhost to the host accessible from the internet. Also, Sahak has configured the Database server and created the YAML scripts for server configurations. Before that, Samir configured and set up the Ansible server with the ssh protocol connection.
+In the Server team, both Samir and Sahak have been working together on configuring Ansible, Web and Database servers. The longest task was configuring the Apache2 x Django connection that was done by Sahak because of many probles occuring at migration from localhost to the host accessible from the internet. Also, Sahak has configured the Database server and created the YAML scripts for server configurations. Before that, Samir configured and set up the Ansible server with the ssh protocol connection. Finally, Sahak being as the Lead of the whole project was documenting the project and providing the weekly reports to the lecturer.
 
